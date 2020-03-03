@@ -9,17 +9,6 @@ export default class RoomCode extends Component {
         buzz.addEventListener("animationend", function() {
             document.querySelector("h1").classList.remove("buzz", "zoomBounce")
         }, false)
-        /*
-	    $('.faq').click(function() {
-	    	$('h5').fadeIn("slow", function(){
-	    		$('h5').fadeOut("slow");}
-	    	);
-	    })
-
-	    $("h1").on( "webkitAnimationEnd oanimationend msAnimationEnd animationend", function() {
-	        $(this).removeClass("buzz");
-	        $(this).removeClass("zoomBounce");
-	    });*/
     };
 
     buzzAnim = (e) => {
@@ -31,14 +20,20 @@ export default class RoomCode extends Component {
         document.querySelector("h1").classList.add("zoomBounce")
     }
     
-    /*onSubmit = (e) => {
+    onSubmit = (e) => {
+        const input = document.getElementsByTagName("input")[0];
+        if (document.activeElement === input && e.key == "Enter") {
+            input.value = "";
+            input.blur();
+            this.bounceAnim();
+        }
 
-        if ($("input").is(":focus") && e.key == "Enter") {
+/*         if ($("input").is(":focus") && e.key == "Enter") {
             $('input').val('');
             $("input").blur();
             $('h1').addClass("zoomBounce");
-        }
-    }*/
+        } */
+    }
     
     render() {
         return (

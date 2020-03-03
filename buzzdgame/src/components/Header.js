@@ -8,7 +8,7 @@ export default class Header extends Component {
     };
 
     componentDidMount() {
-        console.log("Hei");
+        
     }
 
     render() {
