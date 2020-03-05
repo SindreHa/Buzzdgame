@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import '../css/roomcode.css';
+//import '../css/roomcode.css';
+import { Link } from 'react-router-dom';
 //import $ from 'jquery'
 
 export default class RoomCode extends Component {
@@ -27,12 +28,6 @@ export default class RoomCode extends Component {
             input.blur();
             this.bounceAnim();
         }
-
-/*         if ($("input").is(":focus") && e.key == "Enter") {
-            $('input').val('');
-            $("input").blur();
-            $('h1').addClass("zoomBounce");
-        } */
     }
     
     render() {
@@ -40,9 +35,9 @@ export default class RoomCode extends Component {
             <div className="wrapper">
                 <div className="input">
                     <input type="text" onFocus={this.buzzAnim} onKeyDown={this.onSubmit} name="kode" placeholder="Romkode"/>
-                    <a onClick={this.buzzAnim} href="#" className="btn enter">
+                    <Link onClick={this.buzzAnim} to="/game" href="#" className="btn enter">
                         Spill
-                    </a>
+                    </Link>
                     <a onClick={this.buzzAnim} href="#" className="btn host">
                         Lag rom
                     </a>

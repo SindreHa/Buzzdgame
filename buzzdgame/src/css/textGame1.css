@@ -1,0 +1,49 @@
+.wrapper {
+    display: grid;
+    grid-template-areas: 
+        "text text"
+        "alt1 alt2"
+        "alt3 alt4";
+    grid-template-rows: 1fr 150px 150px;
+    gap: 10px;
+}
+
+h3 {
+    grid-area: text;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 25pt;
+    font-weight: normal;
+}
+.answerBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.answerBtn a {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-size: 18pt;
+    color: black;
+    transition: box-shadow .2s ease-out, transform .1s ease-out;
+}
+.answerBtn a:hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0px 0px 0px 4px var(--accent);
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.answerBtn a:active {
+    transform: scale(.97);
+}
