@@ -13,3 +13,11 @@ h1 {
 	text-align: center;
 	margin: 0;
 }
+.headerTrans-enter {
+	opacity: 0;
+}
+
+.headerTrans-enter.headerTrans-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+  }

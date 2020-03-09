@@ -175,6 +175,15 @@ h5 {
 	100% {transform: scale(1)}
 }
 
+.roomCodeTrans-enter {
+	opacity: 0;
+}
+
+.roomCodeTrans-enter.roomCodeTrans-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+  }
+
 @media(max-width: 600px) {
 	.wrapper {
 		margin: auto 10%;

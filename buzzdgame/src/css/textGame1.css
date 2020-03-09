@@ -1,49 +1,52 @@
-.wrapper {
+.textGame {
     display: grid;
     grid-template-areas: 
         "text text"
         "alt1 alt2"
         "alt3 alt4";
     grid-template-rows: 1fr 150px 150px;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
 h3 {
+    /* font-family: Raleway; */
     grid-area: text;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-align: center;
     color: white;
     font-size: 25pt;
     font-weight: normal;
 }
-.answerBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.answerBtn a {
+.answerBtn, .nextQuestion  {
     user-select: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: var(--dark);
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    font-size: 18pt;
-    color: black;
-    transition: box-shadow .2s ease-out, transform .1s ease-out;
+    font-size: 24pt;
+    color: white;
+    transition: background-color .2s ease-out, color .2s ease-out, box-shadow .2s ease-out, transform .1s ease-out;
 }
-.answerBtn a:hover {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.answerBtn:hover, .nextQuestion:hover {
     box-shadow: inset 0px 0px 0px 4px var(--accent);
-    width: 100%;
-    height: 100%;
+    /* background-color: #445c6b; */
+    /* color: black; */
     cursor: pointer;
 }
-.answerBtn a:active {
+.answerBtn:active, .nextQuestion:active {
+    transition: transform .1s ease-out;
     transform: scale(.97);
+}
+.nextQuestion {
+    width: 70%;
+    height: 50%;
+    margin: auto;
+    grid-row: 2/4;
+    grid-column: 1/3;
 }

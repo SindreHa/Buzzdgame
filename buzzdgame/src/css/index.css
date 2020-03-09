@@ -1,6 +1,6 @@
 :root {
 	--primary: #ddd;
-	--dark: #333;
+	--dark: #212b33;
 	--darker: #222;
 	--light: #fff;
 	--background: #4799B7;
@@ -38,3 +38,10 @@ code {
 	width: 800px;
 	margin: auto;
 }
+.switch-wrapper {
+	position: relative;
+  }
+   
+  .switch-wrapper > div {
+	position: absolute;
+  }

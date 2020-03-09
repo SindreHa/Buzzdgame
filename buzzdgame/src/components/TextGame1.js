@@ -1,25 +1,113 @@
 import React, { Component } from 'react'
 import '../css/textGame1.css';
+import TransitionGroup from 'react-addons-transition-group';
 
 export default class TextGame1 extends Component {
 
-    componentDidMount() {
-        const wrapper = document.getElementsByClassName("wrapper")[0];
-        for (let num = 0; num < 4; num++) {
-            const button = document.createElement("div");
-            button.className = "answerBtn";
-            const btnLink = document.createElement("a");
-            btnLink.textContent= `Svar alternativ ${num}`;
-            button.appendChild(btnLink);
-            wrapper.appendChild(button);
+    constructor(props) {
+        super(props)
+        this.state = { //Placeholder data
+            questions: [
+                "Hvem i rommet er den smarteste?", 
+                "Hvem i rommet har den beste latteren?", 
+                "Hvem i rommet er mest opptatt av utseende?"
+                ],
+            winnerText: [
+                "er den smarteste i rommet og må ramse opp alle kommunene i Norge for å bevise det!", 
+                "har den beste latteren og får ikke lov til å le de neste 5 minuttene!", 
+                "er mest opptatt av utseende og må la en annen person gjøre det den vil med hårsveisen til den utvalgte"
+                ],
+            persons: [ 
+                {name: "Ola", score: 0},
+                {name: "Kathrine", score: 0},
+                {name: "Sofie", score: 0},
+                {name: "Øystein", score: 0}
+                ]
         }
     }
-        
+
+    componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
+        this.question(this.state.questions)
+        this.buttons(this.state.persons.length)
+    }
+
+    /*
+    * Metode som lager element som viser første spørsmål fra array
+    *
+    * @param questions    Array av spørsmål/påstander fra state.questions
+    */
+    question = (questions) => {
+        const question = document.createElement("h3");
+        const wrapper = document.getElementsByClassName("textGame")[0];
+        wrapper.appendChild(question)
+        var i = questions.length;
+        if (i>0) {
+            question.textContent = questions.shift();
+        } else {
+            question.textContent=`Ingen spørsmål`
+        }
+    }
+
+    /*
+    * Metode som henter og viser neste spørsmål fra array
+    *
+    * @param questions    Array av spørsmål/påstander fra state.questions
+    */
+    nextQuestion = (questions) => {
+        const question = document.getElementsByTagName("h3")[0];
+        var i = questions.length;
+        if (i>0) {
+            question.textContent = questions.shift();
+        } else {
+            question.textContent=`Runden er over`
+            const buttons = document.getElementsByClassName("answerBtn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.display = "none"
+            }
+        }
+    }
+
+    /*
+    * Metode som oppretter knapper for svaralternativer, 
+    * setter også opp klikklyttere for disse. 
+    *
+    * @param num    Antall knapper som skal legges inn, bruker antall deltakere fra state.persons
+    */
+    buttons = (num) => { 
+        const wrapper = document.getElementsByClassName("textGame")[0]; //Henter wrapper element
+
+        const nextQuestionBtn = document.createElement("a"); //Lager knapp for "Neste spørsmål"
+        nextQuestionBtn.className = "nextQuestion"; //sett CSS klasse
+        nextQuestionBtn.textContent = "Neste spørsmål" //Sett knappen sin tekst
+        nextQuestionBtn.addEventListener("click", () => {
+            const buttons = document.getElementsByClassName("answerBtn") //Henter array av alle svar knapper
+                nextQuestionBtn.remove() //Fjerner "Neste spørsmål" knapp
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].style.display = "flex" //Setter display tilbake til flex så svarknapper er synlige
+                }
+                this.nextQuestion(this.state.questions); //Kjører nextQuestion metode som viser neste spørsmål
+        })
+
+        for (let i = 0; i < num; i++) { //Lager x antall knapper etter @param num
+            const button = document.createElement("a"); //Lag knapp
+            button.className = "answerBtn"; //sett CSS klasse
+            button.textContent= this.state.persons[i].name; //Sett knappen sin tekst til deltaker sitt navn
+            button.addEventListener("click", () => { 
+                const buttons = document.getElementsByClassName("answerBtn") //Hent array av alle knappe elementer på siden
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].style.display = "none" //Skjul alle knapper
+                }
+                const winner = document.getElementsByTagName("h3")[0]; //Hent hoved tekstelement
+                winner.textContent = `Stemmene er talt! ${this.state.persons[i].name} ${this.state.winnerText.shift()}`
+                wrapper.appendChild(nextQuestionBtn) //Legg til "Neste spørsmål" knapp
+            })
+            wrapper.appendChild(button); //Legg knapper inn på siden
+        }
+    }
 
     render() {
         return (
-            <div className="wrapper">
-                <h3>React Router has great and simple features for accessing route params and ... On the other hand, if your query has many parameters, your method name will be</h3>
+            <div className="textGame">
             </div>
         )
     }

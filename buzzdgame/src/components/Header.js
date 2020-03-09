@@ -1,20 +1,25 @@
 import React, { Component } from 'react'
 import '../css/header.css';
+import  CSSTransition  from 'react-transition-group';
 
 export default class Header extends Component {
     
     bounceAnim() {
-        document.querySelector("h1").classList.add("zoomBounce")
+        this.classList.add("zoomBounce")
     };
-
-    componentDidMount() {
-        
-    }
 
     render() {
         return (
             <div className="navHeader">
-                <h1 onClick={this.bounceAnim}>BUZZD</h1>
+                {/* <CSSTransition
+                    in={true}
+                    appear={true} 
+                    timeout={200} 
+                    classNames="headerTrans"> */}
+
+                    <h1 onClick={this.bounceAnim}>BUZZD</h1>
+                    
+                {/* </CSSTransition> */}
             </div>
         )
     }
