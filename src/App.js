@@ -9,7 +9,23 @@ import {
 } from "react-router-dom";
 
 export default class App extends Component {
+  
+  componentDidMount() {
+    this.getViewHeight();
+  }
+
+  /* Metode som henter høyde av viewport minus nettleser sin toolbar */
+  getViewHeight = () => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
   render() {
+
+    window.addEventListener('resize', () => {
+      this.getViewHeight();
+    });
+
       return (
         <Router>
           <Header />
