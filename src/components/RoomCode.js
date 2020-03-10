@@ -39,8 +39,9 @@ export default class RoomCode extends Component {
                         </a>
                     </div>
                     <div className="faqWrapper">
-                        <h5>¯\_(ツ)_/¯</h5>
-                        <p className="faq">Spørsmål og svar</p>
+                        <Link onClick={this.buzzAnim} to="/faq" className="faq">
+                            Spørsmål og svar
+                        </Link>
                     </div>
                 
             </div>
