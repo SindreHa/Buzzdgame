@@ -1,10 +1,10 @@
-# Buzzdgame · [![NPM Version](https://img.shields.io/npm/v/npm.svg?style=flat)]() [![Dependecy Status](https://david-dm.org/tterb/Hyde.svg)](https://david-dm.org/tterb/Hyde) [![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde) 
+# Buzzdgame · [![npm version](https://badge.fury.io/js/react.svg)](//npmjs.com/package/react) [![Dependecy Status](https://david-dm.org/sindreha/buzzdgame.svg)]() [![Version](https://img.shields.io/badge/Version-0.2-Green.svg)](https://shields.io/) 
 Spil for sosiale sammenhenger - Get Buzzd! 
 
 ## Hva er buzzdgame
 Buzzdgame er en webapplikasjon bygget opp med React.js som tilbyr spill for sosiale sammenhenger. Primært tekstbaserte og kortbaserte spill. Kommunikasjon mellom enheter foregåe med Websockets og en server med Node.js.
 
-Dette er et bachelor prosjekt for 5 studenter ved Universitetet I Sørøst-Norge.
+Dette er et bachelor prosjekt for 5 studenter ved Universitetet i Sørøst-Norge.
 
 ### Hvordan installere og kjøre
 For å kjøre appen trenger du å ha [Node.js](https://github.com/nodejs/node) installert. 

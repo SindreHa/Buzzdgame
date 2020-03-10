@@ -38,10 +38,8 @@ code {
 	width: 800px;
 	margin: auto;
 }
-.switch-wrapper {
-	position: relative;
-  }
-   
-  .switch-wrapper > div {
-	position: absolute;
-  }
+@media(max-width: 800px) {
+	#root {
+		width: 100%;
+	}
+}

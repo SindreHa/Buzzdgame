@@ -1,7 +1,6 @@
 .wrapper {
 	display: grid;
-	min-width: 400px;
-	max-width: 600px;
+	width: 100%;
 	margin: auto;
 	grid-auto-rows: auto;
 }
@@ -55,7 +54,7 @@
 
 .input {
 	margin: auto;
-	width: 100%;
+	width: 60%;
 	display: grid;
 	align-items: center;
 	gap: 8px;
@@ -185,11 +184,8 @@ h5 {
   }
 
 @media(max-width: 600px) {
-	.wrapper {
-		margin: auto 10%;
-	}
-	.header h1 {
-		font-size: 25vw;
+	.input {
+		width: 90%;
 	}
 	.btn:hover {
 		color: var(--light);
