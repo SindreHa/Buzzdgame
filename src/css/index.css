@@ -20,12 +20,8 @@ a {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html {
-	min-height: -webkit-fill-available;
-	max-height: -webkit-fill-available;
 }
 body {
-	min-height: -webkit-fill-available;
-	max-height: -webkit-fill-available;
 	font-family: var(--font);
 	margin: 0;
 	background-color: var(--background);
@@ -43,7 +39,8 @@ code {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 100px 1fr 40px;
-	height: 100vh;
+	height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  	height: calc(var(--vh, 1vh) * 100);
 	width: 800px;
 	margin: auto;
 }
