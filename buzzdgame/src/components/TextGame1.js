@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../css/textGame1.css';
-import TransitionGroup from 'react-addons-transition-group';
 
 export default class TextGame1 extends Component {
 
@@ -19,7 +18,7 @@ export default class TextGame1 extends Component {
                 ],
             persons: [ 
                 {name: "Ola", score: 0},
-                {name: "Kathrine", score: 0},
+                {name: "Anne", score: 0},
                 {name: "Sofie", score: 0},
                 {name: "Øystein", score: 0}
                 ]
@@ -54,15 +53,15 @@ export default class TextGame1 extends Component {
     * @param questions    Array av spørsmål/påstander fra state.questions
     */
     nextQuestion = (questions) => {
-        const question = document.getElementsByTagName("h3")[0];
-        var i = questions.length;
-        if (i>0) {
+        const question = document.getElementsByTagName("h3")[0]; //Hent element for visning av spm
+        var i = questions.length; //Antall spørsmål
+        if (i>0) { //Hvis ikke flere spørsmål
             question.textContent = questions.shift();
         } else {
             question.textContent=`Runden er over`
             const buttons = document.getElementsByClassName("answerBtn");
             for (let i = 0; i < buttons.length; i++) {
-                buttons[i].style.display = "none"
+                buttons[i].style.display = "none" //Skjul knapper hvis runde over
             }
         }
     }

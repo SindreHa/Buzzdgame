@@ -6,24 +6,21 @@ import { Link } from 'react-router-dom';
 export default class RoomCode extends Component {
     
     componentDidMount() {
-        var buzz = document.querySelector("h1")
-        buzz.addEventListener("animationend", function() {
-            document.querySelector("h1").classList.remove("buzz", "zoomBounce")
-        }, false)
     };
 
     buzzAnim = (e) => {
+        e.preventDefault();
         if(e.target.tagName.toLowerCase() === 'input' || e.target.classList.contains('btn'))
-            document.querySelector("h1").classList.add("buzz")
+            document.getElementsByClassName("headerTitle")[0].classList.add("buzz")
     }
 
     bounceAnim() {
-        document.querySelector("h1").classList.add("zoomBounce")
+        document.getElementsByClassName("headerTitle")[0].classList.add("zoomBounce")
     }
     
     onSubmit = (e) => {
         const input = document.getElementsByTagName("input")[0];
-        if (document.activeElement === input && e.key == "Enter") {
+        if (document.activeElement === input && e.key === "Enter") {
             input.value = "";
             input.blur();
             this.bounceAnim();
@@ -35,10 +32,10 @@ export default class RoomCode extends Component {
             <div className="wrapper" key="RoomCode">
                     <div className="input">
                         <input type="text" onFocus={this.buzzAnim} onKeyDown={this.onSubmit} name="kode" placeholder="Romkode"/>
-                        <Link onClick={this.buzzAnim} to="/game" href="#" className="btn enter">
+                        <Link onClick={this.buzzAnim} to="/game" className="btn enter">
                             Spill
                         </Link>
-                        <a onClick={this.buzzAnim} href="#" className="btn host">
+                        <a onClick={this.buzzAnim} className="btn host">
                             Lag rom
                         </a>
                     </div>

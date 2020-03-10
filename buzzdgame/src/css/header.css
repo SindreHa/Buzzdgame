@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
 }
-h1 {
+.headerTitle {
     user-select: none;
 	font-family: "Freckle Face", cursive;
 	font-weight: normal;
@@ -12,6 +12,7 @@ h1 {
 	color: white;
 	text-align: center;
 	margin: 0;
+	text-decoration: none;
 }
 .headerTrans-enter {
 	opacity: 0;
