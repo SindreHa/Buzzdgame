@@ -1,0 +1,202 @@
+.wrapper {
+	display: grid;
+	min-width: 400px;
+	max-width: 600px;
+	margin: auto;
+	grid-auto-rows: auto;
+}
+.header h1 {
+	user-select: none;
+	font-family: "Freckle Face", cursive;
+	font-weight: normal;
+	font-size: 8rem;
+	color: white;
+	text-align: center;
+	margin: 0;
+}
+.header p {
+	color: var(--light);
+	text-align: center;
+	margin: 0 0 15px 0;
+	font-weight: 100;
+}
+
+.buzz {
+	animation-name: buzz;
+	animation-duration: .9s;
+	animation-delay: .25s;
+	animation-iteration-count: 1;
+}
+
+@keyframes buzz {
+	0% {transform: rotate(0deg)}
+	10% {transform: rotate(-3deg)}
+	20% {transform: rotate(3deg)}
+	30% {transform: rotate(-3deg)}
+	40% {transform: rotate(3deg)}
+	50% {transform: rotate(-3deg)}
+	60% {transform: rotate(3deg)}
+	100% {transform: rotate(0deg)}
+}
+
+.zoomBounce {
+	animation-name: zoomBounce;
+	animation-duration: .6s;
+	animation-iteration-count: 1;
+}
+
+@keyframes zoomBounce {
+	0% {transform: scale(1)}
+	20% {transform: scale(1.1)}
+	50% {transform: scale(.95)}
+	80% {transform: scale(1.02)}
+	100% {transform: scale(1)}
+}
+
+.input {
+	margin: auto;
+	width: 100%;
+	display: grid;
+	align-items: center;
+	gap: 8px;
+	grid-template-rows: 50px 45px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: 
+		"input input"
+		". .";
+}
+
+.input:focus-within .header h1 {
+	animation-play-state: running;
+}
+
+.input input{
+	grid-area: input;
+	border: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	border-radius: 2px;
+	text-align: center;
+	font-size: 1rem;
+	background-color: var(--light);
+	transition: background-color .3s, border-color .3s, box-shadow .3s;
+}
+
+.input input:focus{
+	outline: 0;
+	background-color: var(--light);
+	box-shadow: inset 0px 0px 0px 3px var(--accent);
+}
+input::placeholder {
+	text-align: center;
+	font-family: var(--font);
+	font-size: 15pt;
+	text-transform: none;
+}
+.input input:focus::placeholder{
+	color: #999;
+}
+input[type="text"]
+{
+    font-size:15pt;
+    font-family: var(--font);
+	text-transform: uppercase;
+}
+.btn {
+	background-color: var(--dark);
+	color: var(--light);
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	border-radius: 2px;
+	transition: color .2s, 
+		box-shadow .2s, transform .1s;
+	transition-timing-function: ease-out;
+	font-size: 14pt;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.btn:hover {
+	/*background-color: var(--darker);*/
+	/*color: var(--accentBlue);*/
+	cursor: pointer;
+	box-shadow: inset 0px 0px 0px 3px var(--accent);
+	/*box-shadow: 0px 0px 10px 1px var(--dark);*/
+	border-radius: 2px;
+	/*transform: translateY(-2px);*/
+}
+
+.btn:focus {
+	outline: 0;
+}
+
+.btn:active {
+	transform: scale(.97);
+}
+.faqWrapper {
+    display: flex;
+    justify-content: center;
+}
+.faq {
+    text-align: center;
+	color: white;
+	position: absolute;
+    bottom: 0;
+	transition: transform .3s ease-out;
+}
+.faq:hover {
+	transform: scale(1.1);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+h5 {
+	display: none;
+	color: white;
+	font-family: arial;
+	position: absolute;
+	bottom: 20px;
+	font-size: 25pt;
+}
+
+.zoomBounce {
+	animation-name: zoomBounce;
+	animation-duration: .6s;
+	animation-iteration-count: 1;
+}
+
+@keyframes zoomBounce {
+	0% {transform: scale(1)}
+	20% {transform: scale(.9)}
+	50% {transform: scale(1.05)}
+	80% {transform: scale(.98)}
+	100% {transform: scale(1)}
+}
+
+.roomCodeTrans-enter {
+	opacity: 0;
+}
+
+.roomCodeTrans-enter.roomCodeTrans-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+  }
+
+@media(max-width: 600px) {
+	.wrapper {
+		margin: auto 10%;
+	}
+	.header h1 {
+		font-size: 25vw;
+	}
+	.btn:hover {
+		color: var(--light);
+		background-color: var(--dark);
+		box-shadow: none;
+	}
+	.faq:hover {
+		transform: none;
+	}
+}

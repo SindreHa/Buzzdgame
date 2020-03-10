@@ -1,0 +1,52 @@
+.textGame {
+    display: grid;
+    grid-template-areas: 
+        "text text"
+        "alt1 alt2"
+        "alt3 alt4";
+    grid-template-rows: 1fr 150px 150px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+h3 {
+    /* font-family: Raleway; */
+    grid-area: text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 25pt;
+    font-weight: normal;
+}
+.answerBtn, .nextQuestion  {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-size: 24pt;
+    color: white;
+    transition: background-color .2s ease-out, color .2s ease-out, box-shadow .2s ease-out, transform .1s ease-out;
+}
+.answerBtn:hover, .nextQuestion:hover {
+    box-shadow: inset 0px 0px 0px 4px var(--accent);
+    /* background-color: #445c6b; */
+    /* color: black; */
+    cursor: pointer;
+}
+.answerBtn:active, .nextQuestion:active {
+    transition: transform .1s ease-out;
+    transform: scale(.97);
+}
+.nextQuestion {
+    width: 70%;
+    height: 50%;
+    margin: auto;
+    grid-row: 2/4;
+    grid-column: 1/3;
+}

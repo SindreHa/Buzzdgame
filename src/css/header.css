@@ -1,0 +1,24 @@
+.navHeader {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.headerTitle {
+    user-select: none;
+	font-family: "Freckle Face", cursive;
+	font-weight: normal;
+	font-size: 4rem;
+	color: white;
+	text-align: center;
+	margin: 0;
+	text-decoration: none;
+}
+.headerTrans-enter {
+	opacity: 0;
+}
+
+.headerTrans-enter.headerTrans-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+  }

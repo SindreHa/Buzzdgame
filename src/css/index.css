@@ -1,0 +1,47 @@
+:root {
+	--primary: #ddd;
+	--dark: #212b33;
+	--darker: #222;
+	--light: #fff;
+	--background: #4799B7;
+	--accent: #E65F00;
+	--accentBlue: #00BECC;
+	--link: #0078FF;
+	--shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
+	--shadowWide: 0 1px 15px rgba(80, 80, 80, 0.8);
+	--font: 'Fredoka One', cursive;
+	/*--postNumber: 0;*/
+}
+html {
+	height: 100%
+}
+body {
+	height: 100vh;
+	font-family: var(--font);
+	margin: 0;
+	background-color: var(--background);
+	font-family: -apple-system, BlinkMacSystemFont, 'Fredoka One', 'Segoe UI', 'Roboto', 'Oxygen',
+	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+	sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+#root {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 100px 1fr 40px;
+	height: 100vh;
+	width: 800px;
+	margin: auto;
+}
+.switch-wrapper {
+	position: relative;
+  }
+   
+  .switch-wrapper > div {
+	position: absolute;
+  }
