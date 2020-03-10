@@ -9,7 +9,6 @@ export default class RoomCode extends Component {
     };
 
     buzzAnim = (e) => {
-        e.preventDefault();
         if(e.target.tagName.toLowerCase() === 'input' || e.target.classList.contains('btn'))
             document.getElementsByClassName("headerTitle")[0].classList.add("buzz")
     }
