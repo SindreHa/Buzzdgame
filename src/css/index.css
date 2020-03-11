@@ -1,9 +1,9 @@
 :root {
-	--dark: #212b33;
+	--dark: #192425;
 	--light: #fff;
-	--background: #4799B7;
-	--accent: #E65F00;
-	--borderline: #8ec4d8;
+	--background: #0097a7;
+	--accent: #ff5722;
+	--borderline: #5dddf4af;
 	--link: #0078FF;
 	--font: 'Fredoka One', cursive;
 }
