@@ -26,7 +26,6 @@ export default class TextGame1 extends Component {
     }
 
     componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
-        this.question(this.state.questions)
         this.buttons(this.state.persons.length)
     }
 
@@ -36,15 +35,14 @@ export default class TextGame1 extends Component {
     * @param questions    Array av spørsmål/påstander fra state.questions
     */
     question = (questions) => {
-        const question = document.createElement("h3");
-        const wrapper = document.getElementsByClassName("textGame")[0];
-        wrapper.appendChild(question)
-        var i = questions.length;
-        if (i>0) {
-            question.textContent = questions.shift();
+        let text;
+        if(questions.length>0) {
+            text = questions.shift();
         } else {
-            question.textContent=`Ingen spørsmål`
+            text = "Ingen spørsmål"
         }
+        console.log("kjør")
+        return( <h3>{text}</h3> )
     }
 
     /*
@@ -107,6 +105,7 @@ export default class TextGame1 extends Component {
     render() {
         return (
             <div className="textGame">
+                {this.question(this.state.questions)}
             </div>
         )
     }

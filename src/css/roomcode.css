@@ -1,9 +1,7 @@
 .wrapper {
 	display: grid;
-	min-width: 400px;
-	max-width: 600px;
-	margin: auto;
-	grid-auto-rows: auto;
+	width: 100%;
+	grid-template-rows: 1fr 40px;
 }
 .header h1 {
 	user-select: none;
@@ -55,7 +53,7 @@
 
 .input {
 	margin: auto;
-	width: 100%;
+	width: 60%;
 	display: grid;
 	align-items: center;
 	gap: 8px;
@@ -135,15 +133,10 @@ input[type="text"]
 .btn:active {
 	transform: scale(.97);
 }
-.faqWrapper {
-    display: flex;
-    justify-content: center;
-}
 .faq {
     text-align: center;
 	color: white;
-	position: absolute;
-    bottom: 0;
+	text-decoration: none;
 	transition: transform .3s ease-out;
 }
 .faq:hover {
@@ -185,11 +178,8 @@ h5 {
   }
 
 @media(max-width: 600px) {
-	.wrapper {
-		margin: auto 10%;
-	}
-	.header h1 {
-		font-size: 25vw;
+	.input {
+		width: 90%;
 	}
 	.btn:hover {
 		color: var(--light);
