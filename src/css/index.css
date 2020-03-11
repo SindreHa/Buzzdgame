@@ -7,11 +7,7 @@
 	--link: #0078FF;
 	--font: 'Fredoka One', cursive;
 }
-input,
-textarea,
-button,
-select,
-a {
+* {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html {
