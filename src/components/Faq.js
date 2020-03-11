@@ -11,22 +11,22 @@ export default class Faq extends Component {
                 {
                     key: 1,
                     question: "Hva er Buzzdgame?", 
-                    answer: "Buzzdgame er et spill for sosiale sammenhegner. Du kan enten spille et tekstbasert eller kortbasert spill"
+                    answer: "Buzzdgame er en flerspiller tjeneste for deg som syntes stemningen er for kjedelig i gruppen. Opprett et rom og få med deg resten av gruppen for å få en livlig stemning i rommet!"
                 },
                 {
                     key: 2,
                     question: "Hvordan spiller jeg?", 
-                    answer: "For å spille kan du skrive inn romkoden din eller lage et nytt rom"
+                    answer: "For å spille kan du enten å bli med i et eksisterende rom med en romkode eller opprette ditt eget. NB! Funksjonalitet er ikke på plass enda for dette men du kan se en demo ved å trykke på Spill knappen"
                 },
                 {
                     key: 3,
                     question: "Hvordan oppretter jeg et eget rom?", 
-                    answer: "Skriv inn ønsket romkode og trykk lag rom for å lage eget rom med valgt spill"
+                    answer: "Skriv inn ønsket romkode og trykk lag rom for å opprette et eget rom for å så velge hvilket spill rommet skal ha. NB! Denne funksjonen er ikke tilgjengelig enda"
                 },
                 {
                     key: 4,
-                    question: "Er denne siden funksjonell?", 
-                    answer: "Denne siden er fortsatt i beta stadiet og under stadig utvikling. Det vil derfor være flere knapper og funskjoner som det kan hende at ikke fungerer"
+                    question: "Hvorfor fungerer ikke alle knapper?", 
+                    answer: "Denne siden er fortsatt i tidlig utviklingsfase. Det vil derfor være flere knapper og funskjoner som det kan hende at ikke fungerer"
                 },
             ]
         }
