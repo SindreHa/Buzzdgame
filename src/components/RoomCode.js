@@ -27,6 +27,11 @@ export default class RoomCode extends Component {
     }
 
     render() {
+        const faqWrapper = {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          };
         return (
             <div className="wrapper" key="RoomCode">
                     <div className="input">
@@ -38,9 +43,10 @@ export default class RoomCode extends Component {
                             Lag rom
                         </a>
                     </div>
-                    <div className="faqWrapper">
-                        <h5>¯\_(ツ)_/¯</h5>
-                        <p className="faq">Spørsmål og svar</p>
+                    <div style={faqWrapper}>
+                        <Link onClick={this.buzzAnim} to="/faq" className="faq">
+                            Spørsmål og svar
+                        </Link>
                     </div>
                 
             </div>

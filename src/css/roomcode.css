@@ -1,8 +1,7 @@
 .wrapper {
 	display: grid;
 	width: 100%;
-	margin: auto;
-	grid-auto-rows: auto;
+	grid-template-rows: 1fr 40px;
 }
 .header h1 {
 	user-select: none;
@@ -134,15 +133,10 @@ input[type="text"]
 .btn:active {
 	transform: scale(.97);
 }
-.faqWrapper {
-    display: flex;
-    justify-content: center;
-}
 .faq {
     text-align: center;
 	color: white;
-	position: absolute;
-    bottom: 0;
+	text-decoration: none;
 	transition: transform .3s ease-out;
 }
 .faq:hover {
