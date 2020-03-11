@@ -59,7 +59,7 @@ h3 {
 
     .textGame {
         width: 90%;
-        margin: 0 auto;
+        margin: 0 auto 20px;
         grid-template-rows: 1fr 100px 100px;
     }
 
