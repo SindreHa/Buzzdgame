@@ -133,11 +133,6 @@ input[type="text"]
 .btn:active {
 	transform: scale(.97);
 }
-.faqWrapper {
-    display: flex;
-	justify-content: center;
-	align-items: center;
-}
 .faq {
     text-align: center;
 	color: white;

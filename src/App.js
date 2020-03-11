@@ -3,7 +3,7 @@ import RoomCode from './components/RoomCode';
 import ChooseGame from './components/ChooseGame';
 import TextGame1 from './components/TextGame1';
 import Header from './components/Header';
-import Faq from './components/faq/Faq';
+import Faq from './components/Faq';
 import {
   BrowserRouter as Router,
   Route
