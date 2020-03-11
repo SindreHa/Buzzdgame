@@ -32,22 +32,26 @@ export default class Faq extends Component {
     }
 
     expand = (e) => {
-        const element = e.currentTarget;
-        element.classList.toggle("open")
-        const answer = element.parentElement;
-        console.log(answer.closest("p").className)
+        e.currentTarget.getElementsByClassName("expand-icon")[0].classList.toggle("open")
+        const element = e.currentTarget.parentElement
+        .getElementsByClassName("faq-answer")[0].classList.toggle("collapsed");
+        //element.classList.toggle("open")
+        /* const answer = element.parentElement;
+        console.log(answer.closest("p").className) */
     }
 
     renderFaq = () => {
         return (
             this.state.faq.map((questions) => (
                 <div key={questions.key} className="faqItem">
-                    		<div onClick={this.expand} class="expand-icon">
+                    <p className="faq-question" onClick={this.expand}>
+                        {questions.question}
+                    		<div class="expand-icon">
                                 <span></span>
                                 <span></span>
                             </div>
-                    <p className="faq-question">{questions.question}</p>
-                    <p className="faq-answer">{questions.answer}</p>
+                    </p>
+                    <p className="faq-answer collapsed">{questions.answer}</p>
                 </div>
             ))
         )
