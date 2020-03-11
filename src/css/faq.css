@@ -26,6 +26,7 @@
 
 .faq-question {
     position: relative;
+    font-weight: 600;
     font-size: 18pt;
     padding: 10px 30px 10px 0;
 }
@@ -36,7 +37,7 @@
     transition: max-height .3s ease-out, opacity .3s;
     max-height: 0;
     opacity: 0;
-    font-size: 16pt;
+    font-size: 15pt;
     overflow: hidden;
 }
 .expand-icon {
@@ -87,4 +88,13 @@
 }
 .faqWrapper a:active {
 	transform: scale(.97);
+}
+
+@media(max-width: 800px) {
+	.faqWrapper{
+        width: 90%;
+    }
+    .faqHeader {
+        font-size: 25pt;
+    }
 }
