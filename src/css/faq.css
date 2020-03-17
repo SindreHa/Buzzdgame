@@ -16,7 +16,7 @@
 .faqItem {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
+    padding: 0 15px;
     overflow: hidden;
     border-bottom: 1px solid var(--borderline);
 }
@@ -57,7 +57,6 @@
     border-radius: 3px;
     background: var(--light);
     opacity: 1;
-    left: 0;
     transition: .3s ease-in-out;
 }
 .expand-icon span:nth-child(1) {
@@ -96,5 +95,11 @@
     }
     .faqHeader {
         font-size: 25pt;
+    }
+    .faq-question {
+        font-size: 16pt;
+    }
+    .faq-answer{
+        font-size: 14pt;
     }
 }
