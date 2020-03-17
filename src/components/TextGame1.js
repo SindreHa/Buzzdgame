@@ -29,6 +29,10 @@ export default class TextGame1 extends Component {
         this.buttons(this.state.persons.length)
     }
 
+    
+    componentWillUnmount() {
+
+    }
     /*
     * Metode som lager element som viser første spørsmål fra array
     *
@@ -41,7 +45,7 @@ export default class TextGame1 extends Component {
         } else {
             text = "Ingen spørsmål"
         }
-        console.log("kjør")
+        //console.log("kjør")
         return( <h3>{text}</h3> )
     }
 

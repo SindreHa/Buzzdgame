@@ -52,6 +52,7 @@
 }
 
 .input {
+	position: relative;
 	margin: auto;
 	width: 60%;
 	display: grid;
@@ -101,6 +102,34 @@ input[type="text"]
     font-family: var(--font);
 	text-transform: uppercase;
 }
+
+.error {
+	animation: wiggle .4s ease-out 1;
+}
+
+.input span{
+	position: absolute;
+	top: -30px;
+	left: calc(50% - (221px/2));
+	color: var(--error);
+	font-size: 15pt;
+	opacity: 0;
+	transition: opacity .3s;
+}
+
+.visible {
+	opacity: 1 !important;
+}
+
+@keyframes wiggle {
+	0% {transform: translateX(0px)}
+	20% {transform: translateX(5px)}
+	40% {transform: translateX(-5px)}
+	60% {transform: translateX(5px)}
+	80% {transform: translateX(-5px)}
+	100% {transform: translateX(0px)}
+}
+
 .btn {
 	background-color: var(--dark);
 	color: var(--light);
