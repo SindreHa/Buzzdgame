@@ -1,9 +1,7 @@
 .wrapper {
 	display: grid;
-	min-width: 400px;
-	max-width: 600px;
-	margin: auto;
-	grid-auto-rows: auto;
+	width: 100%;
+	grid-template-rows: 1fr 40px;
 }
 .header h1 {
 	user-select: none;
@@ -54,8 +52,9 @@
 }
 
 .input {
+	position: relative;
 	margin: auto;
-	width: 100%;
+	width: 60%;
 	display: grid;
 	align-items: center;
 	gap: 8px;
@@ -103,6 +102,34 @@ input[type="text"]
     font-family: var(--font);
 	text-transform: uppercase;
 }
+
+.error {
+	animation: wiggle .4s ease-out 1;
+}
+
+.input span{
+	position: absolute;
+	top: -30px;
+	left: calc(50% - (221px/2));
+	color: var(--error);
+	font-size: 15pt;
+	opacity: 0;
+	transition: opacity .3s;
+}
+
+.visible {
+	opacity: 1 !important;
+}
+
+@keyframes wiggle {
+	0% {transform: translateX(0px)}
+	20% {transform: translateX(5px)}
+	40% {transform: translateX(-5px)}
+	60% {transform: translateX(5px)}
+	80% {transform: translateX(-5px)}
+	100% {transform: translateX(0px)}
+}
+
 .btn {
 	background-color: var(--dark);
 	color: var(--light);
@@ -135,15 +162,10 @@ input[type="text"]
 .btn:active {
 	transform: scale(.97);
 }
-.faqWrapper {
-    display: flex;
-    justify-content: center;
-}
 .faq {
     text-align: center;
 	color: white;
-	position: absolute;
-    bottom: 0;
+	text-decoration: none;
 	transition: transform .3s ease-out;
 }
 .faq:hover {
@@ -185,11 +207,8 @@ h5 {
   }
 
 @media(max-width: 600px) {
-	.wrapper {
-		margin: auto 10%;
-	}
-	.header h1 {
-		font-size: 25vw;
+	.input {
+		width: 90%;
 	}
 	.btn:hover {
 		color: var(--light);

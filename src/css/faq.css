@@ -1,0 +1,105 @@
+.faqWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 20px auto;
+    overflow: visible;
+    color: white;
+    font-family: "Raleway";
+}
+.faqHeader {
+    margin: 0 0 25px;
+    text-align: center;
+    font-size: 28pt;
+    font-weight: normal;
+}
+.faqItem {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--borderline);
+}
+.faqItem p {
+    margin: 0;
+}
+
+.faq-question {
+    position: relative;
+    font-weight: 600;
+    font-size: 18pt;
+    padding: 10px 30px 10px 0;
+}
+.faq-question:hover {
+    cursor: pointer;
+}
+.faq-answer {
+    transition: max-height .3s ease-out, opacity .3s;
+    max-height: 0;
+    opacity: 0;
+    font-size: 15pt;
+    overflow: hidden;
+}
+.expand-icon {
+    width: 23px;
+    position: absolute;
+    top: 23px;
+    right: 0px;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+.expand-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    border-radius: 3px;
+    background: var(--light);
+    opacity: 1;
+    transition: .3s ease-in-out;
+}
+.expand-icon span:nth-child(1) {
+    top: 0px;
+}
+.expand-icon span:nth-child(2) {
+    top: 0px;
+    transform: rotate(90deg);
+}
+.expand-icon.open span:nth-child(2) {
+    transform: rotate(0deg);
+}
+.faqWrapper a {
+    font-size: 14pt;
+    font-family: var(--font);
+    text-decoration: none;
+    margin: 25px auto 0;
+    padding: 11px 20px;
+    background-color: var(--dark);
+	color: var(--light);
+	border-radius: 8px;
+	transition: color .2s, 
+		box-shadow .2s, transform .1s;
+	transition-timing-function: ease-out;
+}
+.faqWrapper a:hover {
+    box-shadow: inset 0px 0px 0px 3px var(--accent);
+}
+.faqWrapper a:active {
+	transform: scale(.97);
+}
+
+@media(max-width: 800px) {
+	.faqWrapper{
+        width: 90%;
+    }
+    .faqHeader {
+        font-size: 25pt;
+    }
+    .faq-question {
+        font-size: 16pt;
+    }
+    .faq-answer{
+        font-size: 14pt;
+    }
+}

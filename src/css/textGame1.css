@@ -7,6 +7,7 @@
     grid-template-rows: 1fr 150px 150px;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    margin-bottom: 40px;
 }
 
 h3 {
@@ -49,4 +50,20 @@ h3 {
     margin: auto;
     grid-row: 2/4;
     grid-column: 1/3;
+}
+
+@media(max-width: 800px) {
+	.textGame h3 {
+        font-size: 20pt;
+    }
+
+    .textGame {
+        width: 90%;
+        margin: 0 auto 20px;
+        grid-template-rows: 1fr 100px 100px;
+    }
+
+    .textGame a {
+        font-size: 18pt;
+    }
 }

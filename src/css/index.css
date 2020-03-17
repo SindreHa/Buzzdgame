@@ -1,22 +1,19 @@
 :root {
-	--primary: #ddd;
-	--dark: #212b33;
-	--darker: #222;
+	--dark: #192425;
 	--light: #fff;
-	--background: #4799B7;
-	--accent: #E65F00;
-	--accentBlue: #00BECC;
+	--background: #0097a7;
+	--accent: #ff5722;
+	--error: #ff5757;
+	--borderline: #5dddf4af;
 	--link: #0078FF;
-	--shadow: 0 1px 5px rgba(104, 104, 104, 0.8);
-	--shadowWide: 0 1px 15px rgba(80, 80, 80, 0.8);
 	--font: 'Fredoka One', cursive;
-	/*--postNumber: 0;*/
+}
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html {
-	height: 100%
 }
 body {
-	height: 100vh;
 	font-family: var(--font);
 	margin: 0;
 	background-color: var(--background);
@@ -33,15 +30,14 @@ code {
 #root {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 100px 1fr 40px;
-	height: 100vh;
+	grid-template-rows: 100px 1fr;
+	height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  	height: calc(var(--vh, 1vh) * 100);
 	width: 800px;
-	margin: auto;
+	margin: 0 auto;
 }
-.switch-wrapper {
-	position: relative;
-  }
-   
-  .switch-wrapper > div {
-	position: absolute;
-  }
+@media(max-width: 800px) {
+	#root {
+		width: 100%;
+	}
+}
