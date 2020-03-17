@@ -11,7 +11,7 @@ export default class Faq extends Component {
                 {
                     key: 1,
                     question: "Hva er Buzzdgame?", 
-                    answer: "Buzzdgame er en flerspiller tjeneste for deg som syntes stemningen er for kjedelig i gruppen. Opprett et rom og få med deg resten av gruppen for å få en livlig stemning i rommet!"
+                    answer: "Buzzdgame er en flerspiller tjeneste for deg som syntes stemningen litt for dårlig der du er. Opprett et rom og få med deg resten av gruppen for å få en livlig stemning i rommet!"
                 },
                 {
                     key: 2,
