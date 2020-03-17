@@ -16,7 +16,7 @@ export default class Faq extends Component {
                 {
                     key: 2,
                     question: "Hvordan spiller jeg?", 
-                    answer: "For å spille kan du enten å bli med i et eksisterende rom med en romkode eller opprette ditt eget. NB! Funksjonalitet er ikke på plass enda for dette men du kan se en demo ved å trykke på Spill knappen"
+                    answer: "For å spille kan du enten å bli med i et eksisterende rom med en romkode eller opprette ditt eget. NB! Funksjonalitet er ikke på plass enda for dette men du kan se en demo ved å bruke koden 'DEMO'"
                 },
                 {
                     key: 3,
