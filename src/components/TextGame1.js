@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../css/textGame1.css';
+import { Redirect } from 'react-router-dom';
 
 export default class TextGame1 extends Component {
 
@@ -21,11 +22,18 @@ export default class TextGame1 extends Component {
                 {name: "Anne", score: 0},
                 {name: "Sofie", score: 0},
                 {name: "Øystein", score: 0}
-                ]
+                ],
+            redirect: null
         }
     }
 
+    componentWillMount() {
+    }
+
     componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
+        if(this.props.roomCode == null) {
+            this.setState({redirect: "/"})
+        }
         this.buttons(this.state.persons.length)
     }
 
@@ -107,10 +115,15 @@ export default class TextGame1 extends Component {
     }
 
     render() {
+
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
+
         return (
             <div className="textGame">
                 {this.question(this.state.questions)}
             </div>
-        )
+        ) 
     }
 }
