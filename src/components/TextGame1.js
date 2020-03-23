@@ -22,7 +22,12 @@ export default class TextGame1 extends Component {
             players: [ 
                 {name: "Ola", score: 0},
                 {name: "Anne", score: 0},
+                {name: "Quarennc", score: 0},
+                {name: "Lorem", score: 0},
+                {name: "Hank", score: 0},
                 {name: "Sofie", score: 0},
+                {name: "Arne", score: 0},
+                {name: "Morten", score: 0},
                 {name: "Øystein", score: 0}
                 ],
             redirect: null,
@@ -45,11 +50,11 @@ export default class TextGame1 extends Component {
     */
     getQuestion = () => {
         let text = this.state.questions.shift(); 
-        console.log("Kjør" + text)
         this.setState({gameText: text})
         if (text == null) {
+            this.setState({redirect: "/"})
+            this.props.handleRoomCode(null)
             alert("Spillet er slutt")
-            this.setState({redirect: "/"}) 
         }
     }
 
