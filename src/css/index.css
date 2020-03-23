@@ -11,13 +11,11 @@
 * {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-html {
-}
 body {
 	font-family: var(--font);
 	margin: 0;
 	background-color: var(--background);
-	font-family: -apple-system, BlinkMacSystemFont, 'Fredoka One', 'Segoe UI', 'Roboto', 'Oxygen',
+	font-family: 'Fredoka One', 'Segoe UI', 'Roboto', 'Oxygen',
 	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 	sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -39,5 +37,8 @@ code {
 @media(max-width: 800px) {
 	#root {
 		width: 100%;
+	}
+	a:hover { 
+		box-shadow: none !important;
 	}
 }
