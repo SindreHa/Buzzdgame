@@ -41,10 +41,29 @@ export default class App extends Component {
       return (
         <Router>
           <Header roomCode={this.state.roomCode} handleRoomCode={this.handleRoomCode}/>
-            <Route exact path="/"  render={props => <RoomCode handleRoomCode={this.handleRoomCode} />} /> 
-            <Route path="/choose-game" component = {ChooseGame}/>
-            <Route path="/game" render={props => <TextGame1 roomCode={this.state.roomCode} />}/>
-            <Route path="/faq" component = {Faq}/>
+            <Route 
+              exact path="/" 
+              render={props => 
+                <RoomCode 
+                handleRoomCode={this.handleRoomCode} 
+                />} 
+            /> 
+            <Route 
+              path="/choose-game" 
+              component = {ChooseGame}
+            />
+            <Route 
+              path="/game" 
+                render={props => 
+                  <TextGame1 
+                    roomCode={this.state.roomCode} 
+                    handleRoomCode={this.handleRoomCode} 
+                  />}
+            />
+            <Route 
+              path="/faq" 
+              component = {Faq}
+            />
         </Router>
       );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../css/header.css';
-import  CSSTransition  from 'react-transition-group';
+//import  CSSTransition  from 'react-transition-group';
 import { Link } from "react-router-dom";
 
 export default class Header extends Component {
@@ -17,10 +17,6 @@ export default class Header extends Component {
         this.toggleRoomCode();
     }
 
-    clearRoomCode = () => {
-        this.props.handleRoomCode(null)
-    }
-
     eventListeners = () => {
         var buzz = document.getElementsByClassName("headerTitle")[0];
         buzz.addEventListener("animationend", function() {
@@ -28,7 +24,7 @@ export default class Header extends Component {
         }, false)
         buzz.addEventListener("click", () => {
             buzz.classList.add("zoomBounce");
-            this.clearRoomCode()
+            this.props.handleRoomCode(null)
         }, false)
 
         

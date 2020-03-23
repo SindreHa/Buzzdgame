@@ -2,12 +2,12 @@
     display: grid;
     grid-template-areas: 
         "text text"
-        "alt1 alt2"
-        "alt3 alt4";
-    grid-template-rows: 1fr 150px 150px;
+        "playerbutton playerbutton";
+    grid-template-rows: 1.5fr 1fr;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-bottom: 40px;
+    overflow: hidden;
 }
 
 h3 {
@@ -20,6 +20,45 @@ h3 {
     color: white;
     font-size: 25pt;
     font-weight: normal;
+}
+#playerButtons {
+    grid-area: playerbutton;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    grid-auto-rows: 80px;
+    overflow: auto;
+    position: relative;
+
+}
+/* width */
+#playerButtons::-webkit-scrollbar {
+	width: 15px;
+  }
+  
+  /* Track */
+  #playerButtons::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+  #playerButtons::-webkit-scrollbar-thumb {
+	background: var(--dark);
+    border-left: 5px solid var(--background);
+  }
+  
+  /* Handle on hover */
+  #playerButtons::-webkit-scrollbar-thumb:hover {
+	background: var(--accent);
+  }
+#scrollfade {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 10px;
+    background-color: pink;
 }
 .answerBtn, .nextQuestion  {
     user-select: none;
@@ -60,7 +99,6 @@ h3 {
     .textGame {
         width: 90%;
         margin: 0 auto 20px;
-        grid-template-rows: 1fr 100px 100px;
     }
 
     .textGame a {
