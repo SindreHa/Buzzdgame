@@ -9,22 +9,18 @@ export default class Faq extends Component {
         this.state = {
             faq: [
                 {
-                    key: 1,
                     question: "Hva er Buzzdgame?", 
                     answer: "Buzzdgame er en flerspiller tjeneste for deg som syntes stemningen litt for dårlig der du er. Opprett et rom og få med deg resten av gruppen for å få en livlig stemning i rommet!"
                 },
                 {
-                    key: 2,
                     question: "Hvordan spiller jeg?", 
                     answer: "For å spille kan du enten å bli med i et eksisterende rom med en romkode eller opprette ditt eget. NB! Funksjonalitet er ikke på plass enda for dette men du kan se en demo ved å bruke koden 'DEMO'"
                 },
                 {
-                    key: 3,
                     question: "Hvordan oppretter jeg et eget rom?", 
                     answer: "Skriv inn ønsket romkode og trykk lag rom for å opprette et eget rom for å så velge hvilket spill rommet skal ha. NB! Denne funksjonen er ikke tilgjengelig enda"
                 },
                 {
-                    key: 4,
                     question: "Hvorfor fungerer ikke alle knapper?", 
                     answer: "Denne siden er fortsatt i tidlig utviklingsfase. Det vil derfor være flere knapper og funskjoner som det kan hende at ikke fungerer"
                 },
@@ -62,8 +58,8 @@ export default class Faq extends Component {
         <div className="faqWrapper">
         <h2 className="faqHeader">Ofte stilte spørsmål</h2>
         {
-            this.state.faq.map((questions) => (
-                <div key={questions.key} className="faqItem">
+            this.state.faq.map((questions, i) => (
+                <div key={i} className="faqItem">
                     <p className="faq-question" onClick={this.expand}>
                         {questions.question}
                         <div className="expand-icon">

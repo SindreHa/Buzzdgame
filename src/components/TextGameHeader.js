@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 
 export default class TextGameHeader extends Component {
     
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
