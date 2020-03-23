@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import '../css/textGame1.css';
+import TextGameHeader from './TextGameHeader';
 import { Redirect } from 'react-router-dom';
+import TextGameButtons from './TextGameButtons';
 
 export default class TextGame1 extends Component {
 
@@ -17,7 +19,7 @@ export default class TextGame1 extends Component {
                 "har den beste latteren og får ikke lov til å le de neste 5 minuttene!", 
                 "er mest opptatt av utseende og må la en annen person gjøre det den vil med hårsveisen til den utvalgte"
                 ],
-            persons: [ 
+            players: [ 
                 {name: "Ola", score: 0},
                 {name: "Anne", score: 0},
                 {name: "Sofie", score: 0},
@@ -26,91 +28,29 @@ export default class TextGame1 extends Component {
             redirect: null,
             nextQuestion: false
         }
+        this.gameText = "";
     }
 
     componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
         if(this.props.roomCode == null) {
             this.setState({redirect: "/"})
         }
+        this.getQuestion();
     }
 
     /*
-    * Metode som lager element som viser første spørsmål fra array
-    *
-    * @param questions    Array av spørsmål/påstander fra state.questions
+    * Metode som henter neste spørsmål i array
+    * Når det ikke er fler spørsmål kjøres redirect til home
+    * Bruker alert som midlertidig melding til bruker
     */
-    question = (questions) => {
-        console.log("Neste")
-        let text;
-        if (this.state.nextQuestion && questions.length>0) {
-            text = questions.shift();
-        } else {
-            text = "Runden er over"
+    getQuestion = () => {
+        let text = this.state.questions.shift(); 
+        console.log("Kjør" + text)
+        this.setState({gameText: text})
+        if (text == null) {
+            alert("Spillet er slutt")
+            this.setState({redirect: "/"}) 
         }
-        //console.log("kjør")
-        return( <h3 id="gameText">{text}</h3> )
-    }
-
-    /*
-    * Metode som henter og viser neste spørsmål fra array
-    *
-    * @param questions    Array av spørsmål/påstander fra state.questions
-    */
-    nextQuestion = (questions) => {
-        const question = document.getElementById("gameText"); //Hent element for visning av spm
-        var i = questions.length; //Antall spørsmål
-        if (i>0) { //Hvis ikke flere spørsmål
-            question.textContent = questions.shift();
-        } else {
-            question.textContent=`Runden er over`
-            const buttons = document.getElementsByClassName("answerBtn");
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].style.display = "none" //Skjul knapper hvis runde over
-            }
-        }
-    }
-
-    /*
-    * Metode som oppretter knapper for svaralternativer, 
-    * setter også opp klikklyttere for disse. 
-    *
-    * @param num    Antall knapper som skal legges inn, bruker antall deltakere fra state.persons
-    */
-    buttons = () => { 
-        //const wrapper = document.getElementsByClassName("textGame")[0]; //Henter wrapper element
-        if (this.state.nextQuestion) { 
-            return (
-                <a 
-                className="nextQuestion"
-                onClick={() => {
-                    const buttons = document.getElementsByClassName("answerBtn") //Henter array av alle svar knapper
-                    this.setState({nextQuestion: false}) //Fjerner "Neste spørsmål" knapp
-                    for (let i = 0; i < buttons.length; i++) {
-                        buttons[i].style.display = "flex" //Setter display tilbake til flex så svarknapper er synlige
-                    }
-                    this.nextQuestion(this.state.questions); //Kjører nextQuestion metode som viser neste spørsmål
-                }}>
-                    Neste spørsmål
-                </a>
-            )
-        } else 
-            return (
-                this.state.persons.map((person) => ( //For hver person fra array
-                    <a 
-                    className = "answerBtn" 
-                    onClick = { () => { //Eventlistener
-                        const buttons = document.getElementsByClassName("answerBtn") //Hent array av alle knappe elementer på siden
-                        for (let i = 0; i < buttons.length; i++) {
-                            buttons[i].style.display = "none" //Skjul alle knapper
-                        }
-                        const winner = document.getElementById("gameText"); //Hent hoved tekstelement
-                        winner.textContent = `Stemmene er talt! ${person.name} ${this.state.winnerText.shift()}`
-                        this.setState({nextQuestion: true})
-                    }}>
-                        {person.name/*Tekst på knapp*/} 
-                    </a>
-                ))
-            )
     }
 
     render() {
@@ -121,8 +61,12 @@ export default class TextGame1 extends Component {
 
         return (
             <div className="textGame">
-                {this.question(this.state.questions)}
-                {this.buttons(this.state.persons)}
+                <TextGameHeader text = {this.state.gameText} />
+                <TextGameButtons 
+                    players = {this.state.players} 
+                    winnerText = {this.state.winnerText}
+                    getQuestion = {this.getQuestion}
+                />
             </div>
         ) 
     }
