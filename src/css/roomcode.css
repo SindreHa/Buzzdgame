@@ -2,6 +2,7 @@
 	display: grid;
 	width: 100%;
 	grid-template-rows: 1fr 40px;
+	overflow: hidden;
 }
 .header h1 {
 	user-select: none;
@@ -57,6 +58,7 @@
 	width: 60%;
 	display: grid;
 	align-items: center;
+	justify-items: center;
 	gap: 8px;
 	grid-template-rows: 50px 45px;
 	grid-template-columns: 1fr 1fr;
@@ -107,20 +109,6 @@ input[type="text"]
 	animation: wiggle .4s ease-out 1;
 }
 
-.input span{
-	position: absolute;
-	top: -30px;
-	left: calc(50% - (221px/2));
-	color: var(--error);
-	font-size: 15pt;
-	opacity: 0;
-	transition: opacity .3s;
-}
-
-.visible {
-	opacity: 1 !important;
-}
-
 @keyframes wiggle {
 	0% {transform: translateX(0px)}
 	20% {transform: translateX(5px)}
@@ -129,6 +117,33 @@ input[type="text"]
 	80% {transform: translateX(-5px)}
 	100% {transform: translateX(0px)}
 }
+
+#roomCodeError{
+	position: absolute;
+	user-select: none;
+	top: -45px;
+	color: var(--error);
+	font-weight: normal;
+	text-align: center;
+	border-radius: 4px;
+	font-size: 18pt;
+	padding: 4px 12px;
+	opacity: 0;
+	transition: opacity .3s;
+	margin: 0;
+}
+
+.visible {
+	animation: fadeInOut 2s ease-out 1;
+}
+
+@keyframes fadeInOut {
+	0% {opacity: 0}
+	15% {opacity: 1}
+	90% {opacity: 1}
+	100% {opacity: 0}
+}
+
 
 .btn {
 	background-color: var(--dark);
@@ -197,14 +212,34 @@ h5 {
 	100% {transform: scale(1)}
 }
 
+
+/* Component transitions */
+.roomCodeTrans-appear {
+	opacity: 0;
+}
 .roomCodeTrans-enter {
 	opacity: 0;
 }
-
-.roomCodeTrans-enter.roomCodeTrans-enter-active {
+.roomCodeTrans-enter-done {
 	opacity: 1;
-	transition: opacity 500ms ease-in;
-  }
+	transition: opacity .5s;
+	animation-name: roomTansIn;
+	animation-duration: .5s;
+	animation-iteration-count: 1;
+}
+.roomCodeTrans-exit {
+	opacity: 1;
+}
+.roomCodeTrans-exit-active {
+	opacity: 0;
+	transition: opacity 500ms;
+}
+
+@keyframes roomTansIn {
+	0% {transform: translatey(100px)}
+	70% {transform: translatey(-5px)}
+	100% {transform: translatey(0px)}
+}
 
 @media(max-width: 600px) {
 	.input {
