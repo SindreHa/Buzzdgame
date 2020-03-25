@@ -1,7 +1,20 @@
 import React, { Component } from 'react'
 import '../css/roomcode.css';
 import { Link, Redirect } from 'react-router-dom';
+import { CSSTransition }  from 'react-transition-group';
 //import $ from 'jquery'
+
+const TransIn = ({in: inProp, children }) => (
+    
+    <CSSTransition
+        unmountOnExit
+        in={inProp}
+        timeout={{ enter: 0, exit: 400 }}
+        classNames='roomCodeTrans'
+        appear >
+            {children}
+    </CSSTransition>
+);
 
 export default class RoomCode extends Component {
 
@@ -9,7 +22,8 @@ export default class RoomCode extends Component {
         super(props);
         this.state = {
             redirect: null,
-            roomCode: "demo"
+            roomCode: "demo",
+            transIn: true
         }
     }
 
@@ -33,6 +47,10 @@ export default class RoomCode extends Component {
         document.getElementById("roomCodeInput").addEventListener("animationend", function() {
             document.getElementById("roomCodeInput").classList.remove("error")
         }, false)
+
+        document.getElementById("roomCodeError").addEventListener("animationend", function() {
+            document.getElementById("roomCodeError").classList.remove("visible")
+        }, false)
     }
 
     buzzAnim = (e) => {
@@ -43,8 +61,6 @@ export default class RoomCode extends Component {
     checkRoomCode = (roomCode) => {
         if(roomCode === this.state.roomCode.toUpperCase()) {
             return true;
-        } else {
-            console.log("Input = " + roomCode + " State = " + this.state.roomCode.toLowerCase())
         }
     }
 
@@ -54,6 +70,7 @@ export default class RoomCode extends Component {
     
     submitRoomCode = () => {
         const input = document.getElementsByTagName("input")[0];
+        const errorMsg =  document.getElementById("roomCodeError");
         const roomCode = input.value.toUpperCase();
         
         if (this.checkRoomCode(roomCode)) {
@@ -64,9 +81,8 @@ export default class RoomCode extends Component {
             this.setState({redirect: "/game"})
         } else {
             input.classList.add("error")
-            document.getElementById("wrongCode").classList.add("visible")
+            errorMsg.classList.add("visible")
         }
-        
     }
 
     render() {
@@ -82,21 +98,23 @@ export default class RoomCode extends Component {
           };
         return (
             <div className="wrapper" key="RoomCode">
-                    <div className="input">
-                        <span id="wrongCode">Rommet eksisterer ikke</span>
-                        <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode"/>
-                        <a className="btn enter">
-                            Spill
-                        </a>
-                        <a onClick={this.buzzAnim} className="btn host">
-                            Lag rom
-                        </a>
-                    </div>
-                    <div style={faqWrapper}>
-                        <Link onClick={this.buzzAnim} to="/faq" className="faq">
-                            Spørsmål og svar
-                        </Link>
-                    </div>
+            <TransIn in={this.state.transIn}>
+                <div className="input">
+                    <p id="roomCodeError">Rommet eksisterer ikke</p>
+                    <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode"/>
+                    <a className="btn enter">
+                        Spill
+                    </a>
+                    <a onClick={this.buzzAnim} className="btn host">
+                        Lag rom
+                    </a>
+                </div>
+            </TransIn>
+                <div style={faqWrapper}>
+                    <Link onClick={this.buzzAnim} to="/faq" className="faq">
+                        Spørsmål og svar
+                    </Link>
+                </div>
                 
             </div>
         )

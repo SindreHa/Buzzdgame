@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import '../css/faq.css';
 import { Link } from "react-router-dom";
+import { CSSTransition }  from 'react-transition-group';
+
+const Trans = ({in: inProp, children }) => (
+    
+    <CSSTransition
+        in={inProp}
+        timeout={{ enter: 0, exit: 400 }}
+        classNames='faqTrans'
+        appear
+         >
+            {children}
+    </CSSTransition>
+);
 
 export default class Faq extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            transIn: true,
             faq: [
                 {
                     question: "Hva er Buzzdgame?", 
@@ -38,7 +52,6 @@ export default class Faq extends Component {
         
         for (i = 0; i < faq.length; i++) {
           faq[i].addEventListener("click", function() {
-              console.log("klikk")
             this.getElementsByClassName("expand-icon")[0].classList.toggle("open");
             if (this.nextElementSibling.style.maxHeight){
               this.nextElementSibling.style.maxHeight = null;
@@ -54,25 +67,28 @@ export default class Faq extends Component {
     }
 
     render() {
+
         return (
-        <div className="faqWrapper">
-        <h2 className="faqHeader">Ofte stilte spørsmål</h2>
-        {
-            this.state.faq.map((questions, i) => (
-                <div key={i} className="faqItem">
-                    <p className="faq-question" onClick={this.expand}>
-                        {questions.question}
-                        <div className="expand-icon">
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </p>
-                    <p className="faq-answer collapsed">{questions.answer}</p>
-                </div>
-            ))
-        }
+        <Trans in={this.state.transIn}>
+            <div className="faqWrapper">
+            <h2 className="faqHeader">Ofte stilte spørsmål</h2>
+            {
+                this.state.faq.map((questions, i) => (
+                    <div key={i} className="faqItem">
+                        <p className="faq-question" onClick={this.expand}>
+                            {questions.question}
+                            <div className="expand-icon">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </p>
+                        <p className="faq-answer collapsed">{questions.answer}</p>
+                    </div>
+                ))
+            }
         <Link to="/">Lukk</Link>
         </div>
+        </Trans>
         )
     }
 
