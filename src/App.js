@@ -20,6 +20,10 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getViewHeight();
+    
+    window.addEventListener('resize', () => {
+      this.getViewHeight();
+    });
   }
 
   handleRoomCode = (roomCode) => {
@@ -34,9 +38,6 @@ export default class App extends Component {
 
   render() {
 
-    window.addEventListener('resize', () => {
-      this.getViewHeight();
-    });
 
       return (
         <Router>
@@ -45,7 +46,7 @@ export default class App extends Component {
               exact path="/" 
               render={props => 
                 <RoomCode 
-                handleRoomCode={this.handleRoomCode} 
+                  handleRoomCode={this.handleRoomCode} 
                 />} 
             /> 
             <Route 
@@ -54,11 +55,11 @@ export default class App extends Component {
             />
             <Route 
               path="/game" 
-                render={props => 
-                  <TextGame1 
-                    roomCode={this.state.roomCode} 
-                    handleRoomCode={this.handleRoomCode} 
-                  />}
+              render={props => 
+                <TextGame1 
+                  roomCode={this.state.roomCode} 
+                  handleRoomCode={this.handleRoomCode} 
+                />}
             />
             <Route 
               path="/faq" 

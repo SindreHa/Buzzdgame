@@ -3,12 +3,26 @@ import '../css/textGame1.css';
 import TextGameHeader from './TextGameHeader';
 import { Redirect } from 'react-router-dom';
 import TextGameButtons from './TextGameButtons';
+import { CSSTransition }  from 'react-transition-group';
+
+const TransIn = ({in: inProp, children }) => (
+    
+    <CSSTransition
+        unmountOnExit
+        in={inProp}
+        timeout={{ enter: 0, exit: 400 }}
+        classNames='textGameTrans'
+        appear >
+            {children}
+    </CSSTransition>
+);
 
 export default class TextGame1 extends Component {
 
     constructor(props) {
         super(props)
         this.state = { //Placeholder data
+            transIn: true,
             questions: [
                 "Hvem i rommet er den smarteste?", 
                 "Hvem i rommet har den beste latteren?", 
@@ -65,14 +79,16 @@ export default class TextGame1 extends Component {
         }
 
         return (
-            <div className="textGame">
-                <TextGameHeader text = {this.state.gameText} />
-                <TextGameButtons 
-                    players = {this.state.players} 
-                    winnerText = {this.state.winnerText}
-                    getQuestion = {this.getQuestion}
-                />
-            </div>
+            <TransIn in={this.state.transIn}>
+                <div className="textGame">
+                    <TextGameHeader text = {this.state.gameText} />
+                    <TextGameButtons 
+                        players = {this.state.players} 
+                        winnerText = {this.state.winnerText}
+                        getQuestion = {this.getQuestion}
+                    />
+                </div>
+            </TransIn>
         ) 
     }
 }

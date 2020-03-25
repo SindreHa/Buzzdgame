@@ -18,6 +18,7 @@
 	text-decoration: none;
 }
 .navHeader p {
+	user-select: none;
 	position: absolute;
 	bottom: 0px;
 	margin: 0;
@@ -31,11 +32,20 @@
 	opacity: 0;
 }
 
+.headerTrans-appear {
+	opacity: 0;
+}
 .headerTrans-enter {
 	opacity: 0;
 }
-
-.headerTrans-enter.headerTrans-enter-active {
+.headerTrans-enter-done {
 	opacity: 1;
-	transition: opacity 500ms ease-in;
+	transition: opacity 1000ms;
+}
+.headerTrans-exit {
+	opacity: 1;
+}
+.headerTrans-exit-active {
+	opacity: 0;
+	transition: opacity 500ms;
 }

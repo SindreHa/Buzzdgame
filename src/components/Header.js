@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../css/header.css';
-//import  CSSTransition  from 'react-transition-group';
 import { Link } from "react-router-dom";
 
 export default class Header extends Component {
@@ -26,14 +25,6 @@ export default class Header extends Component {
             buzz.classList.add("zoomBounce");
             this.props.handleRoomCode(null)
         }, false)
-
-        
-        /* document.getElementById("roomCode").addEventListener("transitionend", () => {
-            if (!this.props.roomCode) {
-                console.log("end")
-                this.clearRoomCode()
-            }
-        }) */
     }
 
     toggleRoomCode = () => {
@@ -46,20 +37,12 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div className="navHeader">
-                {/* <CSSTransition
-                    in={true}
-                    appear={true} 
-                    timeout={200} 
-                    classNames="headerTrans"> */}
-
+                <div className="navHeader">
                     <Link to="/" className="headerTitle" >BUZZD</Link>
-                    
-                {/* </CSSTransition> */}
-                <p id="roomCode" className="hidden">Romkode: {
-                    this.props.roomCode
-                }</p>
-            </div>
+                    <p id="roomCode" className="hidden">Romkode: {
+                        this.props.roomCode
+                    }</p>
+                </div>
         )
     }
 }
