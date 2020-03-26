@@ -3,12 +3,12 @@ import '../css/faq.css';
 import { Link } from "react-router-dom";
 import { CSSTransition }  from 'react-transition-group';
 
-const Trans = ({in: inProp, children }) => (
+const FadeIn = ({in: inProp, children }) => (
     
     <CSSTransition
         in={inProp}
         timeout={{ enter: 0, exit: 400 }}
-        classNames='faqTrans'
+        classNames='fadeIn'
         appear
          >
             {children}
@@ -69,7 +69,7 @@ export default class Faq extends Component {
     render() {
 
         return (
-        <Trans in={this.state.transIn}>
+        <FadeIn in={this.state.transIn}>
             <div className="faqWrapper">
             <h2 className="faqHeader">Ofte stilte spørsmål</h2>
             {
@@ -88,7 +88,7 @@ export default class Faq extends Component {
             }
         <Link to="/">Lukk</Link>
         </div>
-        </Trans>
+        </FadeIn>
         )
     }
 

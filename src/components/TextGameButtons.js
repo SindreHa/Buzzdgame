@@ -30,6 +30,7 @@ export default class TextGameButtons extends Component {
             return (
                 <section id="playerButtons">
                     {this.props.players.map((person, i) => ( //For hver person fra array
+                        
                         <a
                         key={i} 
                         className = "answerBtn" 
@@ -39,10 +40,10 @@ export default class TextGameButtons extends Component {
                                 buttons[i].style.display = "none" //Skjul alle knapper
                             }
                             const winner = document.getElementById("gameText"); //Hent hoved tekstelement
-                            winner.textContent = `Stemmene er talt! ${person.name} ${this.props.winnerText.shift()}`
+                            winner.textContent = `Stemmene er talt! ${person} ${this.props.winnerText.shift()}`
                             this.setState({nextQuestion: true}) //Gjør så "Neste spørsmål" knapp vises
                         }}>
-                            {person.name/*Tekst på knapp*/} 
+                            {person/*Tekst på knapp*/} 
                         </a>
                     ))}
                 </section>

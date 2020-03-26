@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import RoomCode from './components/RoomCode';
-import ChooseGame from './components/ChooseGame';
+import CreateRoom from './components/CreateRoom';
 import TextGame1 from './components/TextGame1';
 import Header from './components/Header';
 import Faq from './components/Faq';
@@ -14,7 +14,13 @@ export default class App extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        roomCode: null
+        roomCode: null,
+        rooms: [
+          {
+            roomcode: "DEMO",
+            players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
+          }
+        ]
       }
   }
 
@@ -30,6 +36,18 @@ export default class App extends Component {
       this.setState({ roomCode: roomCode })
   }
 
+  getRoom = (roomCode) => { //TODO returner kopi av array
+    const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
+    return this.state.rooms[index]
+  }
+
+  addRoom = (newRoom) => {
+    this.setState({
+      rooms: [...this.state.rooms, newRoom]
+    })
+  }
+
+
   /* Metode som henter høyde av viewport minus nettleser sin toolbar */
   getViewHeight = () => {
     let vh = window.innerHeight * 0.01;
@@ -38,7 +56,6 @@ export default class App extends Component {
 
   render() {
 
-
       return (
         <Router>
           <Header roomCode={this.state.roomCode} handleRoomCode={this.handleRoomCode}/>
@@ -46,18 +63,25 @@ export default class App extends Component {
               exact path="/" 
               render={props => 
                 <RoomCode 
-                  handleRoomCode={this.handleRoomCode} 
+                  handleRoomCode={this.handleRoomCode}
+                  rooms={this.state.rooms}
+                  getRoom={this.getRoom}
                 />} 
             /> 
             <Route 
-              path="/choose-game" 
-              component = {ChooseGame}
+              path="/create-room" 
+              render={props => 
+                <CreateRoom 
+                  handleRoomCode={this.handleRoomCode} 
+                  rooms={this.state.rooms}
+                  addRoom={this.addRoom}
+                />}
             />
             <Route 
               path="/game" 
               render={props => 
-                <TextGame1 
-                  roomCode={this.state.roomCode} 
+                <TextGame1
+                  room={this.getRoom(this.state.roomCode)}
                   handleRoomCode={this.handleRoomCode} 
                 />}
             />
