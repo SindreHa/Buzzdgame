@@ -68,6 +68,46 @@ code {
 .btn:active {
 	transform: scale(.97);
 }
+
+/* Component transitions */
+.slideIn-appear {
+	opacity: 0;
+}
+.slideIn-enter {
+	opacity: 0;
+}
+.slideIn-enter-done {
+	opacity: 1;
+	transition: opacity .5s;
+	animation-name: roomTansIn;
+	animation-duration: .5s;
+	animation-iteration-count: 1;
+}
+.slideIn-exit {
+	opacity: 1;
+}
+.slideIn-exit-active {
+	opacity: 0;
+	transition: opacity 500ms;
+}
+
+.fadeIn-appear {
+	opacity: 0;
+}
+.fadeIn-enter {
+	opacity: 0;
+}
+.fadeIn-enter-done {
+	opacity: 1;
+	transition: opacity .4s;
+}
+.fadeIn-exit {
+	opacity: 1;
+}
+.fadeIn-exit-active {
+	opacity: 0;
+	transition: opacity .4s;
+}
 @media(max-width: 800px) {
 	#root {
 		width: 100%;

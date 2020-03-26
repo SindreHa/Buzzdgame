@@ -4,13 +4,13 @@ import { Link, Redirect } from 'react-router-dom';
 import { CSSTransition }  from 'react-transition-group';
 //import $ from 'jquery'
 
-const TransIn = ({in: inProp, children }) => (
+const SlideIn = ({in: inProp, children }) => (
     
     <CSSTransition
         unmountOnExit
         in={inProp}
         timeout={{ enter: 0, exit: 400 }}
-        classNames='roomCodeTrans'
+        classNames='slideIn'
         appear >
             {children}
     </CSSTransition>
@@ -98,7 +98,7 @@ export default class RoomCode extends Component {
           };
         return (
             <div className="wrapper" key="RoomCode">
-            <TransIn in={this.state.transIn}>
+            <SlideIn in={this.state.transIn}>
                 <div className="input">
                     <p id="roomCodeError">Rommet eksisterer ikke</p>
                     <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode"/>
@@ -109,7 +109,7 @@ export default class RoomCode extends Component {
                         Lag rom
                     </Link>
                 </div>
-            </TransIn>
+            </SlideIn>
                 <div style={faqWrapper}>
                     <Link onClick={this.buzzAnim} to="/faq" className="faq">
                         Spørsmål og svar

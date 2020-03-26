@@ -178,29 +178,6 @@ h5 {
 	100% {transform: scale(1)}
 }
 
-
-/* Component transitions */
-.roomCodeTrans-appear {
-	opacity: 0;
-}
-.roomCodeTrans-enter {
-	opacity: 0;
-}
-.roomCodeTrans-enter-done {
-	opacity: 1;
-	transition: opacity .5s;
-	animation-name: roomTansIn;
-	animation-duration: .5s;
-	animation-iteration-count: 1;
-}
-.roomCodeTrans-exit {
-	opacity: 1;
-}
-.roomCodeTrans-exit-active {
-	opacity: 0;
-	transition: opacity 500ms;
-}
-
 @keyframes roomTansIn {
 	0% {transform: translatey(100px)}
 	70% {transform: translatey(-5px)}
