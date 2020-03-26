@@ -105,9 +105,9 @@ export default class RoomCode extends Component {
                     <a className="btn enter">
                         Spill
                     </a>
-                    <a onClick={this.buzzAnim} className="btn host">
+                    <Link to="create-room" onClick={this.buzzAnim} className="btn host">
                         Lag rom
-                    </a>
+                    </Link>
                 </div>
             </TransIn>
                 <div style={faqWrapper}>
