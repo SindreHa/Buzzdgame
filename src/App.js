@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import RoomCode from './components/RoomCode';
-import ChooseGame from './components/ChooseGame';
+import CreateRoom from './components/CreateRoom';
 import TextGame1 from './components/TextGame1';
 import Header from './components/Header';
 import Faq from './components/Faq';
@@ -14,7 +14,29 @@ export default class App extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        roomCode: null
+        roomCode: null,
+        rooms: [
+          {
+            roomcode: "DEMO",
+            players: [
+              {
+                name: "Ola"
+              },
+              {
+                name: "Sofie"
+              },
+              {
+                name: "Max"
+              },
+              {
+                name: "Hannah"
+              },
+              {
+                name: "Anne"
+              }
+            ]
+          }
+        ]
       }
   }
 
@@ -59,6 +81,7 @@ export default class App extends Component {
                 <TextGame1 
                   roomCode={this.state.roomCode} 
                   handleRoomCode={this.handleRoomCode} 
+                  rooms={this.state.rooms}
                 />}
             />
             <Route 
