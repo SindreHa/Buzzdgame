@@ -18,23 +18,7 @@ export default class App extends Component {
         rooms: [
           {
             roomcode: "DEMO",
-            players: [
-              {
-                name: "Ola"
-              },
-              {
-                name: "Sofie"
-              },
-              {
-                name: "Max"
-              },
-              {
-                name: "Hannah"
-              },
-              {
-                name: "Anne"
-              }
-            ]
+            players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
         ]
       }
@@ -52,12 +36,14 @@ export default class App extends Component {
       this.setState({ roomCode: roomCode })
   }
 
-  addPlayer = (newName) => {
-    /* this.setState((prevState) => {
-      room: [...prevState.room, ...newArr]
-    }) */
+  getRoom = (roomCode) => { //TODO returner kopi av array
+    const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
+    return this.state.rooms[index]
+  }
+
+  addRoom = (newRoom) => {
     this.setState({
-      room: [...this.state.room, newName]
+      rooms: [...this.state.rooms, newRoom]
     })
   }
 
@@ -77,7 +63,9 @@ export default class App extends Component {
               exact path="/" 
               render={props => 
                 <RoomCode 
-                  handleRoomCode={this.handleRoomCode} 
+                  handleRoomCode={this.handleRoomCode}
+                  rooms={this.state.rooms}
+                  getRoom={this.getRoom}
                 />} 
             /> 
             <Route 
@@ -86,16 +74,15 @@ export default class App extends Component {
                 <CreateRoom 
                   handleRoomCode={this.handleRoomCode} 
                   rooms={this.state.rooms}
-                  addPlayer={this.addPlayer}
+                  addRoom={this.addRoom}
                 />}
             />
             <Route 
               path="/game" 
               render={props => 
-                <TextGame1 
-                  roomCode={this.state.roomCode} 
+                <TextGame1
+                  room={this.getRoom(this.state.roomCode)}
                   handleRoomCode={this.handleRoomCode} 
-                  rooms={this.state.rooms}
                 />}
             />
             <Route 

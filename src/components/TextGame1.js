@@ -33,28 +33,30 @@ export default class TextGame1 extends Component {
                 "har den beste latteren og får ikke lov til å le de neste 5 minuttene!", 
                 "er mest opptatt av utseende og må la en annen person gjøre det den vil med hårsveisen til den utvalgte"
                 ],
-            players: [ 
-                {name: "Ola", score: 0},
-                {name: "Anne", score: 0},
-                {name: "Quarennc", score: 0},
-                {name: "Lorem", score: 0},
-                {name: "Hank", score: 0},
-                {name: "Sofie", score: 0},
-                {name: "Arne", score: 0},
-                {name: "Morten", score: 0},
-                {name: "Øystein", score: 0}
-                ],
             redirect: null,
             nextQuestion: false
         }
         this.gameText = "";
     }
 
-    componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
-        if(this.props.roomCode == null) {
+    componentWillMount() {
+        if(this.props.room == null) {
             this.setState({redirect: "/"})
         }
+        this.getPlayers()
+    }
+
+    componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
         this.getQuestion();
+    }
+
+    componentWillUnmount() {
+    }
+
+    getPlayers = () => {
+        this.setState({
+            players: this.props.room.players
+        })
     }
 
     /*
@@ -83,7 +85,7 @@ export default class TextGame1 extends Component {
                 <div className="textGame">
                     <TextGameHeader text = {this.state.gameText} />
                     <TextGameButtons 
-                        players = {this.state.players} 
+                        players = {this.props.room.players} 
                         winnerText = {this.state.winnerText}
                         getQuestion = {this.getQuestion}
                     />

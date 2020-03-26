@@ -1,15 +1,27 @@
 import React, { Component } from 'react'
 import '../css/createRoom.css';
 import { CSSTransition }  from 'react-transition-group';
+import { Redirect } from 'react-router-dom';
 
-const Trans = ({in: inProp, children }) => (
-    
+const FadeIn = ({in: inProp, children }) => (
     <CSSTransition
         in={inProp}
         timeout={{ enter: 0, exit: 400 }}
-        classNames='createRoomTrans'
+        classNames='fadeIn'
         appear
          >
+            {children}
+    </CSSTransition>
+);
+
+const SlideIn = ({in: inProp, children }) => (
+    
+    <CSSTransition
+        unmountOnExit
+        in={inProp}
+        timeout={{ enter: 0, exit: 400 }}
+        classNames='slideIn'
+        appear >
             {children}
     </CSSTransition>
 );
@@ -19,7 +31,14 @@ export default class CreateRoom extends Component {
     constructor(props){
         super(props);
         this.state = {
-            players: [],
+            trans: true,
+            redirect: null,
+            room: [
+                {
+                    roomcode: null,
+                    players: []
+                }
+            ],
             trans: true
         }
     }
@@ -45,8 +64,15 @@ export default class CreateRoom extends Component {
 
         document.getElementById("startGame").addEventListener("click", () => {
             this.setState({
-                players:[]
+                room:[
+                    {
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        players: this.state.room[0].players
+                    }
+                ],
+                redirect: "/"
                 })
+            this.props.addRoom(this.state.room[0])
         })
     }
 
@@ -54,7 +80,12 @@ export default class CreateRoom extends Component {
         const input = document.getElementById("addPlayerInput");
         if (input.value) {
             this.setState({
-                players: [...this.state.players, input.value]
+                room: [
+                    {
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        players: [...this.state.room[0].players, input.value]
+                    }
+                ]
                })
         }
         input.value = ""
@@ -70,32 +101,44 @@ export default class CreateRoom extends Component {
         parent.classList.add("playerRemove")
         
         parent.onanimationend = () => {
-            let filteredArray = this.state.players.filter(item => item.toString() !== targetValue)
-            this.setState({players: filteredArray});
+            let filteredArray = this.state.room[0].players.filter(item => item.toString() !== targetValue)
+            this.setState({
+                room: [
+                    {
+                        roomcode: this.state.room[0].roomcode,
+                        players: filteredArray
+                    }
+                ]
+               });
         }
     }
     
     render() {
+        
+        if (this.state.redirect) {
+            return <Redirect to={this.state.redirect} />
+        }
+
         return (
-            <Trans in={this.state.trans}>
+            <FadeIn in={this.state.trans}>
             <div className="createRoomWrapper">
                 <h2>Opprett et nytt rom</h2>
                 <section>
                     <div className="createRoomInput">
                         <p>Romkode</p>
-                        <input type="text" id="roomCodeInput"/>
+                        <input autoComplete="off" type="text" id="roomCodeInput"/>
                     </div>
                     <div className="createRoomInput">
-                        <p>Legg til spiller</p>
+                        <p>Legg til spillere</p>
                         <div id="addPlayer">
-                            <input type="text" id="addPlayerInput"/>
+                            <input autoComplete="off" type="text" id="addPlayerInput"/>
                             <a className="btn" id="addPlayerBtn">Legg til</a>
                         </div>
                     </div>
                     <div className="playerList">
                         <div className="players">
                         {
-                        this.state.players.map((player, i) => (
+                        this.state.room[0].players.map((player, i) => (
                             <div className="playerWrapper" key={i}>
                                 <p>{player}</p>
                                 <a id="removePlayer" onClick={this.removePeople}>&#10005;</a>
@@ -104,10 +147,10 @@ export default class CreateRoom extends Component {
                         }
                         </div>
                     </div>
-                    <a className="btn" id="startGame">Start spill</a>
-                    </section>
+                    <a className="btn" id="startGame">Opprett rom</a>
+                </section>
             </div>
-            </Trans>
+            </FadeIn>
         )
     }
 

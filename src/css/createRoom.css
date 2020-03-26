@@ -2,7 +2,7 @@
 .createRoomWrapper {
     display: grid;
     width: 100%;
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 80px 1fr;
 }
 
 .createRoomWrapper h2 {
@@ -22,8 +22,7 @@
     grid-template-rows: 40px 40px 200px 45px;
     gap: 15px;
     width: 600px;
-    margin: 0 auto;
-    margin-top: 20px;
+    margin: 30px auto 0;
 }
 
 .createRoomInput {
@@ -158,8 +157,11 @@
     height: 10px;
     border-radius: 50%;
 }
+.playerWrapper a:hover {
+    cursor: pointer;
+}
 .playerRemove {
-    animation: playerRemove .4s 1;
+    animation: playerRemove .3s 1;
 }
 .players::-webkit-scrollbar {
 	width: 8px;

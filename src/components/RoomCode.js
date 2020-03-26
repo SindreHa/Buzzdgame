@@ -22,7 +22,7 @@ export default class RoomCode extends Component {
         super(props);
         this.state = {
             redirect: null,
-            roomCode: "demo",
+            roomCode: null,
             transIn: true
         }
     }
@@ -59,9 +59,7 @@ export default class RoomCode extends Component {
     }
 
     checkRoomCode = (roomCode) => {
-        if(roomCode === this.state.roomCode.toUpperCase()) {
-            return true;
-        }
+        return this.props.rooms.some((room) => room.roomcode === roomCode)
     }
 
     bounceAnim() {
