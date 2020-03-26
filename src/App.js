@@ -52,6 +52,16 @@ export default class App extends Component {
       this.setState({ roomCode: roomCode })
   }
 
+  addPlayer = (newName) => {
+    /* this.setState((prevState) => {
+      room: [...prevState.room, ...newArr]
+    }) */
+    this.setState({
+      room: [...this.state.room, newName]
+    })
+  }
+
+
   /* Metode som henter høyde av viewport minus nettleser sin toolbar */
   getViewHeight = () => {
     let vh = window.innerHeight * 0.01;
@@ -59,7 +69,6 @@ export default class App extends Component {
   }
 
   render() {
-
 
       return (
         <Router>
@@ -72,8 +81,13 @@ export default class App extends Component {
                 />} 
             /> 
             <Route 
-              path="/choose-game" 
-              component = {ChooseGame}
+              path="/create-room" 
+              render={props => 
+                <CreateRoom 
+                  handleRoomCode={this.handleRoomCode} 
+                  rooms={this.state.rooms}
+                  addPlayer={this.addPlayer}
+                />}
             />
             <Route 
               path="/game" 

@@ -1,0 +1,239 @@
+
+.createRoomWrapper {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 50px 1fr;
+}
+
+.createRoomWrapper h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-weight: normal;
+    font-size: 28pt;
+    margin: 0;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.createRoomWrapper section {
+    display: grid;
+    grid-template-rows: 40px 40px 200px 45px;
+    gap: 15px;
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.createRoomInput {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.createRoomInput p {
+    margin: 0;
+    font-size: 20pt;
+    color: var(--light);
+}
+
+.createRoomInput input{
+	grid-column: 2;
+	border: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	border-radius: 2px;
+	text-align: center;
+	background-color: var(--light);
+	transition: background-color .3s, border-color .3s, box-shadow .3s;
+}
+
+.createRoomInput input:focus{
+	outline: 0;
+	background-color: var(--light);
+	box-shadow: inset 0px 0px 0px 3px var(--accent);
+}
+.createRoomInput input::placeholder {
+	text-align: center;
+	font-family: var(--font);
+	font-size: 15pt;
+	text-transform: none;
+}
+.createRoomInput input:focus::placeholder{
+	color: #999;
+}
+.createRoomInput input[type="text"]
+{
+    font-size:13pt;
+    font-family: var(--font);
+    text-transform: uppercase;
+    font-weight: normal;
+}
+#addPlayer {
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: var(--light);
+    border-radius: 2px;
+    transition: box-shadow .3s;
+    padding-left: 9px;
+}
+#addPlayer:focus-within {
+    box-shadow: inset 0px 0px 0px 3px var(--accent)
+}
+#addPlayer input {
+    text-align: left;
+    grid-column: 1;
+    height: calc(100% - 6px);
+    text-transform: none;
+}
+#addPlayer input:focus {
+    box-shadow: none;
+}
+#addPlayer .btn {
+    width: 85%;
+    height: 75%;
+    margin: 5px 5px 5px auto;
+    font-size: 10pt;
+}
+#addPlayer .btn:hover {
+    box-shadow: none;
+}
+.playerList {
+    margin-top: 10px;
+    border: 4px solid var(--borderline);
+    border-radius: 8px;
+    position: relative;
+    min-height: 100px;
+}
+.playerList::after {
+    display: block;
+    content: 'Spillere';
+    position: absolute;
+    background-color: var(--background);
+    padding: 2px 8px;
+    top: -16px;
+    left: 10px;
+    border: 2px solid var(--borderline);
+    border-radius: 4px;
+}
+.players {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap;
+    overflow: auto;
+    max-height: 100%;
+    transition: all .5s;
+}
+.playerWrapper {
+    display: flex;
+    align-items: center;
+    margin: 15px 15px 0px;
+    font-size: 20pt;
+    animation: playerAdd .4s 1;
+    transform-origin: top;
+    overflow: hidden;
+    border: 2px solid var(--borderline);
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+.playerWrapper p{
+    margin: 0;
+}
+.playerWrapper a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark);
+    margin-left: 6px;
+    padding: 3px;
+    font-size: 7pt;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.playerRemove {
+    animation: playerRemove .4s 1;
+}
+.players::-webkit-scrollbar {
+	width: 8px;
+}
+
+.players::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.players::-webkit-scrollbar-thumb {
+    background: var(--dark);
+    border-radius: 8px;
+}
+
+.players::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+@keyframes playerAdd {
+    0% {transform: scale(.8); opacity: 0;}
+    100% {transform: scale(1); opacity: 1;}
+}
+@keyframes playerRemove {
+    0% {transform: scale(1); opacity: 1;}
+    100% {transform: scale(.8); opacity: 0;}
+}
+#startGame {
+    margin: 0 auto 20px;
+    width: auto ;
+    padding: 0 14px;
+}
+
+
+/* Component transitions */
+.createRoomTrans-appear {
+	opacity: 0;
+}
+.createRoomTrans-enter {
+	opacity: 0;
+}
+.createRoomTrans-enter-done {
+	opacity: 1;
+	transition: opacity .4s;
+}
+.createRoomTrans-exit {
+	opacity: 1;
+}
+.createRoomTrans-exit-active {
+	opacity: 0;
+	transition: opacity .4s;
+}
+@media(max-width: 700px) {
+    .createRoomWrapper section{
+        grid-template-rows: 80px 80px 200px 45px;
+        width: 85%;
+        gap: 10px;
+    }
+    .createRoomWrapper h2{
+        font-size: 25pt;
+    }
+    .createRoomInput {
+        grid-template-columns: 1fr;
+        grid-template-rows: 40px 40px;
+    }
+    .createRoomInput p{
+        font-size: 16pt;
+    }
+    .createRoomInput input {
+        grid-column: 1;
+    }
+    .playerList {
+        margin-top: 20px;
+    }
+    .players p {
+        font-size: 16pt;
+    }
+}
