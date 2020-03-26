@@ -4,13 +4,13 @@ import { Link, Redirect } from 'react-router-dom';
 import { CSSTransition }  from 'react-transition-group';
 //import $ from 'jquery'
 
-const TransIn = ({in: inProp, children }) => (
+const SlideIn = ({in: inProp, children }) => (
     
     <CSSTransition
         unmountOnExit
         in={inProp}
         timeout={{ enter: 0, exit: 400 }}
-        classNames='roomCodeTrans'
+        classNames='slideIn'
         appear >
             {children}
     </CSSTransition>
@@ -22,7 +22,7 @@ export default class RoomCode extends Component {
         super(props);
         this.state = {
             redirect: null,
-            roomCode: "demo",
+            roomCode: null,
             transIn: true
         }
     }
@@ -59,9 +59,7 @@ export default class RoomCode extends Component {
     }
 
     checkRoomCode = (roomCode) => {
-        if(roomCode === this.state.roomCode.toUpperCase()) {
-            return true;
-        }
+        return this.props.rooms.some((room) => room.roomcode === roomCode)
     }
 
     bounceAnim() {
@@ -98,18 +96,18 @@ export default class RoomCode extends Component {
           };
         return (
             <div className="wrapper" key="RoomCode">
-            <TransIn in={this.state.transIn}>
+            <SlideIn in={this.state.transIn}>
                 <div className="input">
                     <p id="roomCodeError">Rommet eksisterer ikke</p>
                     <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode"/>
                     <a className="btn enter">
                         Spill
                     </a>
-                    <a onClick={this.buzzAnim} className="btn host">
+                    <Link to="create-room" onClick={this.buzzAnim} className="btn host">
                         Lag rom
-                    </a>
+                    </Link>
                 </div>
-            </TransIn>
+            </SlideIn>
                 <div style={faqWrapper}>
                     <Link onClick={this.buzzAnim} to="/faq" className="faq">
                         Spørsmål og svar
