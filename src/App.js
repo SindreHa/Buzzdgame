@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import RoomCode from './components/RoomCode';
 import CreateRoom from './components/CreateRoom';
 import TextGame1 from './components/TextGame1';
-import ProductTable from './components/ProductTable';
 import Header from './components/Header';
 import Faq from './components/Faq';
 import {
@@ -21,16 +20,7 @@ export default class App extends Component {
             roomcode: "DEMO",
             players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
-        ],
-        /*Under er for eksempel fra 
-        * https://medium.com/@chimera.zen/how-to-make-a-crud-with-netlify-create-react-app-mongodb-atlas-12adc99610e 
-        */
-        products: [],
-        inputs: [],
-        newProduct: {
-          name: '',
-          price: 0
-        }
+        ]
       }
   }
 
@@ -98,10 +88,6 @@ export default class App extends Component {
             <Route 
               path="/faq" 
               component = {Faq}
-            />
-            <Route 
-              path="/test" 
-              component = {ProductTable}
             />
         </Router>
       );
