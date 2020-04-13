@@ -47,6 +47,18 @@ export default class CreateRoom extends Component {
         this.eventListeners();
     }
 
+    wiggleError = (e) => {
+        e.setAttribute("style", "box-shadow: inset 0px 0px 0px 3px red;");
+        e.classList.add("wiggle")
+
+        e.addEventListener("animationend", function() {
+            e.classList.remove("wiggle")
+            setTimeout(() => {
+                e.setAttribute("style", "box-shadow: none;");
+            }, 1500)
+        }, false)
+    }
+
     eventListeners = () => {
         
         /* Nekt mellomrom i romkode input */
@@ -62,17 +74,31 @@ export default class CreateRoom extends Component {
             if(e.key === "Enter") this.addPlayer()
         })
 
-        document.getElementById("startGame").addEventListener("click", () => {
-            this.setState({
-                room:[
-                    {
-                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
-                        players: this.state.room[0].players
-                    }
-                ],
-                redirect: "/"
-                })
-            this.props.addRoom(this.state.room[0])
+        document.getElementById("createRoom").addEventListener("click", () => {
+            const roomcode = document.getElementById("roomCodeInput")
+            const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
+            if (!roomCodeEmpty && !this.state.room[0].players.length) {
+                this.wiggleError(roomcode)
+                this.wiggleError(document.getElementById("addPlayer"))
+                return
+            } else if(!this.state.room[0].players.length) {
+                this.wiggleError(document.getElementById("addPlayer"))
+                return
+            } else if(!roomCodeEmpty) {
+                this.wiggleError(roomcode)
+                return
+            } else {
+                this.setState({
+                    room:[
+                        {
+                            roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
+                            players: this.state.room[0].players
+                        }
+                    ],
+                    redirect: "/"
+                    })
+                this.props.addRoom(this.state.room[0]) 
+            }
         })
     }
 
@@ -83,7 +109,7 @@ export default class CreateRoom extends Component {
                 room: [
                     {
                         roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
-                        players: [...this.state.room[0].players, input.value]
+                        players: [...this.state.room[0].players, input.value.trim()]
                     }
                 ]
                })
@@ -147,7 +173,7 @@ export default class CreateRoom extends Component {
                         }
                         </div>
                     </div>
-                    <a className="btn" id="startGame">Opprett rom</a>
+                    <a className="btn" id="createRoom">Opprett rom</a>
                 </section>
             </div>
             </FadeIn>

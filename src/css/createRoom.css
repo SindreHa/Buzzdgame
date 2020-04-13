@@ -188,7 +188,8 @@
     0% {transform: scale(1); opacity: 1;}
     100% {transform: scale(.8); opacity: 0;}
 }
-#startGame {
+
+#createRoom {
     margin: 0 auto 20px;
     width: auto ;
     padding: 0 14px;
