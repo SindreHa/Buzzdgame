@@ -54,7 +54,7 @@ export default class CreateRoom extends Component {
         e.addEventListener("animationend", function() {
             e.classList.remove("wiggle")
             setTimeout(() => {
-                e.setAttribute("style", "box-shadow: none;");
+                e.setAttribute("style", null);
             }, 1500)
         }, false)
     }
@@ -74,6 +74,7 @@ export default class CreateRoom extends Component {
             if(e.key === "Enter") this.addPlayer()
         })
 
+        /* Input validering før oppretting av rom */
         document.getElementById("createRoom").addEventListener("click", () => {
             const roomcode = document.getElementById("roomCodeInput")
             const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
