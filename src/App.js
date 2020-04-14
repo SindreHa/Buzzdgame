@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import RoomCode from './components/RoomCode';
 import CreateRoom from './components/CreateRoom';
-import TextGame1 from './components/TextGame1';
+import Game from './components/Game';
 import Header from './components/Header';
 import Faq from './components/Faq';
 import {
@@ -18,6 +18,7 @@ export default class App extends Component {
         rooms: [
           {
             roomcode: "DEMO",
+            gameMode: 1,
             players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
         ],
@@ -90,7 +91,7 @@ export default class App extends Component {
             <Route 
               path="/game" 
               render={props => 
-                <TextGame1
+                <Game
                   room={this.state.activeRoom}
                   handleRoomCode={this.handleRoomCode} 
                 />}

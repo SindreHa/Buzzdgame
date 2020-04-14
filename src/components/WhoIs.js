@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../css/textGame1.css';
+import '../css/whoIs.css';
 import TextGameHeader from './TextGameHeader';
 import { Redirect } from 'react-router-dom';
 import TextGameButtons from './TextGameButtons';
@@ -17,7 +17,7 @@ const TransIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
-export default class TextGame1 extends Component {
+export default class WhoIs extends Component {
 
     constructor(props) {
         super(props)
