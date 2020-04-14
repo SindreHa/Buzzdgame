@@ -45,7 +45,7 @@ export default class RoomCode extends Component {
         })
 
         document.getElementById("roomCodeInput").addEventListener("animationend", function() {
-            document.getElementById("roomCodeInput").classList.remove("error")
+            document.getElementById("roomCodeInput").classList.remove("wiggle")
         }, false)
 
         document.getElementById("roomCodeError").addEventListener("animationend", function() {
@@ -78,7 +78,7 @@ export default class RoomCode extends Component {
             this.bounceAnim();
             this.setState({redirect: "/game"})
         } else {
-            input.classList.add("error")
+            input.classList.add("wiggle")
             errorMsg.classList.add("visible")
         }
     }
