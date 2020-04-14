@@ -37,7 +37,7 @@ export default class App extends Component {
       this.setState({ roomCode: roomCode })
   }
 
-  getRoom = (roomCode) => { //TODO returner kopi av array
+  setRoom = (roomCode) => {
     const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
     this.setState({
       rooms: [
@@ -72,7 +72,7 @@ export default class App extends Component {
                 <RoomCode 
                   handleRoomCode={this.handleRoomCode}
                   rooms={this.state.rooms}
-                  getRoom={this.getRoom}
+                  setRoom={this.setRoom}
                 />} 
             /> 
             <Route 
