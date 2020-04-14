@@ -12,8 +12,9 @@ export default class Game extends Component {
 
     componentWillMount() {
         /* Sjekker om rom data er sendt inn, hvis ikke redirect til home */
-        if(!this.props.room) {
+        if(!this.props.room || !this.props.room.gameMode) {
             this.setState({redirect: "/"})
+            this.props.handleRoomCode("")
         }
     }
 
@@ -23,13 +24,20 @@ export default class Game extends Component {
             return <Redirect to={this.state.redirect} />
         }
 
-        if (this.props.room.gameMode == 1) {
-            return (
-                <WhoIs
+        switch(this.props.room.gameMode) {
+            case 1:
+                return (
+                    <WhoIs
                     room={this.props.room}
                     handleRoomCode={this.props.handleRoomCode}
-                />
-            )
-        }
+                    /> 
+                )
+            case 2:
+                return (
+                    {/* Et annet spill */}
+                )
+            default:
+                this.setState({redirect: "/"})
+          }
     }
 }
