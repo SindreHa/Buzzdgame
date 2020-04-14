@@ -35,24 +35,42 @@ export default class RoomCode extends Component {
 
     eventListeners = () => {
         /* Event lyttere for "Spill" knapp */
-        document.getElementsByClassName("enter")[0].addEventListener("click", () => {
+        document.getElementsByClassName("enter")[0].onclick = () => {
             this.submitRoomCode();
-        })
+        }
 
-        document.getElementById("roomCodeInput").addEventListener("keyup", (e) => {
+        document.getElementById("roomCodeInput").onkeyup = (e) => {
             if (document.activeElement === document.getElementById("roomCodeInput") && e.key === "Enter") {
                 this.submitRoomCode();
             }
-        })
+        }
 
         /* Lyttere som fjerner animasjon CSS klasser etter fullført */
-        document.getElementById("roomCodeInput").addEventListener("animationend", function() {
+        document.getElementById("roomCodeInput").onanimationend = () => {
             document.getElementById("roomCodeInput").classList.remove("wiggle")
-        }, false)
+        }
 
-        document.getElementById("roomCodeError").addEventListener("animationend", function() {
+        document.getElementById("roomCodeError").onanimationend = () => {
             document.getElementById("roomCodeError").classList.remove("visible")
-        }, false)
+        }
+
+        var previousValue = document.getElementById('roomCodeInput').value;
+        var pattern = /^\S*$/;
+
+        /* Regex sjekk av input, fjerner mellomrom */
+        function validateInput(e) {
+            e = e || window.event;
+            var newValue = e.target.value || '';
+
+            if (newValue.match(pattern)) {
+                previousValue = newValue;
+            } else {
+                e.target.value = previousValue;
+            }
+        }
+
+        /* Nekt mellomrom i romkode input */
+        document.getElementById("roomCodeInput").onkeyup = validateInput;
     }
 
     /* Animasjon på header */
@@ -103,7 +121,7 @@ export default class RoomCode extends Component {
             <SlideIn in={this.state.transIn}>
                 <div className="input">
                     <p id="roomCodeError">Rommet eksisterer ikke</p>
-                    <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode"/>
+                    <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode" maxLength="8"/>
                     <a className="btn enter">
                         Spill
                     </a>

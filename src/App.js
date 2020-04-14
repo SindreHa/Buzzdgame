@@ -29,9 +29,9 @@ export default class App extends Component {
   componentDidMount() {
     this.getViewHeight();
     
-    window.addEventListener('resize', () => {
+    window.onresize = () => {
       this.getViewHeight();
-    });
+    };
   }
 
   /* Setter aktiv romkode som vises i header */

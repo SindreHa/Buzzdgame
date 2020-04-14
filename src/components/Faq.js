@@ -78,17 +78,17 @@ export default class Faq extends Component {
                     <div key={i} className="faqItem">
                         <p className="faq-question" onClick={this.expand}>
                             {questions.question}
-                            <div className="expand-icon">
+                            <i className="expand-icon">
                                 <span></span>
                                 <span></span>
-                            </div>
+                            </i>
                         </p>
                         <p className="faq-answer collapsed">{questions.answer}</p>
                     </div>
                 ))
             }
-        <Link to="/">Lukk</Link>
-        </div>
+            <Link to="/">Lukk</Link>
+            </div>
         </FadeIn>
         )
     }

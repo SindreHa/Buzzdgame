@@ -156,6 +156,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    user-select: none;
 }
 .playerWrapper a:hover {
     cursor: pointer;
