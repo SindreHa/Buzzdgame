@@ -1,4 +1,4 @@
-# Buzzdgame · [![npm version](https://badge.fury.io/js/react.svg)](//npmjs.com/package/react) [![Dependecy Status](https://david-dm.org/sindreha/buzzdgame.svg)]() [![Version](https://img.shields.io/badge/Version-0.2-Green.svg)](https://shields.io/) 
+# Buzzdgame · [![npm version](https://badge.fury.io/js/react.svg)](//npmjs.com/package/react) [![Dependecy Status](https://david-dm.org/sindreha/buzzdgame.svg)]() [![Version](https://img.shields.io/badge/Version-0.3-Green.svg)](https://shields.io/) 
 Spil for sosiale sammenhenger - Get Buzzd! 
 
 ## Hva er buzzdgame
@@ -20,4 +20,4 @@ npm install
 ### Hosting
 Siden blir hostet med tjenesten [Netlify](https://www.netlify.com/).
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/181878ef-30e7-4b8b-91f7-6e414b339c69/deploy-status)](https://app.netlify.com/sites/buzzdgame/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/41bf0785-59d1-4e69-80f4-bce74b2cc6d3/deploy-status)](https://app.netlify.com/sites/buzzdgame/deploys)
