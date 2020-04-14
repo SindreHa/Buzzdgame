@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import RoomCode from './components/RoomCode';
 import CreateRoom from './components/CreateRoom';
-import TextGame1 from './components/TextGame1';
+import Game from './components/Game';
 import Header from './components/Header';
 import Faq from './components/Faq';
 import {
@@ -18,6 +18,7 @@ export default class App extends Component {
         rooms: [
           {
             roomcode: "DEMO",
+            gameMode: 1,
             players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
         ],
@@ -33,10 +34,12 @@ export default class App extends Component {
     });
   }
 
+  /* Setter aktiv romkode som vises i header */
   handleRoomCode = (roomCode) => {
       this.setState({ roomCode: roomCode })
   }
 
+  /* Setter aktivt rom som brukes når spiller trykker "spill" */
   setRoom = (roomCode) => {
     const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
     this.setState({
@@ -48,6 +51,7 @@ export default class App extends Component {
     //return this.state.rooms[index]
   }
 
+  /* Legger til nytt rom i state */
   addRoom = (newRoom) => {
     this.setState({
       rooms: [...this.state.rooms, newRoom]
@@ -87,7 +91,7 @@ export default class App extends Component {
             <Route 
               path="/game" 
               render={props => 
-                <TextGame1
+                <Game
                   room={this.state.activeRoom}
                   handleRoomCode={this.handleRoomCode} 
                 />}

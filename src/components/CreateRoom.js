@@ -47,6 +47,7 @@ export default class CreateRoom extends Component {
         this.eventListeners();
     }
 
+    /* Metode som legger til wiggle effekt på element */
     wiggleError = (e) => {
         e.setAttribute("style", "box-shadow: inset 0px 0px 0px 3px red;");
         e.classList.add("wiggle")
