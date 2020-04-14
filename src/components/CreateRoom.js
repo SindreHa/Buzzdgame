@@ -36,6 +36,7 @@ export default class CreateRoom extends Component {
             room: [
                 {
                     roomcode: null,
+                    gameMode: null,
                     players: []
                 }
             ],
@@ -94,6 +95,7 @@ export default class CreateRoom extends Component {
                     room:[
                         {
                             roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
+                            gameMode: 1,
                             players: this.state.room[0].players
                         }
                     ],
