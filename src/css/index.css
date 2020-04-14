@@ -50,6 +50,7 @@ code {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	user-select: none;
 }
 .btn:hover {
 	/*background-color: var(--darker);*/
@@ -107,6 +108,19 @@ code {
 .fadeIn-exit-active {
 	opacity: 0;
 	transition: opacity .4s;
+}
+
+/* Animations */
+.wiggle {
+	animation: wiggle .4s ease-out 1;
+}
+@keyframes wiggle {
+	0% {transform: translateX(0px)}
+	20% {transform: translateX(5px)}
+	40% {transform: translateX(-5px)}
+	60% {transform: translateX(5px)}
+	80% {transform: translateX(-5px)}
+	100% {transform: translateX(0px)}
 }
 @media(max-width: 800px) {
 	#root {
