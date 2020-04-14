@@ -73,6 +73,7 @@ export default class RoomCode extends Component {
         
         if (this.checkRoomCode(roomCode)) {
             this.props.handleRoomCode(roomCode);
+            this.props.getRoom(roomCode)
             input.value = "";
             input.blur();
             this.bounceAnim();

@@ -20,7 +20,8 @@ export default class App extends Component {
             roomcode: "DEMO",
             players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
-        ]
+        ],
+          activeRoom: null
       }
   }
 
@@ -38,7 +39,13 @@ export default class App extends Component {
 
   getRoom = (roomCode) => { //TODO returner kopi av array
     const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
-    return this.state.rooms[index]
+    this.setState({
+      rooms: [
+        ...this.state.rooms
+      ],
+        activeRoom: this.state.rooms[index]
+    })
+    //return this.state.rooms[index]
   }
 
   addRoom = (newRoom) => {
@@ -81,7 +88,7 @@ export default class App extends Component {
               path="/game" 
               render={props => 
                 <TextGame1
-                  room={this.getRoom(this.state.roomCode)}
+                  room={this.state.activeRoom}
                   handleRoomCode={this.handleRoomCode} 
                 />}
             />
