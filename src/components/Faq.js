@@ -28,11 +28,11 @@ export default class Faq extends Component {
                 },
                 {
                     question: "Hvordan spiller jeg?", 
-                    answer: "For å spille kan du enten å bli med i et eksisterende rom med en romkode eller opprette ditt eget. NB! Funksjonalitet er ikke på plass enda for dette men du kan se en demo ved å bruke koden 'DEMO'"
+                    answer: "For å spille kan du enten å bli med i et eksisterende rom med en romkode eller opprette ditt eget. Hvis du vil se en demo kan du bruke koden DEMO"
                 },
                 {
                     question: "Hvordan oppretter jeg et eget rom?", 
-                    answer: "Skriv inn ønsket romkode og trykk lag rom for å opprette et eget rom for å så velge hvilket spill rommet skal ha. NB! Denne funksjonen er ikke tilgjengelig enda"
+                    answer: "Trykk på knappen Lag Rom for å kunne opprette et eget rom med egne spillere, bruk så romkoden du skrev inn for å starte spillet."
                 },
                 {
                     question: "Hvorfor fungerer ikke alle knapper?", 
