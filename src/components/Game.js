@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import WhoIs from './WhoIs';
+import WhoInRoom from './WhoInRoom';
 import { Redirect } from 'react-router-dom';
 
 export default class Game extends Component {
@@ -27,7 +27,7 @@ export default class Game extends Component {
         switch(this.props.room.gameMode) {
             case 1:
                 return (
-                    <WhoIs
+                    <WhoInRoom
                     room={this.props.room}
                     handleRoomCode={this.props.handleRoomCode}
                     /> 

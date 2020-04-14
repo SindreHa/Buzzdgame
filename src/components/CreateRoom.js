@@ -62,22 +62,37 @@ export default class CreateRoom extends Component {
     }
 
     eventListeners = () => {
-        
+
+        var previousValue = document.getElementById('roomCodeInput').value;
+        var pattern = /^\S*$/;
+
+        /* Regex sjekk av input, fjerner mellomrom */
+        function validateInput(e) {
+            e = e || window.event;
+            var newValue = e.target.value || '';
+
+            if (newValue.match(pattern)) {
+                previousValue = newValue;
+            } else {
+                e.target.value = previousValue;
+            }
+        }
+
         /* Nekt mellomrom i romkode input */
-        document.getElementById("roomCodeInput").addEventListener("keydown", (e) => {
-             if(e.which === 32) e.preventDefault();
-        })
+        document.getElementById("roomCodeInput").onkeyup = validateInput;
 
-        document.getElementById("addPlayerBtn").addEventListener("click", () => {
+        /* Legg til spiller */
+        document.getElementById("addPlayerBtn").onclick = () => {
             this.addPlayer()
-        })
+        }
 
-        document.getElementById("addPlayerInput").addEventListener("keydown", (e) => {
+        /* Legg til spiller med enter tast */
+        document.getElementById("addPlayerInput").onkeydown = (e) => {
             if(e.key === "Enter") this.addPlayer()
-        })
+        }
 
         /* Input validering før oppretting av rom */
-        document.getElementById("createRoom").addEventListener("click", () => {
+        document.getElementById("createRoom").onclick = () => {
             const roomcode = document.getElementById("roomCodeInput")
             const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
             if (!roomCodeEmpty && !this.state.room[0].players.length) {
@@ -103,7 +118,7 @@ export default class CreateRoom extends Component {
                     })
                 this.props.addRoom(this.state.room[0]) 
             }
-        })
+        }
     }
 
     addPlayer = () => {
@@ -156,7 +171,7 @@ export default class CreateRoom extends Component {
                 <section>
                     <div className="createRoomInput">
                         <p>Romkode</p>
-                        <input autoComplete="off" type="text" id="roomCodeInput"/>
+                        <input autoComplete="off" maxLength="8" type="text" id="roomCodeInput"/>
                     </div>
                     <div className="createRoomInput">
                         <p>Legg til spillere</p>
