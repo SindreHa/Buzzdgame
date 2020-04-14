@@ -34,6 +34,7 @@ export default class RoomCode extends Component {
 
 
     eventListeners = () => {
+        /* Event lyttere for "Spill" knapp */
         document.getElementsByClassName("enter")[0].addEventListener("click", () => {
             this.submitRoomCode();
         })
@@ -44,6 +45,7 @@ export default class RoomCode extends Component {
             }
         })
 
+        /* Lyttere som fjerner animasjon CSS klasser etter fullført */
         document.getElementById("roomCodeInput").addEventListener("animationend", function() {
             document.getElementById("roomCodeInput").classList.remove("wiggle")
         }, false)
@@ -53,19 +55,22 @@ export default class RoomCode extends Component {
         }, false)
     }
 
+    /* Animasjon på header */
     buzzAnim = (e) => {
         if(e.target.tagName.toUpperCase() === 'input' || e.target.classList.contains('btn'))
             document.getElementsByClassName("headerTitle")[0].classList.add("buzz")
     }
 
+    bounceAnim() {
+        document.getElementsByClassName("headerTitle")[0].classList.add("zoomBounce")
+    }
+
+    /* Sjekker om rom eksisterer */
     checkRoomCode = (roomCode) => {
         return this.props.rooms.some((room) => room.roomcode === roomCode)
     }
 
-    bounceAnim() {
-        document.getElementsByClassName("headerTitle")[0].classList.add("zoomBounce")
-    }
-    
+    /* Sender inn romkode til App.js som så prosseserer med gjeldende kode */
     submitRoomCode = () => {
         const input = document.getElementsByTagName("input")[0];
         const errorMsg =  document.getElementById("roomCodeError");

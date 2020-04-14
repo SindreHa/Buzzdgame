@@ -62,6 +62,7 @@ export default class TextGame1 extends Component {
     }
 
     componentWillMount() {
+        /* Sjekker om rom data er sendt inn, hvis ikke redirect til home */
         if(!this.props.room) {
             this.setState({redirect: "/"})
         } else {
@@ -69,11 +70,8 @@ export default class TextGame1 extends Component {
         }
     }
 
-    componentDidMount() { //Når komponenten har tegnet seg ferdig på DOM
+    componentDidMount() {
         this.getQuestion();
-    }
-
-    componentWillUnmount() {
     }
 
     getPlayers = () => {

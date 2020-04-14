@@ -33,10 +33,12 @@ export default class App extends Component {
     });
   }
 
+  /* Setter aktiv romkode som vises i header */
   handleRoomCode = (roomCode) => {
       this.setState({ roomCode: roomCode })
   }
 
+  /* Setter aktivt rom som brukes når spiller trykker "spill" */
   setRoom = (roomCode) => {
     const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
     this.setState({
@@ -48,6 +50,7 @@ export default class App extends Component {
     //return this.state.rooms[index]
   }
 
+  /* Legger til nytt rom i state */
   addRoom = (newRoom) => {
     this.setState({
       rooms: [...this.state.rooms, newRoom]

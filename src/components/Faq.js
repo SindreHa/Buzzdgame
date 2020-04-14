@@ -46,6 +46,7 @@ export default class Faq extends Component {
         this.expandListener()
     }
 
+    /* Vis/skjul svar */
     expandListener = () => {
         var faq = document.getElementsByClassName("faq-question");
         var i;

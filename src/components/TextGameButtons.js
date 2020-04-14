@@ -15,13 +15,18 @@ export default class TextGameButtons extends Component {
                 <a 
                 className="nextQuestion"
                 onClick={() => {
-                    const buttons = document.getElementsByClassName("answerBtn") //Henter array av alle svar knapper
-                    this.setState({nextQuestion: false}) //Fjerner "Neste spørsmål" knapp
+                    /* Henter array av alle svar knapper */
+                    const buttons = document.getElementsByClassName("answerBtn")
+                    /* Fjerner "Neste spørsmål" knapp */
+                    this.setState({nextQuestion: false})
                     for (let i = 0; i < buttons.length; i++) {
-                        buttons[i].style.display = "flex" //Setter display tilbake til flex så svarknapper er synlige
+                        /* Setter display tilbake til flex så svarknapper er synlige */
+                        buttons[i].style.display = "flex"
                     }
-                    this.props.getQuestion(); //Kjører getQuestion i TextGame1
-                    this.setState({nextQuestion: false}) //Gjør så "Neste spørsmål" knapp vises
+                    /* Kjører getQuestion i TextGame1 */
+                    this.props.getQuestion();
+                    /* Gjør så "Neste spørsmål" knapp vises */
+                    this.setState({nextQuestion: false})
                 }}>
                     Neste spørsmål
                 </a>
@@ -34,14 +39,19 @@ export default class TextGameButtons extends Component {
                         <a
                         key={i} 
                         className = "answerBtn" 
-                        onClick = { () => { //Eventlistener
-                            const buttons = document.getElementsByClassName("answerBtn") //Hent array av alle knappe elementer på siden
+                        onClick = { () => {
+                            /* Hent array av alle knappe elementer på siden */
+                            const buttons = document.getElementsByClassName("answerBtn")
                             for (let i = 0; i < buttons.length; i++) {
                                 buttons[i].style.display = "none" //Skjul alle knapper
                             }
-                            const winner = document.getElementById("gameText"); //Hent hoved tekstelement
-                            winner.textContent = `Stemmene er talt! ${person} ${this.props.winnerText.shift()}`
-                            this.setState({nextQuestion: true}) //Gjør så "Neste spørsmål" knapp vises
+                            /* Hent hoved tekstelement */
+                            const winner = document.getElementById("gameText");
+                            /* Velg random vinnertekst med posisjon i array */
+                            const winnerText = Math.floor(Math.random() * this.props.winnerText.length)
+                            winner.textContent = `Stemmene er talt! ${person} ${this.props.winnerText[winnerText]}`
+                            /* Gjør så "Neste spørsmål" knapp vises */
+                            this.setState({nextQuestion: true})
                         }}>
                             {person/*Tekst på knapp*/} 
                         </a>
