@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../css/createRoom.css';
 import { CSSTransition }  from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
+import Select from 'react-select'
 
 const FadeIn = ({in: inProp, children }) => (
     <CSSTransition
@@ -26,6 +27,40 @@ const SlideIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+const customSelectStyle = {
+    control: (provided, state) => ({
+        ...provided,
+        borderRadius: '2px',
+        border: 'none',
+        boxShadow: state.isFocused ? 'inset 0px 0px 0px 2px var(--accent)' : '',
+        transition: 'box-shadow .3s'
+    }),
+    option: (provided, state) => ({
+        ...provided,
+        color: 'var(--dark)',
+        backgroundColor: state.isSelected ? '#ccc' : '#fff',
+        transition: 'all .2s',
+        '&:hover': {
+            backgroundColor: 'var(--dark)',
+            color: 'var(--light)'
+          }
+    }),
+    dropdownIndicator: (base, state) => ({
+        ...base,
+        transition: 'all .2s ease',
+        transform: state.isFocused ? 'rotate(180deg)' : 'null'
+      }),
+      menu: (base, state) => ({
+        ...base,
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
+      }),
+      menuList: (base, state) => ({
+        ...base,
+        padding: 'none'
+      }),
+    
+}
+
 export default class CreateRoom extends Component {
     
     constructor(props){
@@ -40,7 +75,10 @@ export default class CreateRoom extends Component {
                     players: []
                 }
             ],
-            trans: true
+            trans: true,
+            gameModes: [
+                { value: '1', label: 'Hvem i Rommet' }
+                ]
         }
     }
 
@@ -56,7 +94,7 @@ export default class CreateRoom extends Component {
         e.addEventListener("animationend", function() {
             e.classList.remove("wiggle")
             setTimeout(() => {
-                e.setAttribute("style", null);
+                e.removeAttribute("style");
             }, 1500)
         }, false)
     }
@@ -95,11 +133,12 @@ export default class CreateRoom extends Component {
         document.getElementById("createRoom").onclick = () => {
             const roomcode = document.getElementById("roomCodeInput")
             const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
-            if (!roomCodeEmpty && !this.state.room[0].players.length) {
+            const room = this.state.room[0]
+            if (!roomCodeEmpty && !room.players.length) {
                 this.wiggleError(roomcode)
                 this.wiggleError(document.getElementById("addPlayer"))
                 return
-            } else if(!this.state.room[0].players.length) {
+            } else if(!room.players.length ) {
                 this.wiggleError(document.getElementById("addPlayer"))
                 return
             } else if(!roomCodeEmpty) {
@@ -110,7 +149,7 @@ export default class CreateRoom extends Component {
                     room:[
                         {
                             roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
-                            gameMode: 1,
+                            gameMode: this.state.room[0].gameMode,
                             players: this.state.room[0].players
                         }
                     ],
@@ -128,6 +167,7 @@ export default class CreateRoom extends Component {
                 room: [
                     {
                         roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        gameMode: this.state.room[0].gameMode,
                         players: [...this.state.room[0].players, input.value.trim()]
                     }
                 ]
@@ -150,13 +190,28 @@ export default class CreateRoom extends Component {
             this.setState({
                 room: [
                     {
-                        roomcode: this.state.room[0].roomcode,
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        gameMode: this.state.room[0].gameMode,
                         players: filteredArray
                     }
                 ]
                });
         }
     }
+
+    /* Hent ut valgt spill verdi fra select */
+    handleGamePick = (selectedOption) => {
+        document.getElementById("gameSelect").blur()
+        this.setState({ 
+            room: [
+                {
+                    roomcode: this.state.room.roomcode,
+                    gameMode: selectedOption ? selectedOption.value : 0,
+                    players: this.state.room[0].players
+                }
+            ]
+        });
+      }
     
     render() {
         
@@ -172,6 +227,18 @@ export default class CreateRoom extends Component {
                     <div className="createRoomInput">
                         <p>Romkode</p>
                         <input autoComplete="off" maxLength="8" type="text" id="roomCodeInput"/>
+                    </div>
+                    <div className="createRoomInput">
+                        <p>Velg spilltype</p>
+                        <Select
+                            id="gameSelect"
+                            options={this.state.gameModes}
+                            value={this.state.gameModes[0]}
+                            styles={customSelectStyle}
+                            placeholder="Velg spill"
+                            onChange={this.handleGamePick}
+                            isSearchable={false}
+                        />
                     </div>
                     <div className="createRoomInput">
                         <p>Legg til spillere</p>
