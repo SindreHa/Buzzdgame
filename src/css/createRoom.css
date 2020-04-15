@@ -19,7 +19,7 @@
 
 .createRoomWrapper section {
     display: grid;
-    grid-template-rows: 40px 40px 200px 45px;
+    grid-template-rows: 40px 40px 40px 200px 45px;
     gap: 15px;
     width: 600px;
     margin: 30px auto 0;
@@ -217,7 +217,7 @@
 }
 @media(max-width: 700px) {
     .createRoomWrapper section{
-        grid-template-rows: 80px 80px 200px 45px;
+        grid-template-rows: 80px 80px 80px 200px 45px;
         width: 85%;
         gap: 10px;
     }
