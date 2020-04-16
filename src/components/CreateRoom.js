@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../css/createRoom.css';
 import { CSSTransition }  from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
-import Select from 'react-select'
+import DropdownSelect from './DropdownSelect';
 
 const FadeIn = ({in: inProp, children }) => (
     <CSSTransition
@@ -27,41 +27,6 @@ const SlideIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
-/* Stil på gameSelect dropdown */
-const customSelectStyle = {
-    control: (provided, state) => ({
-        ...provided,
-        borderRadius: '2px',
-        border: 'none',
-        boxShadow: state.isFocused ? 'inset 0px 0px 0px 2px var(--accent)' : '',
-        transition: 'box-shadow .3s'
-    }),
-    option: (provided, state) => ({
-        ...provided,
-        color: 'var(--dark)',
-        backgroundColor: state.isSelected ? '#ccc' : '#fff',
-        transition: 'all .2s',
-        '&:hover': {
-            backgroundColor: 'var(--dark)',
-            color: 'var(--light)'
-          }
-    }),
-    dropdownIndicator: (base, state) => ({
-        ...base,
-        transition: 'all .3s ease-out',
-        transform: state.isFocused ? 'rotate(180deg)' : 'null'
-      }),
-    menu: (base) => ({
-        ...base,
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-        animationName: 'dropDownBounce',
-        animationDuration: '.4s',
-        animationIterationCount: '1',
-        marginTop: '6px',
-        borderRadius: '2px'
-    })
-}
-
 export default class CreateRoom extends Component {
     
     constructor(props){
@@ -78,7 +43,7 @@ export default class CreateRoom extends Component {
             ],
             trans: true,
             gameModes: [
-                { value: '1', label: 'Hvem i Rommet' }
+                { value: 1, label: 'Hvem i Rommet' }
                 ]
         }
     }
@@ -150,7 +115,7 @@ export default class CreateRoom extends Component {
                     room:[
                         {
                             roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
-                            gameMode: this.state.room[0].gameMode,
+                            gameMode: this.state.room[0].gameMode ? this.state.room[0].gameMode : this.state.gameModes[0].value,
                             players: this.state.room[0].players
                         }
                     ],
@@ -202,7 +167,6 @@ export default class CreateRoom extends Component {
 
     /* Hent ut valgt spill verdi fra select */
     handleGamePick = (selectedOption) => {
-        document.getElementById("gameSelect").blur()
         this.setState({ 
             room: [
                 {
@@ -231,14 +195,9 @@ export default class CreateRoom extends Component {
                     </div>
                     <div className="createRoomInput">
                         <p>Velg spilltype</p>
-                        <Select
-                            id="gameSelect"
-                            options={this.state.gameModes}
-                            value={this.state.gameModes[0]}
-                            styles={customSelectStyle}
-                            placeholder="Velg spill"
-                            onChange={this.handleGamePick}
-                            isSearchable={false}
+                        <DropdownSelect 
+                            gameModes={this.state.gameModes} 
+                            handleGamePick={this.handleGamePick}
                         />
                     </div>
                     <div className="createRoomInput">
