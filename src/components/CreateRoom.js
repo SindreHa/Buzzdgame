@@ -27,6 +27,7 @@ const SlideIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+/* Stil på gameSelect dropdown */
 const customSelectStyle = {
     control: (provided, state) => ({
         ...provided,
@@ -47,18 +48,18 @@ const customSelectStyle = {
     }),
     dropdownIndicator: (base, state) => ({
         ...base,
-        transition: 'all .2s ease',
+        transition: 'all .3s ease-out',
         transform: state.isFocused ? 'rotate(180deg)' : 'null'
       }),
-      menu: (base, state) => ({
+    menu: (base) => ({
         ...base,
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
-      }),
-      menuList: (base, state) => ({
-        ...base,
-        padding: 'none'
-      }),
-    
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+        animationName: 'dropDownBounce',
+        animationDuration: '.4s',
+        animationIterationCount: '1',
+        marginTop: '6px',
+        borderRadius: '2px'
+    })
 }
 
 export default class CreateRoom extends Component {
