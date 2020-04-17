@@ -5,7 +5,8 @@ export default class TextGameButtons extends Component {
     constructor(props){
         super(props);
         this.state = {
-            nextQuestion: false
+            nextQuestion: false,
+            buttonText: this.props.buttonText
         }
     }
 
@@ -19,7 +20,7 @@ export default class TextGameButtons extends Component {
             buttons[i].style.display = "flex"
         }
         /* Kjører getQuestion i TextGame1 */
-        this.props.getQuestion();
+        this.props.getNext();
         /* Gjør så "Neste spørsmål" knapp vises */
         this.setState({nextQuestion: false})
     }
@@ -32,15 +33,30 @@ export default class TextGameButtons extends Component {
             buttons[i].style.display = "none" //Skjul alle knapper
         }
         /* Hent hoved tekstelement */
-        const winner = document.getElementById("gameText");
+        const gameText = document.getElementById("gameText");
         /* Velg random vinnertekst med posisjon i array */
-        const winnerText = Math.floor(Math.random() * this.props.winnerText.length)
-        winner.textContent = `Stemmene er talt! ${name} ${this.props.winnerText[winnerText]}`
+        if (this.props.gameMode == 1) {
+            const winnerText = Math.floor(Math.random() * this.props.winnerText.length)
+            gameText.textContent = `Stemmene er talt! ${name} ${this.props.winnerText[winnerText]}`
+        } else if (this.props.gameMode == 2) {
+            const winnerText = Math.floor(Math.random() * this.props.winnerText.length)
+            gameText.textContent = `test`
+        }
         /* Gjør så "Neste spørsmål" knapp vises */
         this.setState({nextQuestion: true})
     }
 
     render() {
+
+        let btnTextArr = []
+
+        if (this.props.gameMode == 1) {
+            btnTextArr = this.state.buttonText
+        } else {
+            var arr = this.state.buttonText.shift()
+            btnTextArr = [arr.alternatives]
+        }
+
         if (this.state.nextQuestion) { 
             return (
                 <a 
@@ -52,12 +68,13 @@ export default class TextGameButtons extends Component {
         } else 
             return (
                 <section id="playerButtons">
-                    {this.props.players.map((person, i) => (
+                    {
+                    btnTextArr.map((text, i) => (
                         <a
                         key={i} 
                         className = "answerBtn" 
                         onClick = {this.submitVote}>
-                            {person/*Tekst på knapp*/} 
+                            {text/*Tekst på knapp*/} 
                         </a>
                     ))}
                 </section>

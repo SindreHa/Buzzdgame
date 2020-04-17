@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import '../css/textGame.css';
 import WhoInRoom from './WhoInRoom';
+import WhoIsLikely from './WhoIsLikely';
 import { Redirect } from 'react-router-dom';
 
 export default class Game extends Component {
@@ -34,7 +36,10 @@ export default class Game extends Component {
                 )
             case 2:
                 return (
-                    {/* Et annet spill */}
+                    <WhoIsLikely
+                    room={this.props.room}
+                    handleRoomCode={this.props.handleRoomCode}
+                    />
                 )
             default:
                 this.setState({redirect: "/"})

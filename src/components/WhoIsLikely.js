@@ -16,33 +16,18 @@ const TransIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
-export default class WhoInRoom extends Component {
+export default class WhoIsLikely extends Component {
 
     constructor(props) {
         super(props)
         this.state = { //Placeholder data
             transIn: true,
-            questions: [
-                "Hvem i rommet er alltid på mobilen?", 
-                "Hvem i rommet er den dårligste sjåføren?", 
-                "Hvem i rommet er flinkest på skolen?",
-                "Hvem i rommet er mest overlegen?",
-                "Hvem i rommet er sterkest?",
-                "Hvem i rommet havner på gata?",
-                "Hvem i rommet nørder mest?",
-                "Hvem i rommet tar flest selfies?",
-                "Hvem i rommet er den svetteste gameren?",
-                "Hvem i rommet har flest blonde øyeblikk?",
-                "Hvem i rommet har kortest telefonsamtaler?",
-                "Hvem i rommet har hatt flest kjønnssjukdommer?",
-                "Hvem i rommet har størst kjendisfaktor?",
-                "Hvem i rommet har dårligst musikksmak?",
-                "Hvem i rommet er mest ubesluttsom?",
-                "Hvem i rommet slipper de verste fisene?",
-                "Hvem i rommet har de vakreste øynene?",
-                "Hvem i rommet har lettest for å bryte isen med noen ukjente?",
-                "Hvem i rommet har best sjanse til å overleve mot en bjørn?",
-                "Hvem i rommet er mest klar for arbeidslivet?",
+            statement: [
+                    {
+                        statement: "ender mest sannsynlig opp som",
+                        alternatives: ["Rik", "Fattig", "Singel", "Gift"]
+                    }
+                    
                 ],
             winnerText: [
                 "må ta 3 slurker",
@@ -70,7 +55,7 @@ export default class WhoInRoom extends Component {
     }
 
     componentDidMount() {
-        this.getQuestion();
+        this.getStatement();
     }
 
     getPlayers = () => {
@@ -84,15 +69,16 @@ export default class WhoInRoom extends Component {
     * Når det ikke er fler spørsmål kjøres redirect til home
     * Bruker alert som midlertidig melding til bruker
     */
-    getQuestion = () => {
-        let text = this.state.questions.shift(); 
+    getStatement = () => {
+        const text = this.state.statement.shift(); 
+        const playerIndex = Math.floor(Math.random() * this.state.players.length)
         
         if (text == null) {
             this.setState({redirect: "/"})
             this.props.handleRoomCode(null)
             alert("Spillet er slutt")
         } else {
-            this.setState({gameText: text})
+            this.setState({gameText: `${this.state.players[playerIndex]} ${text.statement}`})
         }
     }
 
@@ -107,9 +93,9 @@ export default class WhoInRoom extends Component {
                 <div className="textGame">
                     <TextGameHeader text = {this.state.gameText} />
                     <TextGameButtons 
-                        buttonText = {this.props.room.players} 
+                        buttonText = {this.state.statement} 
                         winnerText = {this.state.winnerText}
-                        getNext = {this.getQuestion}
+                        getNext = {this.getStatement}
                         gameMode = {this.props.room.gameMode}
                     />
                 </div>
