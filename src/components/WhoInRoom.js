@@ -16,6 +16,8 @@ const TransIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+let currentIndex = 0;
+
 export default class WhoInRoom extends Component {
 
     constructor(props) {
@@ -57,7 +59,6 @@ export default class WhoInRoom extends Component {
             redirect: null,
             nextQuestion: false
         }
-        this.gameText = "";
     }
 
     componentWillMount() {
@@ -65,18 +66,12 @@ export default class WhoInRoom extends Component {
         if(!this.props.room) {
             this.setState({redirect: "/"})
         } else {
-            this.getPlayers()
+            this.setGameText();
         }
     }
 
-    componentDidMount() {
-        this.getQuestion();
-    }
-
-    getPlayers = () => {
-        this.setState({
-            players: this.props.room.players
-        })
+    componentWillUnmount() {
+        currentIndex = 0
     }
 
     /*
@@ -84,16 +79,32 @@ export default class WhoInRoom extends Component {
     * Når det ikke er fler spørsmål kjøres redirect til home
     * Bruker alert som midlertidig melding til bruker
     */
-    getQuestion = () => {
-        let text = this.state.questions.shift(); 
+    setGameText = () => {
+        const text = this.state.questions[currentIndex];
         
-        if (text == null) {
+        if (!text) {
             this.setState({redirect: "/"})
             this.props.handleRoomCode(null)
             alert("Spillet er slutt")
         } else {
-            this.setState({gameText: text})
+            this.setState({
+                gameText: text
+            })
         }
+    }
+
+    setWinnerText = (name) => {
+        this.setState({nextQuestion: true})
+        const winnerText = Math.floor(Math.random() * this.state.winnerText.length)
+        this.setState({
+            gameText: `Stemmene er talt! ${name} ${this.state.winnerText[winnerText]}`
+        })
+    }
+
+    runNext = () => {
+        currentIndex++
+        this.setGameText();
+        this.setState({nextQuestion: false})
     }
 
     render() {
@@ -107,10 +118,10 @@ export default class WhoInRoom extends Component {
                 <div className="textGame">
                     <TextGameHeader text = {this.state.gameText} />
                     <TextGameButtons 
-                        buttonText = {this.props.room.players} 
-                        winnerText = {this.state.winnerText}
-                        getNext = {this.getQuestion}
-                        gameMode = {this.props.room.gameMode}
+                        buttonText = {this.props.room.players}
+                        runNext = {this.runNext}
+                        setWinner = {this.setWinnerText}
+                        nextQuestion = {this.state.nextQuestion}
                     />
                 </div>
             </TransIn>
