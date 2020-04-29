@@ -18,33 +18,25 @@ const TransIn = ({in: inProp, children }) => (
 
 let currentIndex = 0;
 
-export default class WhoInRoom extends Component {
+export default class WhoIsLikely extends Component {
 
     constructor(props) {
         super(props)
         this.state = { //Placeholder data
             transIn: true,
-            questions: [
-                "Hvem i rommet er alltid på mobilen?", 
-                "Hvem i rommet er den dårligste sjåføren?", 
-                "Hvem i rommet er flinkest på skolen?",
-                "Hvem i rommet er mest overlegen?",
-                "Hvem i rommet er sterkest?",
-                "Hvem i rommet havner på gata?",
-                "Hvem i rommet nørder mest?",
-                "Hvem i rommet tar flest selfies?",
-                "Hvem i rommet er den svetteste gameren?",
-                "Hvem i rommet har flest blonde øyeblikk?",
-                "Hvem i rommet har kortest telefonsamtaler?",
-                "Hvem i rommet har hatt flest kjønnssjukdommer?",
-                "Hvem i rommet har størst kjendisfaktor?",
-                "Hvem i rommet har dårligst musikksmak?",
-                "Hvem i rommet er mest ubesluttsom?",
-                "Hvem i rommet slipper de verste fisene?",
-                "Hvem i rommet har de vakreste øynene?",
-                "Hvem i rommet har lettest for å bryte isen med noen ukjente?",
-                "Hvem i rommet har best sjanse til å overleve mot en bjørn?",
-                "Hvem i rommet er mest klar for arbeidslivet?",
+            statement: [
+                    {
+                        statement: "ender mest sannsynlig opp som",
+                        alternatives: ["Rik", "Fattig", "Singel", "Gift"]
+                    },
+                    {
+                        statement: "hadde valgt",
+                        alternatives: ["Evig lykke", "1 million kroner", "Å gifte seg med sin celebrity crush", "Gratis øl resten av livet", "Å være 20år for alltid"]
+                    },
+                    {
+                        statement: "ender mest sannsynlig opp som",
+                        alternatives: ["Enslig", "Gift", "Alene", "Ikke alene"]
+                    }
                 ],
             winnerText: [
                 "må ta 3 slurker",
@@ -67,11 +59,16 @@ export default class WhoInRoom extends Component {
             this.setState({redirect: "/"})
         } else {
             this.setGameText();
+            this.setButtonText();
         }
     }
 
     componentWillUnmount() {
         currentIndex = 0
+    }
+
+    componentDidMount() {
+        //console.log(this.state)
     }
 
     /*
@@ -80,7 +77,9 @@ export default class WhoInRoom extends Component {
     * Bruker alert som midlertidig melding til bruker
     */
     setGameText = () => {
-        const text = this.state.questions[currentIndex];
+        const text = this.state.statement[currentIndex]; 
+        const personindex = Math.floor(Math.random() * this.props.room.players.length)
+        this.setState({currentPersonIndex: personindex})
         
         if (!text) {
             this.setState({redirect: "/"})
@@ -88,22 +87,32 @@ export default class WhoInRoom extends Component {
             alert("Spillet er slutt")
         } else {
             this.setState({
-                gameText: text
+                gameText: `${this.props.room.players[personindex]} ${text.statement}`
             })
         }
     }
 
-    setWinnerText = (name) => {
+    setButtonText = () => {
+        if (this.state.statement[currentIndex]) {
+            const btnTxtArray = this.state.statement[currentIndex].alternatives; 
+            this.setState({btnTxtArray: [...btnTxtArray]})
+        }
+    }
+
+    setWinnerText = (answer) => {
         this.setState({nextQuestion: true})
-        const winnerText = Math.floor(Math.random() * this.state.winnerText.length)
+        const currentStatement = this.state.statement[currentIndex].statement
+        const currentPerson = this.props.room.players[this.state.currentPersonIndex]
+        const winnerChallenge = this.state.winnerText[Math.floor(Math.random() * this.state.winnerText.length)]
         this.setState({
-            gameText: `Stemmene er talt! ${name} ${this.state.winnerText[winnerText]}`
+            gameText: `Stemmene er talt! ${currentPerson} ${currentStatement} ${answer.toLowerCase()} og ${winnerChallenge}`
         })
     }
 
     runNext = () => {
         currentIndex++
         this.setGameText();
+        this.setButtonText();
         this.setState({nextQuestion: false})
     }
 
@@ -118,7 +127,7 @@ export default class WhoInRoom extends Component {
                 <div className="textGame">
                     <TextGameHeader text = {this.state.gameText} />
                     <TextGameButtons 
-                        buttonText = {this.props.room.players}
+                        buttonText = {this.state.btnTxtArray}
                         runNext = {this.runNext}
                         setWinner = {this.setWinnerText}
                         nextQuestion = {this.state.nextQuestion}

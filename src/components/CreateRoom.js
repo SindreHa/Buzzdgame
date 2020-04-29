@@ -43,7 +43,8 @@ export default class CreateRoom extends Component {
             ],
             trans: true,
             gameModes: [
-                { value: 1, label: 'Hvem i Rommet' }
+                { value: 1, label: 'Hvem i rommet' },
+                { value: 2, label: 'Utsagn spillet' }
                 ]
         }
     }

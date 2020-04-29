@@ -43,12 +43,15 @@ export default class DropdownSelect extends Component {
         super(props)
     }
 
+    componentDidMount() {
+    }
+
     render() {
         return (
             <Select
                 id="gameSelect"
                 options={this.props.gameModes}
-                value={this.props.gameModes[0]}
+                defaultValue={this.props.gameModes[0]}
                 styles={customSelectStyle}
                 placeholder="Velg spill"
                 onChange={this.props.handleGamePick}
