@@ -16,6 +16,8 @@ const TransIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+let currentIndex = 0;
+
 export default class WhoIsLikely extends Component {
 
     constructor(props) {
@@ -26,8 +28,15 @@ export default class WhoIsLikely extends Component {
                     {
                         statement: "ender mest sannsynlig opp som",
                         alternatives: ["Rik", "Fattig", "Singel", "Gift"]
+                    },
+                    {
+                        statement: "hadde valgt",
+                        alternatives: ["Evig lykke", "1 million kroner", "Å gifte seg med sin celebrity crush", "Gratis øl resten av livet", "Å være 20år for alltid"]
+                    },
+                    {
+                        statement: "ender mest sannsynlig opp som",
+                        alternatives: ["Enslig", "Gift", "Alene", "Ikke alene"]
                     }
-                    
                 ],
             winnerText: [
                 "må ta 3 slurker",
@@ -42,7 +51,6 @@ export default class WhoIsLikely extends Component {
             redirect: null,
             nextQuestion: false
         }
-        this.gameText = "";
     }
 
     componentWillMount() {
@@ -50,18 +58,17 @@ export default class WhoIsLikely extends Component {
         if(!this.props.room) {
             this.setState({redirect: "/"})
         } else {
-            this.getPlayers()
+            this.setGameText();
+            this.setButtonText();
         }
     }
 
-    componentDidMount() {
-        this.getStatement();
+    componentWillUnmount() {
+        currentIndex = 0
     }
 
-    getPlayers = () => {
-        this.setState({
-            players: this.props.room.players
-        })
+    componentDidMount() {
+        //console.log(this.state)
     }
 
     /*
@@ -69,17 +76,44 @@ export default class WhoIsLikely extends Component {
     * Når det ikke er fler spørsmål kjøres redirect til home
     * Bruker alert som midlertidig melding til bruker
     */
-    getStatement = () => {
-        const text = this.state.statement.shift(); 
-        const playerIndex = Math.floor(Math.random() * this.state.players.length)
+    setGameText = () => {
+        const text = this.state.statement[currentIndex]; 
+        const personindex = Math.floor(Math.random() * this.props.room.players.length)
+        this.setState({currentPersonIndex: personindex})
         
-        if (text == null) {
+        if (!text) {
             this.setState({redirect: "/"})
             this.props.handleRoomCode(null)
             alert("Spillet er slutt")
         } else {
-            this.setState({gameText: `${this.state.players[playerIndex]} ${text.statement}`})
+            this.setState({
+                gameText: `${this.props.room.players[personindex]} ${text.statement}`
+            })
         }
+    }
+
+    setButtonText = () => {
+        if (this.state.statement[currentIndex]) {
+            const btnTxtArray = this.state.statement[currentIndex].alternatives; 
+            this.setState({btnTxtArray: [...btnTxtArray]})
+        }
+    }
+
+    setWinnerText = (answer) => {
+        this.setState({nextQuestion: true})
+        const currentStatement = this.state.statement[currentIndex].statement
+        const currentPerson = this.props.room.players[this.state.currentPersonIndex]
+        const winnerChallenge = this.state.winnerText[Math.floor(Math.random() * this.state.winnerText.length)]
+        this.setState({
+            gameText: `Stemmene er talt! ${currentPerson} ${currentStatement} ${answer.toLowerCase()} og ${winnerChallenge}`
+        })
+    }
+
+    runNext = () => {
+        currentIndex++
+        this.setGameText();
+        this.setButtonText();
+        this.setState({nextQuestion: false})
     }
 
     render() {
@@ -93,10 +127,10 @@ export default class WhoIsLikely extends Component {
                 <div className="textGame">
                     <TextGameHeader text = {this.state.gameText} />
                     <TextGameButtons 
-                        buttonText = {this.state.statement} 
-                        winnerText = {this.state.winnerText}
-                        getNext = {this.getStatement}
-                        gameMode = {this.props.room.gameMode}
+                        buttonText = {this.state.btnTxtArray}
+                        runNext = {this.runNext}
+                        setWinner = {this.setWinnerText}
+                        nextQuestion = {this.state.nextQuestion}
                     />
                 </div>
             </TransIn>

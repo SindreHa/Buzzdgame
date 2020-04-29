@@ -18,7 +18,7 @@ export default class App extends Component {
         rooms: [
           {
             roomcode: "DEMO",
-            gameMode: 2,
+            gameMode: 1,
             players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
         ],
