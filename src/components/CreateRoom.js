@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../css/createRoom.css';
 import { CSSTransition }  from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
+import DropdownSelect from './DropdownSelect';
 
 const FadeIn = ({in: inProp, children }) => (
     <CSSTransition
@@ -36,10 +37,15 @@ export default class CreateRoom extends Component {
             room: [
                 {
                     roomcode: null,
+                    gameMode: null,
                     players: []
                 }
             ],
-            trans: true
+            trans: true,
+            gameModes: [
+                { value: 1, label: 'Hvem i rommet' },
+                { value: 2, label: 'Utsagn spillet' }
+                ]
         }
     }
 
@@ -47,6 +53,7 @@ export default class CreateRoom extends Component {
         this.eventListeners();
     }
 
+    /* Metode som legger til wiggle effekt på element */
     wiggleError = (e) => {
         e.setAttribute("style", "box-shadow: inset 0px 0px 0px 3px red;");
         e.classList.add("wiggle")
@@ -54,35 +61,51 @@ export default class CreateRoom extends Component {
         e.addEventListener("animationend", function() {
             e.classList.remove("wiggle")
             setTimeout(() => {
-                e.setAttribute("style", null);
+                e.removeAttribute("style");
             }, 1500)
         }, false)
     }
 
     eventListeners = () => {
-        
+
+        var previousValue = document.getElementById('roomCodeInput').value;
+        var pattern = /^\S*$/;
+
+        /* Regex sjekk av input, fjerner mellomrom */
+        function validateInput(e) {
+            e = e || window.event;
+            var newValue = e.target.value || '';
+
+            if (newValue.match(pattern)) {
+                previousValue = newValue;
+            } else {
+                e.target.value = previousValue;
+            }
+        }
+
         /* Nekt mellomrom i romkode input */
-        document.getElementById("roomCodeInput").addEventListener("keydown", (e) => {
-             if(e.which === 32) e.preventDefault();
-        })
+        document.getElementById("roomCodeInput").onkeyup = validateInput;
 
-        document.getElementById("addPlayerBtn").addEventListener("click", () => {
+        /* Legg til spiller */
+        document.getElementById("addPlayerBtn").onclick = () => {
             this.addPlayer()
-        })
+        }
 
-        document.getElementById("addPlayerInput").addEventListener("keydown", (e) => {
+        /* Legg til spiller med enter tast */
+        document.getElementById("addPlayerInput").onkeydown = (e) => {
             if(e.key === "Enter") this.addPlayer()
-        })
+        }
 
         /* Input validering før oppretting av rom */
-        document.getElementById("createRoom").addEventListener("click", () => {
+        document.getElementById("createRoom").onclick = () => {
             const roomcode = document.getElementById("roomCodeInput")
             const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
-            if (!roomCodeEmpty && !this.state.room[0].players.length) {
+            const room = this.state.room[0]
+            if (!roomCodeEmpty && !room.players.length) {
                 this.wiggleError(roomcode)
                 this.wiggleError(document.getElementById("addPlayer"))
                 return
-            } else if(!this.state.room[0].players.length) {
+            } else if(!room.players.length ) {
                 this.wiggleError(document.getElementById("addPlayer"))
                 return
             } else if(!roomCodeEmpty) {
@@ -93,6 +116,7 @@ export default class CreateRoom extends Component {
                     room:[
                         {
                             roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
+                            gameMode: this.state.room[0].gameMode ? this.state.room[0].gameMode : this.state.gameModes[0].value,
                             players: this.state.room[0].players
                         }
                     ],
@@ -100,7 +124,7 @@ export default class CreateRoom extends Component {
                     })
                 this.props.addRoom(this.state.room[0]) 
             }
-        })
+        }
     }
 
     addPlayer = () => {
@@ -110,6 +134,7 @@ export default class CreateRoom extends Component {
                 room: [
                     {
                         roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        gameMode: this.state.room[0].gameMode,
                         players: [...this.state.room[0].players, input.value.trim()]
                     }
                 ]
@@ -132,13 +157,27 @@ export default class CreateRoom extends Component {
             this.setState({
                 room: [
                     {
-                        roomcode: this.state.room[0].roomcode,
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        gameMode: this.state.room[0].gameMode,
                         players: filteredArray
                     }
                 ]
                });
         }
     }
+
+    /* Hent ut valgt spill verdi fra select */
+    handleGamePick = (selectedOption) => {
+        this.setState({ 
+            room: [
+                {
+                    roomcode: this.state.room.roomcode,
+                    gameMode: selectedOption ? selectedOption.value : 0,
+                    players: this.state.room[0].players
+                }
+            ]
+        });
+      }
     
     render() {
         
@@ -153,7 +192,14 @@ export default class CreateRoom extends Component {
                 <section>
                     <div className="createRoomInput">
                         <p>Romkode</p>
-                        <input autoComplete="off" type="text" id="roomCodeInput"/>
+                        <input autoComplete="off" maxLength="8" type="text" id="roomCodeInput"/>
+                    </div>
+                    <div className="createRoomInput">
+                        <p>Velg spilltype</p>
+                        <DropdownSelect 
+                            gameModes={this.state.gameModes} 
+                            handleGamePick={this.handleGamePick}
+                        />
                     </div>
                     <div className="createRoomInput">
                         <p>Legg til spillere</p>

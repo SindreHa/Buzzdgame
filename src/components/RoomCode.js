@@ -34,38 +34,61 @@ export default class RoomCode extends Component {
 
 
     eventListeners = () => {
-        document.getElementsByClassName("enter")[0].addEventListener("click", () => {
+        /* Event lyttere for "Spill" knapp */
+        document.getElementsByClassName("enter")[0].onclick = () => {
             this.submitRoomCode();
-        })
+        }
 
-        document.getElementById("roomCodeInput").addEventListener("keyup", (e) => {
+        document.getElementById("roomCodeInput").onkeyup = (e) => {
             if (document.activeElement === document.getElementById("roomCodeInput") && e.key === "Enter") {
                 this.submitRoomCode();
             }
-        })
+        }
 
-        document.getElementById("roomCodeInput").addEventListener("animationend", function() {
+        /* Lyttere som fjerner animasjon CSS klasser etter fullført */
+        document.getElementById("roomCodeInput").onanimationend = () => {
             document.getElementById("roomCodeInput").classList.remove("wiggle")
-        }, false)
+        }
 
-        document.getElementById("roomCodeError").addEventListener("animationend", function() {
+        document.getElementById("roomCodeError").onanimationend = () => {
             document.getElementById("roomCodeError").classList.remove("visible")
-        }, false)
+        }
+
+        var previousValue = document.getElementById('roomCodeInput').value;
+        var pattern = /^\S*$/;
+
+        /* Regex sjekk av input, fjerner mellomrom */
+        function validateInput(e) {
+            e = e || window.event;
+            var newValue = e.target.value || '';
+
+            if (newValue.match(pattern)) {
+                previousValue = newValue;
+            } else {
+                e.target.value = previousValue;
+            }
+        }
+
+        /* Nekt mellomrom i romkode input */
+        document.getElementById("roomCodeInput").onkeyup = validateInput;
     }
 
+    /* Animasjon på header */
     buzzAnim = (e) => {
         if(e.target.tagName.toUpperCase() === 'input' || e.target.classList.contains('btn'))
             document.getElementsByClassName("headerTitle")[0].classList.add("buzz")
     }
 
+    bounceAnim() {
+        document.getElementsByClassName("headerTitle")[0].classList.add("zoomBounce")
+    }
+
+    /* Sjekker om rom eksisterer */
     checkRoomCode = (roomCode) => {
         return this.props.rooms.some((room) => room.roomcode === roomCode)
     }
 
-    bounceAnim() {
-        document.getElementsByClassName("headerTitle")[0].classList.add("zoomBounce")
-    }
-    
+    /* Sender inn romkode til App.js som så prosseserer med gjeldende kode */
     submitRoomCode = () => {
         const input = document.getElementsByTagName("input")[0];
         const errorMsg =  document.getElementById("roomCodeError");
@@ -73,8 +96,7 @@ export default class RoomCode extends Component {
         
         if (this.checkRoomCode(roomCode)) {
             this.props.handleRoomCode(roomCode);
-            input.value = "";
-            input.blur();
+            this.props.setRoom(roomCode)
             this.bounceAnim();
             this.setState({redirect: "/game"})
         } else {
@@ -99,7 +121,7 @@ export default class RoomCode extends Component {
             <SlideIn in={this.state.transIn}>
                 <div className="input">
                     <p id="roomCodeError">Rommet eksisterer ikke</p>
-                    <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode"/>
+                    <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode" maxLength="8"/>
                     <a className="btn enter">
                         Spill
                     </a>

@@ -18,15 +18,17 @@ export default class Header extends Component {
 
     eventListeners = () => {
         var buzz = document.getElementsByClassName("headerTitle")[0];
-        buzz.addEventListener("animationend", function() {
+        /* Lyttere som fjerner CSS animasjons klasser etter fullført */
+        buzz.onanimationend = () => {
             buzz.classList.remove("buzz", "zoomBounce")
-        }, false)
-        buzz.addEventListener("click", () => {
+        }
+        buzz.onclick = () => {
             buzz.classList.add("zoomBounce");
             this.props.handleRoomCode(null)
-        }, false)
+        }
     }
 
+    /* Metode som skjuler/viser romkode i header */
     toggleRoomCode = () => {
         if (this.props.roomCode) {
             document.getElementById("roomCode").classList.remove("hidden")

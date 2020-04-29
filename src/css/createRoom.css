@@ -19,7 +19,7 @@
 
 .createRoomWrapper section {
     display: grid;
-    grid-template-rows: 40px 40px 200px 45px;
+    grid-template-rows: 40px 40px 40px 200px 45px;
     gap: 15px;
     width: 600px;
     margin: 30px auto 0;
@@ -156,6 +156,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    user-select: none;
 }
 .playerWrapper a:hover {
     cursor: pointer;
@@ -189,6 +190,12 @@
     100% {transform: scale(.8); opacity: 0;}
 }
 
+@keyframes dropDownBounce {
+    0% {transform: translatey(-15px); opacity: 0}
+    40% {transform: translatey(3px); opacity: 1}
+    100% {transform: translatey(0px)}
+}
+
 #createRoom {
     margin: 0 auto 20px;
     width: auto ;
@@ -216,9 +223,10 @@
 }
 @media(max-width: 700px) {
     .createRoomWrapper section{
-        grid-template-rows: 80px 80px 200px 45px;
+        grid-template-rows: 80px 80px 80px 200px 45px;
         width: 85%;
         gap: 10px;
+        margin: 0 auto;
     }
     .createRoomWrapper h2{
         font-size: 25pt;

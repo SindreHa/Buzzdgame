@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import RoomCode from './components/RoomCode';
 import CreateRoom from './components/CreateRoom';
-import TextGame1 from './components/TextGame1';
+import Game from './components/Game';
 import Header from './components/Header';
 import Faq from './components/Faq';
 import {
@@ -18,29 +18,40 @@ export default class App extends Component {
         rooms: [
           {
             roomcode: "DEMO",
+            gameMode: 1,
             players: ["Ola", "Sofie", "Max", "Hannah", "Anne"]
           }
-        ]
+        ],
+          activeRoom: null
       }
   }
 
   componentDidMount() {
     this.getViewHeight();
     
-    window.addEventListener('resize', () => {
+    window.onresize = () => {
       this.getViewHeight();
-    });
+    };
   }
 
+  /* Setter aktiv romkode som vises i header */
   handleRoomCode = (roomCode) => {
       this.setState({ roomCode: roomCode })
   }
 
-  getRoom = (roomCode) => { //TODO returner kopi av array
+  /* Setter aktivt rom som brukes når spiller trykker "spill" */
+  setRoom = (roomCode) => {
     const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
-    return this.state.rooms[index]
+    this.setState({
+      rooms: [
+        ...this.state.rooms
+      ],
+        activeRoom: this.state.rooms[index]
+    })
+    //return this.state.rooms[index]
   }
 
+  /* Legger til nytt rom i state */
   addRoom = (newRoom) => {
     this.setState({
       rooms: [...this.state.rooms, newRoom]
@@ -65,7 +76,7 @@ export default class App extends Component {
                 <RoomCode 
                   handleRoomCode={this.handleRoomCode}
                   rooms={this.state.rooms}
-                  getRoom={this.getRoom}
+                  setRoom={this.setRoom}
                 />} 
             /> 
             <Route 
@@ -80,8 +91,8 @@ export default class App extends Component {
             <Route 
               path="/game" 
               render={props => 
-                <TextGame1
-                  room={this.getRoom(this.state.roomCode)}
+                <Game
+                  room={this.state.activeRoom}
                   handleRoomCode={this.handleRoomCode} 
                 />}
             />
