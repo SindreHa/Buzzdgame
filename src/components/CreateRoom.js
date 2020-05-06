@@ -36,8 +36,8 @@ export default class CreateRoom extends Component {
             redirect: null,
             room: [
                 {
-                    roomcode: null,
-                    gameMode: null,
+                    roomcode: "",
+                    gameMode: 1,
                     players: []
                 }
             ],
@@ -96,35 +96,43 @@ export default class CreateRoom extends Component {
             if(e.key === "Enter") this.addPlayer()
         }
 
-        /* Input validering før oppretting av rom */
-        document.getElementById("createRoom").onclick = () => {
-            const roomcode = document.getElementById("roomCodeInput")
-            const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
-            const room = this.state.room[0]
-            if (!roomCodeEmpty && !room.players.length) {
-                this.wiggleError(roomcode)
-                this.wiggleError(document.getElementById("addPlayer"))
-                return
-            } else if(!room.players.length ) {
-                this.wiggleError(document.getElementById("addPlayer"))
-                return
-            } else if(!roomCodeEmpty) {
-                this.wiggleError(roomcode)
-                return
-            } else {
-                this.setState({
-                    room:[
-                        {
-                            roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
-                            gameMode: this.state.room[0].gameMode ? this.state.room[0].gameMode : this.state.gameModes[0].value,
-                            players: this.state.room[0].players
-                        }
-                    ],
-                    redirect: "/"
-                    })
-                this.props.addRoom(this.state.room[0]) 
-            }
+    }
+
+    createRoom = () => {
+        console.log("opprett")
+        const roomcode = document.getElementById("roomCodeInput")
+        const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
+        const room = this.state.room[0]
+        if (!roomCodeEmpty && !room.players.length) {
+            this.wiggleError(roomcode)
+            this.wiggleError(document.getElementById("addPlayer"))
+            return
+        } else if(!room.players.length ) {
+            this.wiggleError(document.getElementById("addPlayer"))
+            return
+        } else if(!roomCodeEmpty) {
+            this.wiggleError(roomcode)
+            return
+        } else {
+            this.setState({
+                room:[
+                    {
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
+                        gameMode: this.state.room[0].gameMode ? this.state.gameModes[0].value : this.state.gameModes[0].value,
+                        players: this.state.room[0].players
+                    }
+                ],
+                redirect: "/" //Redirecter til hjemside, fjern for å unngå/stoppe redirect
+                })
+            this.props.addRoom(this.state.room[0])
         }
+    }
+
+    hostRoom = () => {
+        console.log("Host room")
+        /*
+            Bruk setState som vist i metoden over for å legge til spillere.
+        */
     }
 
     addPlayer = () => {
@@ -172,7 +180,7 @@ export default class CreateRoom extends Component {
             room: [
                 {
                     roomcode: this.state.room.roomcode,
-                    gameMode: selectedOption ? selectedOption.value : 0,
+                    gameMode: selectedOption ? selectedOption.value : 1,
                     players: this.state.room[0].players
                 }
             ]
@@ -220,7 +228,10 @@ export default class CreateRoom extends Component {
                         }
                         </div>
                     </div>
-                    <a className="btn" id="createRoom">Opprett rom</a>
+                    <div className="btnWrapper">
+                        <a className="btn" onClick={() => this.createRoom()}>Opprett rom</a>
+                        <a className="btn" onClick={() => this.hostRoom()}>Start rom</a>
+                    </div>
                 </section>
             </div>
             </FadeIn>
