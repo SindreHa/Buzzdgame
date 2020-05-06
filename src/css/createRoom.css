@@ -196,8 +196,13 @@
     100% {transform: translatey(0px)}
 }
 
-#createRoom {
-    margin: 0 auto 20px;
+.createRoomWrapper .btnWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.createRoomWrapper .btnWrapper .btn {
+    margin: 0 10px;
     width: auto ;
     padding: 0 14px;
 }
@@ -246,5 +251,15 @@
     }
     .players p {
         font-size: 16pt;
+    }
+}
+@media(max-width: 500px) {
+    .createRoomWrapper .btnWrapper {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .createRoomWrapper .btnWrapper .btn{
+        margin-top: 10px;
     }
 }
