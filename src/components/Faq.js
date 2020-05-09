@@ -3,6 +3,11 @@ import '../css/faq.css';
 import { Link } from "react-router-dom";
 import { CSSTransition }  from 'react-transition-group';
 
+/** 
+ * Animasjon med CSSTransition pakken
+ * @param {Boolean} inProp - kondisjon om animasjon skal kjøres
+ * @param {Node} children - element som skal animeres
+ */
 const FadeIn = ({in: inProp, children }) => (
     
     <CSSTransition
@@ -46,7 +51,9 @@ export default class Faq extends Component {
         this.expandListener()
     }
 
-    /* Vis/skjul svar */
+    /** 
+     * Vis/skjul svar
+     */
     expandListener = () => {
         var faq = document.getElementsByClassName("faq-question");
         var i;

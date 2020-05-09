@@ -4,6 +4,11 @@ import { Link, Redirect } from 'react-router-dom';
 import { CSSTransition }  from 'react-transition-group';
 //import $ from 'jquery'
 
+/** 
+ * Animasjon med CSSTransition pakken
+ * @param {Boolean} inProp - kondisjon om animasjon skal kjøres
+ * @param {Node} children - element som skal animeres
+ */
 const SlideIn = ({in: inProp, children }) => (
     
     <CSSTransition
@@ -57,7 +62,10 @@ export default class RoomCode extends Component {
         var previousValue = document.getElementById('roomCodeInput').value;
         var pattern = /^\S*$/;
 
-        /* Regex sjekk av input, fjerner mellomrom */
+        /** 
+         * Regex sjekk av input, fjerner mellomrom 
+         * @param {Event} e - gjeldende input event
+         */
         function validateInput(e) {
             e = e || window.event;
             var newValue = e.target.value || '';
@@ -73,7 +81,10 @@ export default class RoomCode extends Component {
         document.getElementById("roomCodeInput").onkeyup = validateInput;
     }
 
-    /* Animasjon på header */
+    /** 
+     * Animasjon på header
+     * @param {Element} e - gjeldende element som skal animeres 
+     */
     buzzAnim = (e) => {
         if(e.target.tagName.toUpperCase() === 'input' || e.target.classList.contains('btn'))
             document.getElementsByClassName("headerTitle")[0].classList.add("buzz")
@@ -83,7 +94,11 @@ export default class RoomCode extends Component {
         document.getElementsByClassName("headerTitle")[0].classList.add("zoomBounce")
     }
 
-    /* Sjekker om rom eksisterer */
+    /** 
+     * Sjekker om rom eksisterer, bruker @function some
+     * @param {Int} roomCode - gjeldende romkode
+     * @returns {Boolean}
+     */
     checkRoomCode = (roomCode) => {
         return this.props.rooms.some((room) => room.roomcode === roomCode)
     }
@@ -107,6 +122,11 @@ export default class RoomCode extends Component {
 
     render() {
 
+        /**
+         * Hvis state for redirect blir true kjøres redirect til satt url
+         * @param {Boolean}
+         * @returns {Redirect}
+         */
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }

@@ -4,6 +4,11 @@ import { Redirect } from 'react-router-dom';
 import TextGameButtons from './TextGameButtons';
 import { CSSTransition }  from 'react-transition-group';
 
+/** 
+ * Animasjon med CSSTransition pakken
+ * @param {Boolean} inProp - kondisjon om animasjon skal kjøres
+ * @param {Node} children - element som skal animeres
+ */
 const TransIn = ({in: inProp, children }) => (
     
     <CSSTransition
@@ -16,6 +21,9 @@ const TransIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+/**
+ * Variabel for gjeldende posisjon i array med spørmsål
+ */
 let currentIndex = 0;
 
 export default class WhoIsLikely extends Component {
@@ -71,7 +79,7 @@ export default class WhoIsLikely extends Component {
         //console.log(this.state)
     }
 
-    /*
+    /**
     * Metode som henter neste spørsmål i array
     * Når det ikke er fler spørsmål kjøres redirect til home
     * Bruker alert som midlertidig melding til bruker
@@ -92,6 +100,9 @@ export default class WhoIsLikely extends Component {
         }
     }
 
+    /**
+     * Setter knapper til gjeldende statement fra array i state
+     */
     setButtonText = () => {
         if (this.state.statement[currentIndex]) {
             const btnTxtArray = this.state.statement[currentIndex].alternatives; 
@@ -99,6 +110,11 @@ export default class WhoIsLikely extends Component {
         }
     }
 
+    /**
+     * Metode som setter tekst etter stemmer er talt 
+     * med en tilfeldig utfordring for vinner
+     * @param {String} name - spiller som fikk flest stemmer
+     */
     setWinnerText = (answer) => {
         this.setState({nextQuestion: true})
         const currentStatement = this.state.statement[currentIndex].statement
@@ -109,6 +125,9 @@ export default class WhoIsLikely extends Component {
         })
     }
 
+    /**
+     * Metode som kjører neste spørsmål
+     */
     runNext = () => {
         currentIndex++
         this.setGameText();
@@ -118,6 +137,11 @@ export default class WhoIsLikely extends Component {
 
     render() {
 
+        /**
+         * Hvis state for redirect blir true kjøres redirect til satt url
+         * @param {Boolean}
+         * @returns {Redirect}
+         */
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
