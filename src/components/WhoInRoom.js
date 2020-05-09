@@ -4,6 +4,11 @@ import { Redirect } from 'react-router-dom';
 import TextGameButtons from './TextGameButtons';
 import { CSSTransition }  from 'react-transition-group';
 
+/** 
+ * Animasjon med CSSTransition pakken
+ * @param {Boolean} inProp - kondisjon om animasjon skal kjøres
+ * @param {Node} children - element som skal animeres
+ */
 const TransIn = ({in: inProp, children }) => (
     
     <CSSTransition
@@ -16,6 +21,9 @@ const TransIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+/**
+ * Variabel for gjeldende posisjon i array med spørmsål
+ */
 let currentIndex = 0;
 
 export default class WhoInRoom extends Component {
@@ -74,10 +82,11 @@ export default class WhoInRoom extends Component {
         currentIndex = 0
     }
 
-    /*
+    /**
     * Metode som henter neste spørsmål i array
     * Når det ikke er fler spørsmål kjøres redirect til home
     * Bruker alert som midlertidig melding til bruker
+    * @returns {Redirect}
     */
     setGameText = () => {
         const text = this.state.questions[currentIndex];
@@ -93,6 +102,11 @@ export default class WhoInRoom extends Component {
         }
     }
 
+    /**
+     * Metode som setter tekst etter stemmer er talt 
+     * med en tilfeldig utfordring for vinner
+     * @param {String} name - spiller som fikk flest stemmer
+     */
     setWinnerText = (name) => {
         this.setState({nextQuestion: true})
         const winnerText = Math.floor(Math.random() * this.state.winnerText.length)
@@ -101,6 +115,9 @@ export default class WhoInRoom extends Component {
         })
     }
 
+    /**
+     * Metode som kjører neste spørsmål
+     */
     runNext = () => {
         currentIndex++
         this.setGameText();
@@ -109,6 +126,11 @@ export default class WhoInRoom extends Component {
 
     render() {
 
+        /**
+         * Hvis state for redirect blir true kjøres redirect til satt url
+         * @param {Boolean}
+         * @returns {Redirect}
+         */
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }

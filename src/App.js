@@ -34,12 +34,18 @@ export default class App extends Component {
     };
   }
 
-  /* Setter aktiv romkode som vises i header */
+  /**
+   * Setter romkode i state
+   * @param {Int} roomCode - gjeldende romkode
+   */
   handleRoomCode = (roomCode) => {
       this.setState({ roomCode: roomCode })
   }
 
-  /* Setter aktivt rom som brukes når spiller trykker "spill" */
+  /**
+   *  Setter aktivt rom som brukes når spiller trykker "spill" 
+   * @param {int} roomCode - gjeldende romkode
+  */
   setRoom = (roomCode) => {
     const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
     this.setState({
@@ -51,7 +57,10 @@ export default class App extends Component {
     //return this.state.rooms[index]
   }
 
-  /* Legger til nytt rom i state */
+  /** 
+   * Legger til nytt rom i state
+   * @param {Array} newRoom - array med data for nytt rom
+  */
   addRoom = (newRoom) => {
     this.setState({
       rooms: [...this.state.rooms, newRoom]
@@ -59,7 +68,9 @@ export default class App extends Component {
   }
 
 
-  /* Metode som henter høyde av viewport minus nettleser sin toolbar */
+  /** 
+   * Metode som henter høyde av viewport minus nettleser sin toolbar 
+  */
   getViewHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
