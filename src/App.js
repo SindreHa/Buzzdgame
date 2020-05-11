@@ -62,8 +62,18 @@ export default class App extends Component {
    * @param {Array} newRoom - array med data for nytt rom
   */
   addRoom = (newRoom) => {
-    this.setState({
+    /* this.setState({
       rooms: [...this.state.rooms, newRoom]
+    }) */
+     
+    fetch('http://localhost:3000/rooms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        newRoom
+      )
     })
   }
 
