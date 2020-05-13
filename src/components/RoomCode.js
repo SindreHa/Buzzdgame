@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../css/roomcode.css';
 import { Link, Redirect } from 'react-router-dom';
 import { CSSTransition }  from 'react-transition-group';
+import PacmanLoader from "react-spinners/PulseLoader";
 //import $ from 'jquery'
 
 /** 
