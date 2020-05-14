@@ -107,24 +107,26 @@ export default class RoomCode extends Component {
         const roomCode = input.value.toUpperCase();
 
         if (!roomCode == "") {
-            errorMsg.classList.remove("visible")
-            this.setState({loading: true})
-            fetch(`http://localhost:3000/rooms/${roomCode}`)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.props.handleRoomCode(roomCode);
-                    this.props.setRoom(result)
-                    this.bounceAnim();
-                    this.setState({redirect: "/game"})
-                    this.setState({loading: false})
-                },
-                (error) => {
-                    this.setState({loading: false})
-                    input.classList.add("wiggle")
-                    errorMsg.classList.add("visible")
-                }
-            )   
+            if (!this.state.loading) {
+                errorMsg.classList.remove("visible")
+                this.setState({loading: true})
+                fetch(`http://localhost:3000/rooms/${roomCode}`)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.props.handleRoomCode(roomCode);
+                        this.props.setRoom(result)
+                        this.bounceAnim();
+                        this.setState({redirect: "/game"})
+                        this.setState({loading: false})
+                    },
+                    (error) => {
+                        this.setState({loading: false})
+                        input.classList.add("wiggle")
+                        errorMsg.classList.add("visible")
+                    }
+                )   
+            }
         } else {
             input.classList.add("wiggle")
         }
