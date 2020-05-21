@@ -4,6 +4,7 @@ import CreateRoom from './components/CreateRoom';
 import Game from './components/Game';
 import Header from './components/Header';
 import Faq from './components/Faq';
+import JoiningRoom from './components/JoiningRoom';
 import {
   BrowserRouter as Router,
   Route
@@ -115,6 +116,11 @@ export default class App extends Component {
             <Route 
               path="/faq" 
               component = {Faq}
+            />
+            <Route 
+              path="/join" 
+              component = {JoiningRoom}
+              rooms={this.state.rooms}
             />
         </Router>
       );
