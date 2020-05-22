@@ -38,32 +38,37 @@ export default class App extends Component {
    * Setter romkode i state
    * @param {Int} roomCode - gjeldende romkode
    */
-  handleRoomCode = (roomCode) => {
+  handleRoomCode = roomCode => {
       this.setState({ roomCode: roomCode })
   }
 
   /**
    *  Setter aktivt rom som brukes når spiller trykker "spill" 
-   * @param {int} roomCode - gjeldende romkode
+   * @param {Object} room - rom objekt med relevant data
   */
-  setRoom = (roomCode) => {
-    const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
+  setRoom = room => {
     this.setState({
-      rooms: [
-        ...this.state.rooms
-      ],
-        activeRoom: this.state.rooms[index]
+      activeRoom: room
     })
-    //return this.state.rooms[index]
   }
 
   /** 
    * Legger til nytt rom i state
    * @param {Array} newRoom - array med data for nytt rom
   */
-  addRoom = (newRoom) => {
-    this.setState({
+  addRoom = newRoom => {
+    /* this.setState({
       rooms: [...this.state.rooms, newRoom]
+    }) */
+     
+    fetch('http://ec2-3-133-89-209.us-east-2.compute.amazonaws.com:89/rooms/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        newRoom
+      )
     })
   }
 

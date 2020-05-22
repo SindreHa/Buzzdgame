@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../css/roomcode.css';
 import { Link, Redirect } from 'react-router-dom';
 import { CSSTransition }  from 'react-transition-group';
+import { ImpulseSpinner   as Spinner  } from "react-spinners-kit";
 //import $ from 'jquery'
 
 /** 
@@ -20,6 +21,18 @@ const SlideIn = ({in: inProp, children }) => (
             {children}
     </CSSTransition>
 );
+const ZoomIn = ({in: inProp, children }) => (
+    
+    <CSSTransition
+        unmountOnExit
+        in={inProp}
+        timeout={{ enter: 0, exit: 400 }}
+        classNames='zoomIn'
+        appear >
+            {children}
+    </CSSTransition>
+);
+
 
 export default class RoomCode extends Component {
 
@@ -28,7 +41,8 @@ export default class RoomCode extends Component {
         this.state = {
             redirect: null,
             roomCode: null,
-            transIn: true
+            transIn: true,
+            loading: false
         }
     }
 
@@ -39,16 +53,6 @@ export default class RoomCode extends Component {
 
 
     eventListeners = () => {
-        /* Event lyttere for "Spill" knapp */
-        document.getElementsByClassName("enter")[0].onclick = () => {
-            this.submitRoomCode();
-        }
-
-        document.getElementById("roomCodeInput").onkeyup = (e) => {
-            if (document.activeElement === document.getElementById("roomCodeInput") && e.key === "Enter") {
-                this.submitRoomCode();
-            }
-        }
 
         /* Lyttere som fjerner animasjon CSS klasser etter fullført */
         document.getElementById("roomCodeInput").onanimationend = () => {
@@ -95,28 +99,36 @@ export default class RoomCode extends Component {
     }
 
     /** 
-     * Sjekker om rom eksisterer, bruker @function some
-     * @param {Int} roomCode - gjeldende romkode
-     * @returns {Boolean}
+     * Sender inn romkode til server som returnerer resultat
      */
-    checkRoomCode = (roomCode) => {
-        return this.props.rooms.some((room) => room.roomcode === roomCode)
-    }
-
-    /* Sender inn romkode til App.js som så prosseserer med gjeldende kode */
     submitRoomCode = () => {
         const input = document.getElementsByTagName("input")[0];
         const errorMsg =  document.getElementById("roomCodeError");
         const roomCode = input.value.toUpperCase();
-        
-        if (this.checkRoomCode(roomCode)) {
-            this.props.handleRoomCode(roomCode);
-            this.props.setRoom(roomCode)
-            this.bounceAnim();
-            this.setState({redirect: "/game"})
+
+        if (!roomCode == "") {
+            if (!this.state.loading) {
+                errorMsg.classList.remove("visible")
+                this.setState({loading: true})
+                fetch(`http://ec2-3-133-89-209.us-east-2.compute.amazonaws.com:89/rooms/${roomCode}`)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.props.handleRoomCode(roomCode);
+                        this.props.setRoom(result)
+                        this.bounceAnim();
+                        this.setState({redirect: "/game"})
+                        this.setState({loading: false})
+                    },
+                    (error) => {
+                        this.setState({loading: false})
+                        input.classList.add("wiggle")
+                        errorMsg.classList.add("visible")
+                    }
+                )   
+            }
         } else {
             input.classList.add("wiggle")
-            errorMsg.classList.add("visible")
         }
     }
 
@@ -140,9 +152,20 @@ export default class RoomCode extends Component {
             <div className="wrapper" key="RoomCode">
             <SlideIn in={this.state.transIn}>
                 <div className="input">
-                    <p id="roomCodeError">Rommet eksisterer ikke</p>
+                    <div className="loading-error">
+                        <ZoomIn in={this.state.loading}>
+                        <Spinner  
+                            size="55"
+                            color="#192425"
+                            frontColor="#5dddf4af"
+                            loading={this.state.loading}
+                        />
+                        </ZoomIn>
+                         <p id="roomCodeError">Rommet eksisterer ikke</p>
+                    </div>
                     <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode" maxLength="8"/>
-                    <a className="btn enter">
+                    <a className="btn enter"
+                        onClick={() => this.submitRoomCode()}>
                         Spill
                     </a>
                     <Link to="create-room" onClick={this.buzzAnim} className="btn host">
