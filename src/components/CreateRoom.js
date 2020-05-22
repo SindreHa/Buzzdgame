@@ -119,7 +119,6 @@ export default class CreateRoom extends Component {
      * Kjører så @function addRoom fra props som ligger i @class App.js
      */
     createRoom = () => {
-        console.log("opprett")
         const roomcode = document.getElementById("roomCodeInput")
         const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
         const room = this.state.room[0]

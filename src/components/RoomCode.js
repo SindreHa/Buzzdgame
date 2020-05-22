@@ -110,7 +110,7 @@ export default class RoomCode extends Component {
             if (!this.state.loading) {
                 errorMsg.classList.remove("visible")
                 this.setState({loading: true})
-                fetch(`http://localhost:3000/rooms/${roomCode}`)
+                fetch(`http://ec2-3-133-89-209.us-east-2.compute.amazonaws.com:89/rooms/${roomCode}`)
                 .then(res => res.json())
                 .then(
                     (result) => {

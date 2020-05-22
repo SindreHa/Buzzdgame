@@ -61,7 +61,7 @@ export default class App extends Component {
       rooms: [...this.state.rooms, newRoom]
     }) */
      
-    fetch('http://localhost:3000/rooms', {
+    fetch('http://ec2-3-133-89-209.us-east-2.compute.amazonaws.com:89/rooms/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
