@@ -16,6 +16,9 @@ export default class Header extends Component {
         this.toggleRoomCode();
     }
 
+    /**
+     * Lyttere som legger til animasjoner på header tittel
+     */
     eventListeners = () => {
         var buzz = document.getElementsByClassName("headerTitle")[0];
         /* Lyttere som fjerner CSS animasjons klasser etter fullført */
@@ -28,7 +31,9 @@ export default class Header extends Component {
         }
     }
 
-    /* Metode som skjuler/viser romkode i header */
+    /** 
+     * Metode som skjuler/viser romkode i header 
+     */
     toggleRoomCode = () => {
         if (this.props.roomCode) {
             document.getElementById("roomCode").classList.remove("hidden")

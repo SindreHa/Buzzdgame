@@ -34,32 +34,48 @@ export default class App extends Component {
     };
   }
 
-  /* Setter aktiv romkode som vises i header */
-  handleRoomCode = (roomCode) => {
+  /**
+   * Setter romkode i state
+   * @param {Int} roomCode - gjeldende romkode
+   */
+  handleRoomCode = roomCode => {
       this.setState({ roomCode: roomCode })
   }
 
-  /* Setter aktivt rom som brukes når spiller trykker "spill" */
-  setRoom = (roomCode) => {
-    const index = this.state.rooms.findIndex(room => room.roomcode === roomCode)
+  /**
+   *  Setter aktivt rom som brukes når spiller trykker "spill" 
+   * @param {Object} room - rom objekt med relevant data
+  */
+  setRoom = room => {
     this.setState({
-      rooms: [
-        ...this.state.rooms
-      ],
-        activeRoom: this.state.rooms[index]
+      activeRoom: room
     })
-    //return this.state.rooms[index]
   }
 
-  /* Legger til nytt rom i state */
-  addRoom = (newRoom) => {
-    this.setState({
+  /** 
+   * Legger til nytt rom i state
+   * @param {Array} newRoom - array med data for nytt rom
+  */
+  addRoom = newRoom => {
+    /* this.setState({
       rooms: [...this.state.rooms, newRoom]
+    }) */
+     
+    fetch('http://ec2-3-133-89-209.us-east-2.compute.amazonaws.com:89/rooms/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        newRoom
+      )
     })
   }
 
 
-  /* Metode som henter høyde av viewport minus nettleser sin toolbar */
+  /** 
+   * Metode som henter høyde av viewport minus nettleser sin toolbar 
+  */
   getViewHeight = () => {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);

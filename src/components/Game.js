@@ -22,10 +22,19 @@ export default class Game extends Component {
 
     render() {
 
+        /**
+         * Hvis state for redirect blir true kjøres redirect til satt url
+         * @param {Boolean}
+         * @returns {Redirect}
+         */
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
 
+        /**
+         * Switch som returnerer spill for gjeldende rom
+         * @param {Int} gameMode - verdi for spill modus hentet fra props
+         */
         switch(this.props.room.gameMode) {
             case 1:
                 return (

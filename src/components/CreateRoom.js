@@ -4,6 +4,11 @@ import { CSSTransition }  from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
 import DropdownSelect from './DropdownSelect';
 
+/** 
+ * Animasjon med CSSTransition pakken
+ * @param {Boolean} inProp - kondisjon om animasjon skal kjøres
+ * @param {Node} children - element som skal animeres
+ */
 const FadeIn = ({in: inProp, children }) => (
     <CSSTransition
         in={inProp}
@@ -15,6 +20,11 @@ const FadeIn = ({in: inProp, children }) => (
     </CSSTransition>
 );
 
+/** 
+ * Animasjon med CSSTransition pakken
+ * @param {Boolean} inProp - kondisjon om animasjon skal kjøres
+ * @param {Node} children - element som skal animeres
+ */
 const SlideIn = ({in: inProp, children }) => (
     
     <CSSTransition
@@ -36,8 +46,8 @@ export default class CreateRoom extends Component {
             redirect: null,
             room: [
                 {
-                    roomcode: null,
-                    gameMode: null,
+                    roomCode: "",
+                    gameMode: 1,
                     players: []
                 }
             ],
@@ -53,7 +63,10 @@ export default class CreateRoom extends Component {
         this.eventListeners();
     }
 
-    /* Metode som legger til wiggle effekt på element */
+    /** 
+     * Metode som legger til wiggle effekt på element 
+     * @param {Element} e - gjeldende HTML element
+    */
     wiggleError = (e) => {
         e.setAttribute("style", "box-shadow: inset 0px 0px 0px 3px red;");
         e.classList.add("wiggle")
@@ -71,7 +84,10 @@ export default class CreateRoom extends Component {
         var previousValue = document.getElementById('roomCodeInput').value;
         var pattern = /^\S*$/;
 
-        /* Regex sjekk av input, fjerner mellomrom */
+        /** 
+         * Regex sjekk av input, fjerner mellomrom 
+         * @param {Event} e - gjeldende event
+         */
         function validateInput(e) {
             e = e || window.event;
             var newValue = e.target.value || '';
@@ -96,44 +112,61 @@ export default class CreateRoom extends Component {
             if(e.key === "Enter") this.addPlayer()
         }
 
-        /* Input validering før oppretting av rom */
-        document.getElementById("createRoom").onclick = () => {
-            const roomcode = document.getElementById("roomCodeInput")
-            const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
-            const room = this.state.room[0]
-            if (!roomCodeEmpty && !room.players.length) {
-                this.wiggleError(roomcode)
-                this.wiggleError(document.getElementById("addPlayer"))
-                return
-            } else if(!room.players.length ) {
-                this.wiggleError(document.getElementById("addPlayer"))
-                return
-            } else if(!roomCodeEmpty) {
-                this.wiggleError(roomcode)
-                return
-            } else {
-                this.setState({
-                    room:[
-                        {
-                            roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
-                            gameMode: this.state.room[0].gameMode ? this.state.room[0].gameMode : this.state.gameModes[0].value,
-                            players: this.state.room[0].players
-                        }
-                    ],
-                    redirect: "/"
-                    })
-                this.props.addRoom(this.state.room[0]) 
-            }
+    }
+
+    /**
+     * Metode som først kjører validering av inputfelt.
+     * Kjører så @function addRoom fra props som ligger i @class App.js
+     */
+    createRoom = () => {
+        const roomcode = document.getElementById("roomCodeInput")
+        const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
+        const room = this.state.room[0]
+        if (!roomCodeEmpty && !room.players.length) {
+            this.wiggleError(roomcode)
+            this.wiggleError(document.getElementById("addPlayer"))
+            return
+        } else if(!room.players.length ) {
+            this.wiggleError(document.getElementById("addPlayer"))
+            return
+        } else if(!roomCodeEmpty) {
+            this.wiggleError(roomcode)
+            return
+        } else {
+            this.setState({
+                room:[
+                    {
+                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
+                        gameMode: this.state.room[0].gameMode ? this.state.gameModes[0].value : this.state.gameModes[0].value,
+                        players: this.state.room[0].players
+                    }
+                ],
+                redirect: "/" //Redirecter til hjemside, fjern for å unngå/stoppe redirect
+                })
+            this.props.addRoom(this.state.room[0])
         }
     }
 
+    /**
+     * Metode som skal starte websocket lytter
+     */
+    hostRoom = () => {
+        console.log("Host room")
+        /*
+            Bruk setState som vist i metoden over for å legge til spillere.
+        */
+    }
+
+    /**
+     * Metode som legger spiler til state
+     */
     addPlayer = () => {
         const input = document.getElementById("addPlayerInput");
         if (input.value) {
             this.setState({
                 room: [
                     {
-                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase(),
                         gameMode: this.state.room[0].gameMode,
                         players: [...this.state.room[0].players, input.value.trim()]
                     }
@@ -143,8 +176,10 @@ export default class CreateRoom extends Component {
         input.value = ""
     }
 
-    /* Metode som hallveis fungerer,
+    /**
+     * Metode som halvveis fungerer,
      * er ikke alle elementer som blir slettt av en rar grunn
+     * @param {Element} e - gjeldende spiller container element
     */
     removePeople = (e) => {
         const parent = e.target.parentElement;
@@ -157,7 +192,7 @@ export default class CreateRoom extends Component {
             this.setState({
                 room: [
                     {
-                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase(),
                         gameMode: this.state.room[0].gameMode,
                         players: filteredArray
                     }
@@ -166,13 +201,16 @@ export default class CreateRoom extends Component {
         }
     }
 
-    /* Hent ut valgt spill verdi fra select */
+    /** 
+     * Hent ut valgt spill verdi fra select 
+     * @param {Object} selectedOption - valgt verdi fra dropdown som er et eget objekt
+     */
     handleGamePick = (selectedOption) => {
         this.setState({ 
             room: [
                 {
-                    roomcode: this.state.room.roomcode,
-                    gameMode: selectedOption ? selectedOption.value : 0,
+                    roomCode: this.state.room.roomcode,
+                    gameMode: selectedOption ? selectedOption.value : 1,
                     players: this.state.room[0].players
                 }
             ]
@@ -181,6 +219,11 @@ export default class CreateRoom extends Component {
     
     render() {
         
+        /**
+         * Hvis state for redirect blir true kjøres redirect til satt url
+         * @param {Boolean}
+         * @returns {Redirect}
+         */
         if (this.state.redirect) {
             return <Redirect to={this.state.redirect} />
         }
@@ -220,7 +263,9 @@ export default class CreateRoom extends Component {
                         }
                         </div>
                     </div>
-                    <a className="btn" id="createRoom">Opprett rom</a>
+                    <div className="btnWrapper">
+                        <a className="btn" onClick={() => this.createRoom()}>Opprett rom</a>
+                    </div>
                 </section>
             </div>
             </FadeIn>
