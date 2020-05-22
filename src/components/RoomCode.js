@@ -63,6 +63,8 @@ export default class RoomCode extends Component {
             document.getElementById("roomCodeError").classList.remove("visible")
         }
 
+
+
         var previousValue = document.getElementById('roomCodeInput').value;
         var pattern = /^\S*$/;
 
@@ -83,6 +85,14 @@ export default class RoomCode extends Component {
 
         /* Nekt mellomrom i romkode input */
         document.getElementById("roomCodeInput").onkeyup = validateInput;
+
+        /* Submit på entertast */
+        document.getElementById("roomCodeInput").onkeydown = (event) => {
+            
+            if (event.which == 13 || event.keyCode == 13) {
+                this.submitRoomCode()
+            }
+        };
     }
 
     /** 
@@ -155,7 +165,7 @@ export default class RoomCode extends Component {
                     <div className="loading-error">
                         <ZoomIn in={this.state.loading}>
                         <Spinner  
-                            size="55"
+                            size={55}
                             color="#192425"
                             frontColor="#5dddf4af"
                             loading={this.state.loading}
@@ -163,7 +173,7 @@ export default class RoomCode extends Component {
                         </ZoomIn>
                          <p id="roomCodeError">Rommet eksisterer ikke</p>
                     </div>
-                    <input id="roomCodeInput" type="text" autoComplete="off" onFocus={this.buzzAnim} name="kode" placeholder="Romkode" maxLength="8"/>
+                    <input id="roomCodeInput" type="text" autoComplete="off" name="kode" placeholder="Romkode" maxLength="8"/>
                     <a className="btn enter"
                         onClick={() => this.submitRoomCode()}>
                         Spill

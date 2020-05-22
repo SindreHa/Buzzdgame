@@ -265,7 +265,6 @@ export default class CreateRoom extends Component {
                     </div>
                     <div className="btnWrapper">
                         <a className="btn" onClick={() => this.createRoom()}>Opprett rom</a>
-                        <a className="btn" onClick={() => this.hostRoom()}>Start rom</a>
                     </div>
                 </section>
             </div>
