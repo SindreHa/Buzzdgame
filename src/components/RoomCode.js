@@ -109,37 +109,42 @@ export default class RoomCode extends Component {
     }
 
     /** 
-     * Sender inn romkode til server som returnerer resultat
+     * Sjekker om rom eksisterer, bruker @function some
+     * @param {Int} roomCode - gjeldende romkode
+     * @returns {Boolean}
      */
+    checkRoomCode = (roomCode) => {
+        return this.props.rooms.some((room) => room.roomcode === roomCode)
+    }
+
+    /* Sender inn romkode til App.js som så prosseserer med gjeldende kode */
     submitRoomCode = () => {
         const input = document.getElementsByTagName("input")[0];
         const errorMsg =  document.getElementById("roomCodeError");
         const roomCode = input.value.toUpperCase();
-
-        if (!roomCode == "") {
-            if (!this.state.loading) {
-                errorMsg.classList.remove("visible")
-                this.setState({loading: true})
-                fetch(`http://ec2-3-133-89-209.us-east-2.compute.amazonaws.com:89/rooms/${roomCode}`)
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        this.props.handleRoomCode(roomCode);
-                        this.props.setRoom(result)
-                        this.bounceAnim();
-                        this.setState({redirect: "/game"})
-                        this.setState({loading: false})
-                    },
-                    (error) => {
-                        this.setState({loading: false})
-                        input.classList.add("wiggle")
-                        errorMsg.classList.add("visible")
-                    }
-                )   
-            }
-        } else {
+        if (input.value == "") {
             input.classList.add("wiggle")
+        } else {
+            if (!this.state.loading) {
+            errorMsg.classList.remove("visible")
+            this.setState({loading: true})
+            setTimeout(() => {
+                if (this.checkRoomCode(roomCode)) {
+                    this.setState({loading: false})
+                    this.props.handleRoomCode(roomCode);
+                    this.props.setRoom(roomCode)
+                    this.bounceAnim();
+                    this.setState({redirect: "/game"})
+                } else {
+                    input.classList.add("wiggle")
+                    errorMsg.classList.add("visible")
+                    this.setState({loading: false})
+                }
+            }, 1800) 
         }
+            
+        }
+        
     }
 
     render() {

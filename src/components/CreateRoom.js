@@ -46,7 +46,7 @@ export default class CreateRoom extends Component {
             redirect: null,
             room: [
                 {
-                    roomCode: "",
+                    roomcode: "",
                     gameMode: 1,
                     players: []
                 }
@@ -136,7 +136,7 @@ export default class CreateRoom extends Component {
             this.setState({
                 room:[
                     {
-                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
                         gameMode: this.state.room[0].gameMode ? this.state.gameModes[0].value : this.state.gameModes[0].value,
                         players: this.state.room[0].players
                     }
@@ -166,7 +166,7 @@ export default class CreateRoom extends Component {
             this.setState({
                 room: [
                     {
-                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
                         gameMode: this.state.room[0].gameMode,
                         players: [...this.state.room[0].players, input.value.trim()]
                     }
@@ -192,7 +192,7 @@ export default class CreateRoom extends Component {
             this.setState({
                 room: [
                     {
-                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase(),
+                        roomcode: document.getElementById("roomCodeInput").value.toUpperCase(),
                         gameMode: this.state.room[0].gameMode,
                         players: filteredArray
                     }
@@ -209,7 +209,7 @@ export default class CreateRoom extends Component {
         this.setState({ 
             room: [
                 {
-                    roomCode: this.state.room.roomcode,
+                    roomcode: this.state.room.roomcode,
                     gameMode: selectedOption ? selectedOption.value : 1,
                     players: this.state.room[0].players
                 }
