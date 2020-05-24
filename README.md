@@ -1,4 +1,4 @@
-# Buzzdgame · [![npm version](https://badge.fury.io/js/react.svg)](//npmjs.com/package/react) [![Dependecy Status](https://david-dm.org/sindreha/buzzdgame.svg)]() [![Version](https://img.shields.io/badge/Version-0.4.0-Green.svg)](https://shields.io/) 
+# Buzzdgame · [![npm version](https://badge.fury.io/js/react.svg)](//npmjs.com/package/react) [![Dependecy Status](https://david-dm.org/sindreha/buzzdgame.svg)]() [![Version](https://img.shields.io/badge/Version-0.9.0-Green.svg)](https://shields.io/) 
 Spil for sosiale sammenhenger - Get Buzzd! 
 
 ## Hva er buzzdgame
