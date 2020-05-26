@@ -62,7 +62,7 @@ export default class App extends Component {
       rooms: [...this.state.rooms, newRoom]
     }) */
      
-    fetch('http://localhost:3000/rooms', {
+   /* fetch('http://localhost:3000/rooms', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export default class App extends Component {
       body: JSON.stringify(
         newRoom
       )
-    })
+    }) */
   }
 
 

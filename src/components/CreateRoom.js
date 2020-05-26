@@ -3,6 +3,8 @@ import '../css/createRoom.css';
 import { CSSTransition }  from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
 import DropdownSelect from './DropdownSelect';
+import { socket } from "./Header";
+
 
 /** 
  * Animasjon med CSSTransition pakken
@@ -39,14 +41,15 @@ const SlideIn = ({in: inProp, children }) => (
 
 export default class CreateRoom extends Component {
     
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
+            player_data: [],
             trans: true,
             redirect: null,
             room: [
                 {
-                    roomCode: "",
+                    roomcode: "",
                     gameMode: 1,
                     players: []
                 }
@@ -102,15 +105,7 @@ export default class CreateRoom extends Component {
         /* Nekt mellomrom i romkode input */
         document.getElementById("roomCodeInput").onkeyup = validateInput;
 
-        /* Legg til spiller */
-        document.getElementById("addPlayerBtn").onclick = () => {
-            this.addPlayer()
-        }
-
-        /* Legg til spiller med enter tast */
-        document.getElementById("addPlayerInput").onkeydown = (e) => {
-            if(e.key === "Enter") this.addPlayer()
-        }
+      
 
     }
 
@@ -119,88 +114,47 @@ export default class CreateRoom extends Component {
      * Kjører så @function addRoom fra props som ligger i @class App.js
      */
     createRoom = () => {
+        var room_data;
         console.log("opprett")
         const roomcode = document.getElementById("roomCodeInput")
         const roomCodeEmpty = roomcode.value.replace(/\s/g, '').length
         const room = this.state.room[0]
-        if (!roomCodeEmpty && !room.players.length) {
+        /*if (!roomCodeEmpty && !room.players.length) {
             this.wiggleError(roomcode)
             this.wiggleError(document.getElementById("addPlayer"))
             return
         } else if(!room.players.length ) {
             this.wiggleError(document.getElementById("addPlayer"))
             return
-        } else if(!roomCodeEmpty) {
+        } else */ if(!roomCodeEmpty) {
             this.wiggleError(roomcode)
             return
         } else {
+             
             this.setState({
                 room:[
                     {
                         roomCode: document.getElementById("roomCodeInput").value.toUpperCase().trim(),
-                        gameMode: this.state.room[0].gameMode ? this.state.gameModes[0].value : this.state.gameModes[0].value,
+                        gameMode: this.state.room[0].gameMode,
                         players: this.state.room[0].players
                     }
-                ],
-                redirect: "/" //Redirecter til hjemside, fjern for å unngå/stoppe redirect
-                })
-            this.props.addRoom(this.state.room[0])
-        }
-    }
-
-    /**
-     * Metode som skal starte websocket lytter
-     */
-    hostRoom = () => {
-        console.log("Host room")
-        /*
-            Bruk setState som vist i metoden over for å legge til spillere.
-        */
-    }
-
-    /**
-     * Metode som legger spiler til state
-     */
-    addPlayer = () => {
-        const input = document.getElementById("addPlayerInput");
-        if (input.value) {
-            this.setState({
-                room: [
-                    {
-                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase(),
-                        gameMode: this.state.room[0].gameMode,
-                        players: [...this.state.room[0].players, input.value.trim()]
-                    }
                 ]
-               })
+                },  () => {
+                    this.props.addRoom(this.state.room[0])
+                    socket.emit('createRoom', this.state.room);
+                    console.log("roomcode: " + document.getElementById("roomCodeInput").value)
+                    console.log(this.state.room[0])
+                    this.setState({
+                        redirect: "/" //Redirecter til hjemside, fjern for å unngå/stoppe redirect
+                    })
+                    });
+
+            
         }
-        input.value = ""
+       
+
     }
 
-    /**
-     * Metode som halvveis fungerer,
-     * er ikke alle elementer som blir slettt av en rar grunn
-     * @param {Element} e - gjeldende spiller container element
-    */
-    removePeople = (e) => {
-        const parent = e.target.parentElement;
-        const targetValue = e.target.previousSibling.innerHTML.toString();
-        
-        parent.classList.add("playerRemove")
-        
-        parent.onanimationend = () => {
-            let filteredArray = this.state.room[0].players.filter(item => item.toString() !== targetValue)
-            this.setState({
-                room: [
-                    {
-                        roomCode: document.getElementById("roomCodeInput").value.toUpperCase(),
-                        gameMode: this.state.room[0].gameMode,
-                        players: filteredArray
-                    }
-                ]
-               });
-        }
-    }
 
     /** 
      * Hent ut valgt spill verdi fra select 
@@ -211,7 +165,7 @@ export default class CreateRoom extends Component {
             room: [
                 {
                     roomCode: this.state.room.roomcode,
-                    gameMode: selectedOption ? selectedOption.value : 1,
+                    gameMode: selectedOption.value,
                     players: this.state.room[0].players
                 }
             ]
@@ -245,28 +199,8 @@ export default class CreateRoom extends Component {
                             handleGamePick={this.handleGamePick}
                         />
                     </div>
-                    <div className="createRoomInput">
-                        <p>Legg til spillere</p>
-                        <div id="addPlayer">
-                            <input autoComplete="off" type="text" id="addPlayerInput"/>
-                            <a className="btn" id="addPlayerBtn">Legg til</a>
-                        </div>
-                    </div>
-                    <div className="playerList">
-                        <div className="players">
-                        {
-                        this.state.room[0].players.map((player, i) => (
-                            <div className="playerWrapper" key={i}>
-                                <p>{player}</p>
-                                <a id="removePlayer" onClick={this.removePeople}>&#10005;</a>
-                            </div>
-                        ))
-                        }
-                        </div>
-                    </div>
                     <div className="btnWrapper">
                         <a className="btn" onClick={() => this.createRoom()}>Opprett rom</a>
-                        <a className="btn" onClick={() => this.hostRoom()}>Start rom</a>
                     </div>
                 </section>
             </div>

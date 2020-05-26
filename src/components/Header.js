@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import '../css/header.css';
 import { Link } from "react-router-dom";
+import socketIOClient from "socket.io-client";
 
+var socket;
 export default class Header extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            endpoint: "http://localhost:3001/" // Port som server.js kjører på
+          };
+        socket = socketIOClient(this.state.endpoint);
+
     }
     
     componentDidMount() {
@@ -53,3 +60,5 @@ export default class Header extends Component {
         )
     }
 }
+export { Header, socket };
+

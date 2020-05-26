@@ -103,33 +103,16 @@ export default class RoomCode extends Component {
      */
     submitRoomCode = () => {
         const input = document.getElementsByTagName("input")[0];
-        const errorMsg =  document.getElementById("roomCodeError");
         const roomCode = input.value.toUpperCase();
 
         if (!roomCode == "") {
-            if (!this.state.loading) {
-                errorMsg.classList.remove("visible")
-                this.setState({loading: true})
-                fetch(`http://localhost:3000/rooms/${roomCode}`)
-                .then(res => res.json())
-                .then(
-                    (result) => {
+               
                         this.props.handleRoomCode(roomCode);
-                        this.props.setRoom(result)
                         this.bounceAnim();
-                        this.setState({redirect: "/game"})
-                        this.setState({loading: false})
-                    },
-                    (error) => {
-                        this.setState({loading: false})
-                        input.classList.add("wiggle")
-                        errorMsg.classList.add("visible")
-                    }
-                )   
-            }
-        } else {
-            input.classList.add("wiggle")
-        }
+                        this.setState({redirect: "/join?roomcode="+roomCode})
+                        this.setState({loading: false})  
+        } 
+        
     }
 
     render() {
