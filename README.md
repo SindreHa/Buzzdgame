@@ -21,3 +21,6 @@ npm install
 Siden blir hostet med tjenesten [Netlify](https://www.netlify.com/).
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/41bf0785-59d1-4e69-80f4-bce74b2cc6d3/deploy-status)](https://app.netlify.com/sites/buzzdgame/deploys)
+
+### Skjermbilder av applikasjon
+![skjermbilder](https://i.imgur.com/UJM2JYv.jpg)
